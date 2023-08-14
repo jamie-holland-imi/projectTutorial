@@ -50,7 +50,6 @@ docs/build/*
 #settings
 .settings/*
 
-
 #metadata
 .metadata/
 
@@ -59,3 +58,6 @@ Debug/
 debug/
 Release/
 release
+
+Drivers/
+drivers/
