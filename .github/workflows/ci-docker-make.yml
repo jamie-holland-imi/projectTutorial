@@ -31,11 +31,11 @@ jobs:
       #run: make -j8 all
       #working-directory: /github/workspace/Build/
       
-    - name: Find all Hex files and fail if found
-      uses: DovnarAlexander/github-action-file-detection@master
-      with:
-        wildcard: '*.exe'
-        base_path: '/'
+    #- name: Find all Hex files and fail if found
+      #uses: DovnarAlexander/github-action-file-detection@master
+      #with:
+        #wildcard: '*.exe'
+        #base_path: '/'
         
     #- name: Upload Elf and Hex file from Docker Image
       #uses: actions/upload-artifact@v3
