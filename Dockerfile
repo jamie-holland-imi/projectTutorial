@@ -21,6 +21,5 @@ RUN tar xf archive.tar.xz -C arm-gnu-toolchain --strip-components 1
 
 ENV PATH="$PATH:/home/dev/arm-gnu-toolchain/bin"
 
-
 #RUN make all
 CMD ["sh", "-c", "make all"]
