@@ -1,0 +1,63 @@
+name: C CI Docker Makefile
+
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    branches:
+      - 'main'
+      
+# Define the image tag
+env:
+  IMAGE_TAG: jamiehollandimi/myimagename:latest
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    # Checkout the repository files
+    - name: checkout repo
+      uses: actions/checkout@v3
+      # Build the hello world image
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag "${IMAGE_TAG}"
+      #run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+
+      # Archive and persist the Docker image
+    - name: Save Docker image
+      run: docker save --output image.tar "${IMAGE_TAG}"
+    - name: Upload Docker image
+      uses: actions/upload-artifact@v2
+      with:
+        name: docker-image
+        path: image.tar
+        retention-days: 1
+
+  push:
+    name: Docker push
+    runs-on: ubuntu-latest
+
+    # Build needs to finish first
+    needs: build
+
+    # Only push images from the main branch
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      # Load and un-archive the Docker image
+      - name: Download Docker image
+        uses: actions/download-artifact@v2
+        with:
+          name: docker-image
+      - name: Load Docker image
+        run: docker load --input image.tar
+
+      # Log in to Docker Hub and push the image
+      - name: Publish Docker image
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_PASS: ${{ secrets.DOCKERHUB_PASS }}
+        run: |
+          echo "${DOCKERHUB_PASS}" | docker login --username "${DOCKERHUB_USERNAME}" --password-stdin
+          docker push "${IMAGE_TAG}"
