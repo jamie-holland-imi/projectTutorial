@@ -15,12 +15,14 @@ WORKDIR /home/dev
 COPY . /home/dev
 WORKDIR /home/dev/Build
 
-# Download and Install ARM Toolchain             
-RUN wget -O archive.tar.xz "https://developer.arm.com/-/media/Files/downloads/gnu/12.3.rel1/binrel/arm-gnu-toolchain-12.3.rel1-x86_64-arm-none-eabi.tar.xz" --no-check-certificate
-RUN mkdir arm-gnu-toolchain
-RUN tar xf archive.tar.xz -C arm-gnu-toolchain --strip-components 1
+# Download the Toolchain             
+RUN wget -O archive.tar.xz "https://developer.arm.com/-/media/Files/downloads/gnu/12.3.rel1/binrel/arm-gnu-toolchain-12.3.rel1-x86_64-arm-none-eabi.tar.xz" gcc-arm-none-eabi.tar.xz --no-check-certificate
+# unpack the archive to a neatly named target directory
+RUN mkdir gcc-arm-none-eabi && tar xjfv gcc-arm-none-eabi.tar.xz -C gcc-arm-none-eabi --strip-components 1
+# remove the archive
+RUN rm gcc-arm-none-eabi.tar.xz
 
-ENV PATH="$PATH:/home/dev/arm-gnu-toolchain/bin"
+ENV PATH="/gcc-arm-none-eabi/bin:${PATH}"
 
 RUN arm-none-eabi-gcc --version
 
