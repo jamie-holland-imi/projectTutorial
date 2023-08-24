@@ -27,6 +27,8 @@ jobs:
       run: docker build . --file Dockerfile --tag gitdocker:latest
     - name: Build the project
       run: docker run --rm gitdocker:latest
+    - name: Run Make
+      run: make -j8 all
     - name: Upload Elf and Hex file from Docker Image
       uses: actions/upload-artifact@v3
       with:
