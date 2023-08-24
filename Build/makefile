@@ -10,9 +10,9 @@
 RM := rm -rf
 
 # All of the sources participating in the build are defined here
-- include sources.mk
-- include compsubdir.mk
-- include objects.mk
+-include sources.mk
+-include compsubdir.mk
+-include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
 ifneq ($(strip $(S_DEPS)),)
