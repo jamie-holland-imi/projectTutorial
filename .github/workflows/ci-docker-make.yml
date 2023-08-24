@@ -29,11 +29,11 @@ jobs:
       run: docker run --rm gitdocker:latest
     - name: Run Make
       run: /home/dev/build/make -j8 all
-    #- name: Find all Hex files and fail if found
-      #uses: DovnarAlexander/github-action-file-detection@master
-      #with:
-        #wildcard: '*.ioc'
-        #base_path: './'
+    - name: Find all Hex files and fail if found
+      uses: DovnarAlexander/github-action-file-detection@master
+      with:
+        wildcard: '*.mk'
+        base_path: '/'
     - name: Upload Elf and Hex file from Docker Image
       uses: actions/upload-artifact@v3
       with:
