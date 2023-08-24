@@ -45,4 +45,4 @@ jobs:
           #/Build/*.elf
         #retention-days: 1
     - name: Removes the Docker Container
-      run: docker --rm $DOCKER_IMAGE
+      run: docker run --rm $DOCKER_IMAGE
