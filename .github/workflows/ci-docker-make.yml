@@ -27,18 +27,21 @@ jobs:
       run: docker build . --file Dockerfile --tag gitdocker:latest
     - name: Build the project
       run: docker run --rm gitdocker:latest
-    #- name: Run Make
-      #run: /home/dev/build/make -j8 all
-    - name: Find all Hex files and fail if found
-      uses: DovnarAlexander/github-action-file-detection@master
-      with:
-        wildcard: '*.mk'
-        base_path: '/'
+    - name: Run Make
+      run: make -j8 all
+      working-directory: /github/workspace/Build/
+      
+    #- name: Find all Hex files and fail if found
+      #uses: DovnarAlexander/github-action-file-detection@master
+      #with:
+        #wildcard: '*.mk'
+        #base_path: '/'
+        
     - name: Upload Elf and Hex file from Docker Image
       uses: actions/upload-artifact@v3
       with:
         name: BuildFiles
         path: |
-          ./build/*.hex
-          ./build/*.elf
+          /github/workspace/Build/*.hex
+          /github/workspace/Build/*.elf
         retention-days: 1
