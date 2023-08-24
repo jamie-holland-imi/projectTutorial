@@ -27,8 +27,8 @@ jobs:
       run: docker build . --file Dockerfile --tag gitdocker:latest
     - name: Build the project
       run: docker run --rm gitdocker:latest
-    - name: Run Make
-      run: /home/dev/build/make -j8 all
+    #- name: Run Make
+      #run: /home/dev/build/make -j8 all
     - name: Find all Hex files and fail if found
       uses: DovnarAlexander/github-action-file-detection@master
       with:
