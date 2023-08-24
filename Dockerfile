@@ -11,8 +11,8 @@ RUN apt-get update && \
              curl 
 
 # Add all files in the repository
-WORKDIR /home/dev
-COPY . /home/dev
+WORKDIR ./home/dev
+COPY . ./home/dev
 
 # Download and Install ARM Toolchain             
 RUN wget -O archive.tar.xz "https://developer.arm.com/-/media/Files/downloads/gnu/12.3.rel1/binrel/arm-gnu-toolchain-12.3.rel1-x86_64-arm-none-eabi.tar.xz" --no-check-certificate
