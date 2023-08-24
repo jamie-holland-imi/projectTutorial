@@ -37,11 +37,11 @@ jobs:
         wildcard: '*.exe'
         base_path: '/'
         
-    - name: Upload Elf and Hex file from Docker Image
-      uses: actions/upload-artifact@v3
-      with:
-        name: BuildFiles
-        path: |
-          /Build/*.hex
-          /Build/*.elf
-        retention-days: 1
+    #- name: Upload Elf and Hex file from Docker Image
+      #uses: actions/upload-artifact@v3
+      #with:
+        #name: BuildFiles
+        #path: |
+          #/Build/*.hex
+          #/Build/*.elf
+        #retention-days: 1
