@@ -25,7 +25,7 @@ RUN rm gcc-arm-none-eabi.tar.xz
 
 ENV PATH="/gcc-arm-none-eabi/bin:${PATH}"
 
-RUN arm-none-eabi-gcc --version
+CMD arm-none-eabi-gcc --version
 
 #RUN make all
 #CMD ["sh", "-c", "make all"]
