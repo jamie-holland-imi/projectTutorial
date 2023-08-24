@@ -32,7 +32,7 @@ jobs:
     - name: Find all Hex files and fail if found
       uses: DovnarAlexander/github-action-file-detection@master
       with:
-        wildcard: '*.makefile'
+        wildcard: '*.ioc'
         base_path: './'
     - name: Upload Elf and Hex file from Docker Image
       uses: actions/upload-artifact@v3
