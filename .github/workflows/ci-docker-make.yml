@@ -18,15 +18,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    # Checkout the repository files
-    - name: checkout repo
+    - name: checkout repository
       uses: actions/checkout@v3
-      # Build the hello world image
     - name: Build the Docker image
       #run: docker build . --file Dockerfile --tag "${IMAGE_TAG}"
       run: docker build . --file Dockerfile --tag gitdocker:latest
     - name: Build the project
-      run: docker run --rm gitdocker:latest
+      run: docker run # --rm gitdocker:latest
     #- name: Run Make
       #run: make -j8 all
       #working-directory: /github/workspace/Build/
@@ -45,3 +43,5 @@ jobs:
           #/Build/*.hex
           #/Build/*.elf
         #retention-days: 1
+    - name: Removes the Docker Container
+      run: docker --rm gitdocker:latest
