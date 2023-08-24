@@ -24,8 +24,8 @@ jobs:
     - name: Build the Docker image
       #run: docker build . --file Dockerfile --tag "${IMAGE_TAG}"
       run: docker build . --file Dockerfile --tag $DOCKER_IMAGE
-    - name: Build the project
-      run: docker run -td $DOCKER_IMAGE
+    #- name: Build the project
+      #run: docker run -td $DOCKER_IMAGE
     #- name: Run Make
       #run: make -j8 all
       #working-directory: /github/workspace/Build/
@@ -44,5 +44,5 @@ jobs:
           #/Build/*.hex
           #/Build/*.elf
         #retention-days: 1
-    - name: Removes the Docker Container
+    - name: Builds and Removes the Docker Container
       run: docker run --rm $DOCKER_IMAGE
