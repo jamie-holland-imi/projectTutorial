@@ -26,12 +26,19 @@ ifneq ($(strip $(C_DEPS)),)
 endif
 endif
 
+# The toolchain path, defaults to using the globally installed toolchain
+ifdef TC_PATH
+    TC_SEP = /
+endif
+
+TC_PATH ?=
+TC_SEP ?=
+CC = $(TC_PATH)$(TC_SEP)arm-none-eabi-gcc
+
 OPTIONAL_TOOL_DEPS := \
 $(wildcard ../makefile.defs) \
 $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
-
-CC = arm-none-eabi-gcc
 
 BUILD_ARTIFACT_NAME := ProjectTutorial
 BUILD_ARTIFACT_EXTENSION := elf
