@@ -26,4 +26,4 @@ COPY . /home/dev
 WORKDIR /home/dev/Build
 
 #RUN make all
-#CMD ["sh", "-c", "make all"]
+CMD ["sh", "-c", "make all"]
