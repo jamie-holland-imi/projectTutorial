@@ -49,4 +49,4 @@ jobs:
         #retention-days: 1
         
     - name: Removes the Docker Container
-      run: docker -rm -f $DOCKER_IMAGE
+      run: docker -rm $DOCKER_IMAGE
