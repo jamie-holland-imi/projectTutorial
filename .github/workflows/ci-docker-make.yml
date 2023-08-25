@@ -25,6 +25,7 @@ jobs:
       #run: docker build . --file Dockerfile --tag "${IMAGE_TAG}"
       run: |
         docker build . --file Dockerfile --tag $DOCKER_IMAGE
+        docker run -t -i --privileged $DOCKER_IMAGE
         docker cp $DOCKER_IMAGE:/home/dev/Build /Build
 
     #- name: Build the project
