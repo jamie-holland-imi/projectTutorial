@@ -26,7 +26,7 @@ jobs:
         
     - name: Build the project
       run: | 
-        sudo docker run -t -i --privileged $DOCKER_IMAGE
+        sudo docker run --allow	$DOCKER_IMAGE
         sudo arm-none-eabi-gcc --version
         sudo docker cp $DOCKER_IMAGE:/home/dev/Build /Build
 
