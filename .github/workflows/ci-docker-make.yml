@@ -25,8 +25,9 @@ jobs:
       #run: docker build . --file Dockerfile --tag "${IMAGE_TAG}"
       run: |
         docker build . --file Dockerfile --tag $DOCKER_IMAGE
-        docker run -t -i --privileged $DOCKER_IMAGE
-        docker cp $DOCKER_IMAGE:/home/dev/Build /Build
+        echo "docker run -t -i --privileged $DOCKER_IMAGE"
+        echo "arm-none-eabi-gcc --version"
+        echo "docker cp $DOCKER_IMAGE:/home/dev/Build /Build"
 
     #- name: Build the project
       #run: docker run -td $DOCKER_IMAGE
