@@ -99,7 +99,7 @@ SRC ?=
 SRC += $(SRC_FOLDER)/*.c
 
 # Startup file
-DEVICE_STARTUP = $(BASE_STARTUP)/startup_stm32f303retx.s
+DEVICE_STARTUP = $(BASE_STARTUP)/startup_stm32g071rbtx.s
 
 # Include the CMSIS files, using the HAL implies using the CMSIS
 ifneq (,$(or USE_ST_CMSIS, USE_ST_HAL))
