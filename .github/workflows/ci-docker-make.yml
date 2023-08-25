@@ -26,8 +26,8 @@ jobs:
         
     - name: Build the project
       run: | 
-        sudo docker run $DOCKER_IMAGE
-        sudo docker cp $DOCKER_IMAGE:/home/dev/Build /Build
+        docker run $DOCKER_IMAGE
+        docker cp $DOCKER_IMAGE:/home/dev/Build /Build
 
     #- name: Run Make
       #run: make -j8 all
