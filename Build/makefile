@@ -2,18 +2,10 @@ PROJECT_ROOT = $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
 OBJS = ProjectTutorial.o
 
-ifeq ($(BUILD_MODE),debug)
-	CFLAGS += -g
-else ifeq ($(BUILD_MODE),run)
-	CFLAGS += -O2
-else ifeq ($(BUILD_MODE),linuxtools)
-	CFLAGS += -g -pg -fprofile-arcs -ftest-coverage
-	LDFLAGS += -pg -fprofile-arcs -ftest-coverage
-	EXTRA_CLEAN += ProjectTutorial.gcda ProjectTutorial.gcno $(PROJECT_ROOT)gmon.out
-	EXTRA_CMDS = rm -rf ProjectTutorial.gcda
-else
-    $(error Build mode $(BUILD_MODE) not supported by this Makefile)
-endif
+CFLAGS += -g -pg -fprofile-arcs -ftest-coverage
+LDFLAGS += -pg -fprofile-arcs -ftest-coverage
+EXTRA_CLEAN += ProjectTutorial.gcda ProjectTutorial.gcno $(PROJECT_ROOT)gmon.out
+EXTRA_CMDS = rm -rf ProjectTutorial.gcda
 
 all:	ProjectTutorial
 
