@@ -32,7 +32,7 @@ jobs:
       id: extract
       with:
         image: $DOCKER_IMAGE
-        path: /Build/*.hex
+        path: Build/*.hex
     - name: Upload Elf and Hex file from Docker Image
       uses: actions/upload-artifact@v3
       with:
