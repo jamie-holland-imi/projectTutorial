@@ -23,7 +23,7 @@ ENV PATH="/gcc-arm-none-eabi/bin:${PATH}"
 # Add all files in the repository
 WORKDIR /home/dev
 COPY . /home/dev
-WORKDIR /home/dev/Build
+# WORKDIR /home/dev/Build
 
 #RUN make all
 CMD ["sh", "-c", "make all"]
