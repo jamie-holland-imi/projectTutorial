@@ -27,7 +27,6 @@ jobs:
     - name: Build the project
       run: | 
         sudo docker run $DOCKER_IMAGE
-        sudo arm-none-eabi-gcc --version
         sudo docker cp $DOCKER_IMAGE:/home/dev/Build /Build
 
     #- name: Run Make
