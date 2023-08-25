@@ -103,19 +103,19 @@ DEVICE_STARTUP = $(BASE_STARTUP)/startup_stm32g071rbtx.s
 
 # Include the CMSIS files, using the HAL implies using the CMSIS
 ifneq (,$(or USE_ST_CMSIS, USE_ST_HAL))
-    CPPFLAGS += -I$(STM32_BASE_PATH)/Drivers/CMSIS/Device/ST/STM32F3xx/Include
+    CPPFLAGS += -I$(STM32_BASE_PATH)/Drivers/CMSIS/Device/ST/STM32G0xx/Include
     CPPFLAGS += -I$(STM32_BASE_PATH)/Drivers/CMSIS/Include
 
-    #SRC += $(STM32_BASE_PATH)/Drivers/CMSIS/Device/ST/STM32F3xx/Source/*.c
+    #SRC += $(STM32_BASE_PATH)/Drivers/CMSIS/Device/ST/STM32G0xx/Source/*.c
 endif
 
 # Include the HAL files
 ifdef USE_ST_HAL
     CPPFLAGS += -D USE_HAL_DRIVER
-    CPPFLAGS += -I$(STM32_BASE_PATH)/Drivers/STM32F3xx_HAL_Driver/Inc
+    CPPFLAGS += -I$(STM32_BASE_PATH)/Drivers/STM32G0xx_HAL_Driver/Inc
 
     # A simply expanded variable is used here to perform the find command only once.
-    HAL_SRC := $(shell find $(STM32_BASE_PATH)/Drivers/STM32F3xx_HAL_Driver/Src/*.c ! -name '*_template.c')
+    HAL_SRC := $(shell find $(STM32_BASE_PATH)/Drivers/STM32G0xx_HAL_Driver/Src/*.c ! -name '*_template.c')
     SRC += $(HAL_SRC)
 endif
 
