@@ -25,7 +25,8 @@ jobs:
       #run: docker build . --file Dockerfile --tag "${IMAGE_TAG}"
       run: |
         docker build . --file Dockerfile --tag $DOCKER_IMAGE
-        docker cp -r $DOCKER_IMAGE:/home/dev/Build /Build
+        docker cp $DOCKER_IMAGE:/home/dev/Build /Build
+
     #- name: Build the project
       #run: docker run -td $DOCKER_IMAGE
     #- name: Run Make
@@ -46,5 +47,6 @@ jobs:
           #/Build/*.hex
           #/Build/*.elf
         #retention-days: 1
+        
     - name: Removes the Docker Container
       run: docker run --rm $DOCKER_IMAGE
