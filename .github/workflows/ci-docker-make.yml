@@ -26,7 +26,20 @@ jobs:
         
     - name: Build the Docker container
       run: docker run --rm $DOCKER_IMAGE
-          
+      
+    - name: Extract files from Docker Image
+      uses: shrink/actions-docker-extract@v2
+      id: extract
+      with:
+        image: $DOCKER_IMAGE
+        path: Build/stm32_executable.hex
+    - name: Upload Elf and Hex file from Docker Image
+      uses: actions/upload-artifact@v3
+      with:
+        name: BuildFiles
+        path: ${{ steps.extract.outputs.destination }}
+        retention-days: 1
+        
     #- name: Upload Elf and Hex file from Docker Image
       #uses: actions/upload-artifact@v3
       #with:
@@ -36,12 +49,11 @@ jobs:
           #/Build/*.elf
         #retention-days: 1
         
-    - name: Find all Hex files and fail if found
-      uses: DovnarAlexander/github-action-file-detection@master
-      with:
-        image: $DOCKER_IMAGE
-        wildcard: '*.hex'
-        base_path: '/'     
+    #- name: Find all Hex files and fail if found
+      #uses: DovnarAlexander/github-action-file-detection@master
+      #with:
+        #wildcard: '*.hex'
+        #base_path: '/'     
         
     #- name: Removes the Docker Container
       #run: docker --rm $DOCKER_IMAGE
