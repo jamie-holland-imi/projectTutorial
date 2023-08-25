@@ -20,22 +20,16 @@ jobs:
     steps:
     - name: checkout repository
       uses: actions/checkout@v3
-    - name: Run docker action and set output
-      uses: ./
-      id: run-docker
-      with:
-        image: $DOCKER_IMAGE
-        run: |
-          echo "::set-output name=docker-version::`echo $DOCKER_VERSION`"
-          echo arm-none-eabi-gcc --version
+
     - name: Build the Docker image
-      run: |
-        docker build . --file Dockerfile --tag $DOCKER_IMAGE
-        echo docker run -t -i --privileged $DOCKER_IMAGE
-        echo arm-none-eabi-gcc --version
-        echo docker cp $DOCKER_IMAGE:/home/dev/Build /Build
-    #- name: Build the project
-      #run: docker run -td $DOCKER_IMAGE
+      run: docker build . --file Dockerfile --tag $DOCKER_IMAGE
+        
+    - name: Build the project
+      run: | 
+        docker run -td -i --privileged $DOCKER_IMAGE
+        arm-none-eabi-gcc --version
+        docker cp $DOCKER_IMAGE:/home/dev/Build /Build
+
     #- name: Run Make
       #run: make -j8 all
       #working-directory: /github/workspace/Build/
