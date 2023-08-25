@@ -9,12 +9,7 @@ RUN apt-get update && \
              git \
              wget \
              curl 
-
-# Add all files in the repository
-WORKDIR /home/dev
-COPY . /home/dev
-WORKDIR /home/dev/Build
-
+             
 # Download the Toolchain             
 RUN wget -O gcc-arm-none-eabi.tar.xz "https://developer.arm.com/-/media/Files/downloads/gnu/12.3.rel1/binrel/arm-gnu-toolchain-12.3.rel1-x86_64-arm-none-eabi.tar.xz" --no-check-certificate
 # unpack the archive to a neatly named target directory
@@ -25,7 +20,10 @@ RUN rm gcc-arm-none-eabi.tar.xz
 
 ENV PATH="/gcc-arm-none-eabi/bin:${PATH}"
 
-CMD arm-none-eabi-gcc --version
+# Add all files in the repository
+WORKDIR /home/dev
+COPY . /home/dev
+WORKDIR /home/dev/Build
 
 #RUN make all
 #CMD ["sh", "-c", "make all"]
