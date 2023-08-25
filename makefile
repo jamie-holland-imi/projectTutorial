@@ -1,4 +1,4 @@
-DEVICE = STM32F303xE
+DEVICE = STM32G071xx
 FLASH  = 0x08000000
 
 USE_ST_CMSIS = true
@@ -7,7 +7,7 @@ USE_ST_HAL = true
 STM32_BASE_PATH   ?= .
 
 # STM32-base sub-folders
-BASE_LINKER   = $(STM32_BASE_PATH)/STM32F303RETX_FLASH
+BASE_LINKER   = $(STM32_BASE_PATH)/STM32G071RBTX_FLASH
 #BASE_MAKE     = $(STM32_BASE_PATH)/make
 BASE_STARTUP  = $(STM32_BASE_PATH)/Core/Startup
 
@@ -19,7 +19,7 @@ INC_FOLDER ?= ./Core/Inc
 # Include the series-specific makefile
 SERIES_CPU  = cortex-m4
 SERIES_ARCH = armv7e-m+fp
-MAPPED_DEVICE = STM32F303xE
+MAPPED_DEVICE = STM32G071xx
 
 # The toolchain path, defaults to using the globally installed toolchain
 ifdef TOOLCHAIN_PATH
