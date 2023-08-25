@@ -22,11 +22,11 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Build the Docker image
-      run: sudo docker build . --file Dockerfile --tag $DOCKER_IMAGE
+      run: docker build . --file Dockerfile --tag $DOCKER_IMAGE
         
     - name: Build the project
       run: | 
-        sudo docker run --allow	$DOCKER_IMAGE
+        sudo docker run $DOCKER_IMAGE
         sudo arm-none-eabi-gcc --version
         sudo docker cp $DOCKER_IMAGE:/home/dev/Build /Build
 
