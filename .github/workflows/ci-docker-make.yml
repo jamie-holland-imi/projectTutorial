@@ -49,17 +49,16 @@ jobs:
           #/Build/*.elf
         #retention-days: 1
   build2:
-    runs-on: ubuntu-latest# Running OS on which actions will be performed 
+    runs-on: ubuntu-latest
     container: $DOCKER_IMAGE
     steps:
     - name: Find all Hex files and fail if found
       uses: DovnarAlexander/github-action-file-detection@master
       with:
-        image: $DOCKER_IMAGE
         wildcard: '*.elf'
         exit_code_found: 1
         exit_code_not_found: 0
-        base_path: './'     
+        base_path: '/'     
         
     #- name: Removes the Docker Container
       #run: docker --rm $DOCKER_IMAGE
