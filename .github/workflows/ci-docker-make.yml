@@ -28,6 +28,10 @@ jobs:
   
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag $DOCKER_IMAGE
+    - name: docker build
+      run: docker run --reuse docker.io/$DOCKER_IMAGE
+    - name: Run LS
+      run: ls
     #- name: Build the Docker container
       #run: |
         #docker run -t docker.io/$DOCKER_IMAGE
