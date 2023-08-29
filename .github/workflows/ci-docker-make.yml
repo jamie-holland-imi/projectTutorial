@@ -17,12 +17,15 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
     steps:
     - name: checkout repository
       uses: actions/checkout@v3
 
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag $DOCKER_IMAGE
+      run: docker build . --file Dockerfile --tag $DOCKER_IMAGE --label
         
     - name: Build the Docker container
       run: docker run --rm $DOCKER_IMAGE
