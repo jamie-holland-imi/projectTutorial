@@ -48,6 +48,7 @@ jobs:
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v3
+        
       - name: Create a temporary artifact file downloads folder
         run: mkdir -p -m a=rwx ${{ runner.temp }}/build_files
         
@@ -64,10 +65,10 @@ jobs:
             run: |
               make
               ls
-              #cd file_downloads
-              cp -p -f stm32_executable.elf ${{ runner.temp }}/build_files
-              #echo 'stm32_executable.elf' > stm32_executable.elf
-              #cd ..
+              cd file_downloads
+              #cp -p -f stm32_executable.elf ${{ runner.temp }}/build_files
+              stm32_executable.elf > stm32_executable.elf
+              cd ..
               
       - name: Run LS in Build
         run: ls
