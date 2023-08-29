@@ -65,10 +65,9 @@ jobs:
             image: jamie-holland-imi/gitdocker:latest
             options: -v ${{ github.workspace }}:/var/www
             run: |
-              composer install
-              npm install
-      - name: run ls
-        run: ls 
+              ls
+              make
+              ls
       - name: Find all Hex files and fail if found
         uses: DovnarAlexander/github-action-file-detection@master
         with:
