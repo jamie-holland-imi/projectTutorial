@@ -48,7 +48,7 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v3
       - name: Create a temporary artifact file downloads folder
-        run: mkdir ${{ runner.temp }}/build_files
+        run: mkdir -p -m a=rwx ${{ runner.temp }}/build_files
         
       - name: docker build push action
         uses: docker/build-push-action@v4
