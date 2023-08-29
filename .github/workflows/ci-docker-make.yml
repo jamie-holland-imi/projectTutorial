@@ -12,7 +12,7 @@ on:
       
 # Define the image tag
 env:
-  DOCKER_IMAGE: jamiehollandimi/gitdocker:latest
+  DOCKER_IMAGE: ${{ github.actor }}/${{ github.repository }}:latest
 
 jobs:
   build:
@@ -25,10 +25,11 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag $DOCKER_IMAGE --label
-        
+      run: docker build . --file Dockerfile --tag ghcr.io/$DOCKER_IMAGE
+    - name: run ls
+      run: ls
     - name: Build the Docker container
-      run: docker run --rm $DOCKER_IMAGE
+      run: docker run --rm ghcr.io/$DOCKER_IMAGE
       
     #- name: Extract files from Docker Image
       #uses: shrink/actions-docker-extract@v2
@@ -53,7 +54,7 @@ jobs:
         #retention-days: 1
   build2:
     runs-on: ubuntu-latest
-    container: $DOCKER_IMAGE
+    container: ghcr.io/$DOCKER_IMAGE
     steps:
     - name: Find all Hex files and fail if found
       uses: DovnarAlexander/github-action-file-detection@master
