@@ -127,9 +127,9 @@ endif
 # Make all
 all: main-build
 
-main-build: $(BIN_FILE_PATH) secondary-outputs
+main-build: $(BIN_FILE_NAME) secondary-outputs
 
-$(BIN_FILE_NAME): $(ELF_FILE_PATH)
+$(BIN_FILE_NAME): $(ELF_FILE_NAME)
 	$(OBJCOPY) -O binary $^ $@
 
 $(ELF_FILE_NAME): $(SRC) $(OBJ_FILE_PATH) | $(BUILD_FOLDER)
@@ -138,7 +138,7 @@ $(ELF_FILE_NAME): $(SRC) $(OBJ_FILE_PATH) | $(BUILD_FOLDER)
 $(OBJ_FILE_PATH): $(DEVICE_STARTUP) | $(BUILD_FOLDER)
 	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) $^ -o $@
 
-$(HEX_FILE_NAME): $(ELF_FILE_PATH) | $(BUILD_FOLDER)
+$(HEX_FILE_NAME): $(ELF_FILE_NAME) | $(BUILD_FOLDER)
 	$(OBJCOPY) -O ihex $^ $@
 
 $(BUILD_FOLDER):
