@@ -48,7 +48,7 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v3
       - name: Create a temporary artifact file downloads folder
-        run: mkdir file_downloads
+        run: mkdir ${{ runner.temp }}/build_files
         
       - name: docker build push action
         uses: docker/build-push-action@v4
@@ -63,10 +63,10 @@ jobs:
             run: |
               make
               ls
-              cd file_downloads
-              cp -f stm32_executable.elf file_downloads
-              echo 'stm32_executable.elf' > stm32_executable.elf
-              cd ..
+              #cd file_downloads
+              cp -f stm32_executable.elf ${{ runner.temp }}/build_files
+              #echo 'stm32_executable.elf' > stm32_executable.elf
+              #cd ..
               
       - name: Run LS in Build
         run: ls
@@ -76,5 +76,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: BuildFiles
-          path: file_downloads
+          path: ${{ runner.temp }}/build_files
           retention-days: 1
