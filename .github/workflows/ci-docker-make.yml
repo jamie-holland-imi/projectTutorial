@@ -50,7 +50,7 @@ jobs:
         uses: actions/checkout@v3
         
       - name: Create a temporary artifact file downloads folder
-        run: mkdir -p -m a=rwx ${{ runner.temp }}/build_files
+        run: mkdir -p -m ${{ runner.temp }}/build_files
         
       - name: docker build push action
         uses: docker/build-push-action@v4
@@ -66,7 +66,7 @@ jobs:
               make
               ls
               #cp -p -f stm32_executable.elf ${{ runner.temp }}/build_files
-              copy stm32_executable.elf > ${{ runner.temp }}/build_files/stm32_executable.elf
+              copy -p stm32_executable.elf > ${{ runner.temp }}/build_files/
               
       - name: Run LS
         run: ls
