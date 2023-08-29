@@ -19,7 +19,7 @@ INC_FOLDER ?= ./Core/Inc
 # Include the series-specific makefile
 SERIES_CPU  = cortex-m4
 SERIES_ARCH = armv7e-m+fp
-MAPPED_DEVICE = STM32G071xx
+MAPPED_DEVICE = STM32G0xx
 
 # The toolchain path, defaults to using the globally installed toolchain
 ifdef TOOLCHAIN_PATH
@@ -89,10 +89,12 @@ CPPFLAGS += -masm-syntax-unified
 ELF_FILE_NAME ?= stm32_executable.elf
 BIN_FILE_NAME ?= stm32_bin_image.bin
 OBJ_FILE_NAME ?= startup_$(MAPPED_DEVICE).o
+HEX_FILE_NAME ?= stm32_executable.hex
 
 ELF_FILE_PATH = $(BUILD_FOLDER)/$(ELF_FILE_NAME)
 BIN_FILE_PATH = $(BUILD_FOLDER)/$(BIN_FILE_NAME)
 OBJ_FILE_PATH = $(BUILD_FOLDER)/$(OBJ_FILE_NAME)
+HEX_FILE_PATH = $(BUILD_FOLDER)/$(HEX_FILE_NAME)
 
 # Input files
 SRC ?=
@@ -120,7 +122,9 @@ ifdef USE_ST_HAL
 endif
 
 # Make all
-all:$(BIN_FILE_PATH)
+all: main-build
+
+main-build: $(BIN_FILE_PATH) secondary-outputs
 
 $(BIN_FILE_PATH): $(ELF_FILE_PATH)
 	$(OBJCOPY) -O binary $^ $@
@@ -131,14 +135,18 @@ $(ELF_FILE_PATH): $(SRC) $(OBJ_FILE_PATH) | $(BUILD_FOLDER)
 $(OBJ_FILE_PATH): $(DEVICE_STARTUP) | $(BUILD_FOLDER)
 	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) $^ -o $@
 
-$(BUILD_FOLDER):
-	mkdir $(BUILD_FOLDER)
+$(HEX_FILE_PATH): $(ELF_FILE_PATH) | $(BUILD_FOLDER)
+	$(OBJCOPY) -O ihex $^ $@
 
+$(BUILD_FOLDER):
+	mkdir -p $(BUILD_FOLDER)
 # Make clean
 clean:
 	rm -f $(ELF_FILE_PATH)
 	rm -f $(BIN_FILE_PATH)
 	rm -f $(OBJ_FILE_PATH)
+	rm -f $(HEX_FILE_PATH)
 
+secondary-outputs: $(ELF_FILE_NAME) $(HEX_FILE_PATH) $(BIN_FILE_NAME)
 
-.PHONY: all clean flash
+.PHONY: all clean main-build
