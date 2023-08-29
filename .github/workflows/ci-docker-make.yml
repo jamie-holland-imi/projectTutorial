@@ -26,7 +26,10 @@ jobs:
         
     - name: Build the Docker container
       run: docker run --rm $DOCKER_IMAGE
-      
+    - uses: shrink/actions-docker-extract@v2
+      with:
+        image: $DOCKER_IMAGE
+        path: "/Build/."
     #- name: Extract files from Docker Image
       #uses: shrink/actions-docker-extract@v2
       #id: extract
@@ -49,13 +52,13 @@ jobs:
           #/Build/*.elf
         #retention-days: 1
         
-    - name: Find all Hex files and fail if found
-      uses: DovnarAlexander/github-action-file-detection@master
-      with:
-        wildcard: '*.elf'
-        exit_code_found: 1
-        exit_code_not_found: 0
-        base_path: './'     
+    #- name: Find all Hex files and fail if found
+      #uses: DovnarAlexander/github-action-file-detection@master
+      #with:
+        #wildcard: '*.elf'
+        #exit_code_found: 1
+        #exit_code_not_found: 0
+        #base_path: './'     
         
     #- name: Removes the Docker Container
       #run: docker --rm $DOCKER_IMAGE
