@@ -57,14 +57,11 @@ jobs:
             run: |
               make
               ls
-      - name: run ls in build directory to list files
-        run: ls
-        working-directory: ./Build
       - name: Upload Elf and Hex file from Docker Image
         uses: actions/upload-artifact@v3
         with:
           name: BuildFiles
           path: |
-            /*.hex
             /*.elf
+            #stm32_executable*.hex
           retention-days: 1
