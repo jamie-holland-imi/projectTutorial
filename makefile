@@ -145,8 +145,8 @@ $(BUILD_FOLDER):
 	mkdir -p $(BUILD_FOLDER)
 
 # Make clean
-clean:
-	rm -f $(ELF_FILE_PATH) $(BIN_FILE_PATH) $(OBJ_FILE_PATH) $(HEX_FILE_PATH)
+#clean:
+	#rm -f $(ELF_FILE_PATH) $(BIN_FILE_PATH) $(OBJ_FILE_PATH) $(HEX_FILE_PATH)
 
 secondary-outputs: $(ELF_FILE_NAME) $(HEX_FILE_NAME)
 
