@@ -48,7 +48,10 @@ jobs:
           #/Build/*.hex
           #/Build/*.elf
         #retention-days: 1
-        
+  build2:
+    runs-on: ubuntu-latest# Running OS on which actions will be performed 
+    container: $DOCKER_IMAGE
+    steps:
     - name: Find all Hex files and fail if found
       uses: DovnarAlexander/github-action-file-detection@master
       with:
