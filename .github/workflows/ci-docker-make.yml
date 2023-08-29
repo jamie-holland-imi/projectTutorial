@@ -28,11 +28,12 @@ jobs:
   
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag $DOCKER_IMAGE
-    #- name: Build the Docker container
-      #run: |
-        #docker run -t docker.io/$DOCKER_IMAGE
-        #ls
-      #run: docker run --rm docker.io/$IMAGE_NAME
+    - name: Build the Docker container
+      run: |
+        docker run -r docker.io/$DOCKER_IMAGE
+        make
+        ls
+    - run: ls
     #- name: Extract files from Docker Image
       #uses: shrink/actions-docker-extract@v2
       #id: extract
@@ -57,7 +58,7 @@ jobs:
         with:
           tags: jamie-holland-imi/gitdocker:latest
           push: false
-      - name: Run the build process with Docker
+      - name: Run the makefile with Docker
         uses: addnab/docker-run-action@v3
         with:
             image: jamie-holland-imi/gitdocker:latest
