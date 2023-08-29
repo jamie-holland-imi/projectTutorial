@@ -86,14 +86,18 @@ CPPFLAGS += -mthumb
 CPPFLAGS += -masm-syntax-unified
 
 # Output files
-BUILD_NAME = stm32_executable
-ELF_FILE_NAME ?= $(BUILD_NAME).elf
+BUILD_ARTIFACT_NAME := stm32_executable
+ELF_FILE_NAME ?= $(BUILD_ARTIFACT_NAME).elf
 BIN_FILE_NAME ?= stm32_bin_image.bin
 OBJ_FILE_NAME ?= startup_$(MAPPED_DEVICE).o
+HEX_FILE_NAME ?= $(BUILD_ARTIFACT_NAME).hex
+MAP_FILES ?= $(BUILD_ARTIFACT_NAME).map
 
-ELF_FILE_PATH = $(BUILD_FOLDER)/$(ELF_FILE_NAME)
-BIN_FILE_PATH = $(BUILD_FOLDER)/$(BIN_FILE_NAME)
-OBJ_FILE_PATH = $(BUILD_FOLDER)/$(OBJ_FILE_NAME)
+ELF_FILE_PATH += $(BUILD_FOLDER)/$(ELF_FILE_NAME)
+BIN_FILE_PATH += $(BUILD_FOLDER)/$(BIN_FILE_NAME)
+OBJ_FILE_PATH += $(BUILD_FOLDER)/$(OBJ_FILE_NAME)
+HEX_FILE_PATH += $(BUILD_FOLDER)/$(HEX_FILE_NAME)
+MAP_FILE_PATH += $(BUILD_FOLDER)/$(MAP_FILES)
 
 # Input files
 SRC ?=
@@ -121,7 +125,9 @@ ifdef USE_ST_HAL
 endif
 
 # Make all
-all:$(BIN_FILE_PATH)
+all: main-build
+
+main-build: $(BIN_FILE_PATH) secondary-outputs
 
 $(BIN_FILE_PATH): $(ELF_FILE_PATH)
 	$(OBJCOPY) -O binary $^ $@
@@ -132,12 +138,16 @@ $(ELF_FILE_PATH): $(SRC) $(OBJ_FILE_PATH) | $(BUILD_FOLDER)
 $(OBJ_FILE_PATH): $(DEVICE_STARTUP) | $(BUILD_FOLDER)
 	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) $^ -o $@
 
+$(HEX_FILE_PATH): $(ELF_FILE_PATH) | $(BUILD_FOLDER)
+	$(OBJCOPY) -O ihex $^ $@
+
 $(BUILD_FOLDER):
-	mkdir $(BUILD_FOLDER)
+	mkdir -p $(BUILD_FOLDER)
 
 # Make clean
 clean:
-	rm -f $(ELF_FILE_PATH) $(BIN_FILE_PATH) $(OBJ_FILE_PATH)
+	rm -f $(ELF_FILE_PATH) $(BIN_FILE_PATH) $(OBJ_FILE_PATH) $(HEX_FILE_PATH)
 
+secondary-outputs: $(ELF_FILE_NAME) $(HEX_FILE_PATH) $(BIN_FILE_NAME)
 
-.PHONY: all clean flash
+.PHONY: all clean main-build
