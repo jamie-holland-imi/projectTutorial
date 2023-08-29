@@ -62,7 +62,6 @@ jobs:
               ls
       - name: Run LS in Build
         run: ls
-        working-directory: ./Build
       #- name: Upload Elf and Hex file from Docker Image
         #uses: actions/upload-artifact@v3
         #with:
