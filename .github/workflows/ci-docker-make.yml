@@ -65,14 +65,12 @@ jobs:
             run: |
               make
               ls
-              cd file_downloads
               #cp -p -f stm32_executable.elf ${{ runner.temp }}/build_files
-              stm32_executable.elf > stm32_executable.elf
-              cd ..
+              copy stm32_executable.elf > ${{ runner.temp }}/build_files/stm32_executable.elf
               
-      - name: Run LS in Build
+      - name: Run LS
         run: ls
-        working-directory: /
+        #working-directory: /
         
       - name: Upload Elf and Hex file from Docker Image
         uses: actions/upload-artifact@v3
