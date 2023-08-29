@@ -28,6 +28,7 @@ jobs:
   
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag $DOCKER_IMAGE
+    - run: docker ps
     - name: Build the Docker container
       run: |
         docker run -r docker.io/$DOCKER_IMAGE
