@@ -17,7 +17,7 @@ SRC_FOLDER ?= ./Core/Src
 INC_FOLDER ?= ./Core/Inc
 
 # Include the series-specific makefile
-SERIES_CPU  = cortex-m4
+SERIES_CPU  = cortex-m0plus
 SERIES_ARCH = armv7e-m+fp
 MAPPED_DEVICE = STM32G0xx
 
@@ -85,9 +85,6 @@ CPPFLAGS += -mlittle-endian
 CPPFLAGS += -mthumb
 CPPFLAGS += -masm-syntax-unified
 
-
-OBJECT_LIST := $(wildcard *.o)
-
 # Output files
 BUILD_ARTIFACT_NAME := stm32_executable
 ELF_FILE_NAME ?= $(BUILD_ARTIFACT_NAME).elf
@@ -135,8 +132,8 @@ main-build: $(BIN_FILE_PATH) secondary-outputs
 $(BIN_FILE_PATH): $(ELF_FILE_PATH)
 	$(OBJCOPY) -O binary $^ $@
 
-$(ELF_FILE_PATH) $(MAP_FILE_PATH): $(SRC) $(OBJ_FILE_PATH) | $(BUILD_FOLDER)
-	$(CC) -o $(ELF_FILE_NAME) $(OBJECT_LIST) -mcpu=cortex-m0plus -T"$(BASE_LINKER).ld" --specs=nosys.specs -Wl,-Map=$(MAP_FILE_NAME) -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+$(ELF_FILE_PATH): $(SRC) $(OBJ_FILE_PATH) | $(BUILD_FOLDER)
+	$(CC) $(CPPFLAGS) $(CXXFLAGS) $^ -o $@
 
 $(OBJ_FILE_PATH): $(DEVICE_STARTUP) | $(BUILD_FOLDER)
 	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) $^ -o $@
