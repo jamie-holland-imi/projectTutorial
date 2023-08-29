@@ -28,7 +28,7 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag $DOCKER_IMAGE
     - name: Build the Docker container
-      run: docker run -it docker.io/$DOCKER_IMAGE
+      run: docker run -t docker.io/$DOCKER_IMAGE
       #run: docker run --rm $REGISTRY/$IMAGE_NAME
       
     - name: run ls
