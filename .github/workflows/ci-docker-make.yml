@@ -28,10 +28,9 @@ jobs:
   
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag $DOCKER_IMAGE
-    - run: docker ps
     - name: Build the Docker container
       run: |
-        docker run -r docker.io/$DOCKER_IMAGE
+        docker run --rm docker.io/$DOCKER_IMAGE
         make
         ls
     - run: ls
@@ -67,14 +66,12 @@ jobs:
             run: |
               make
               ls
-              ps
               #docker cp jamie-holland-imi/gitdocker:latest:/src/. stm32_executable.elf
-              #copy -p stm32_executable.elf > "${{ runner.temp }}/build_files"
+              copy -p stm32_executable.elf > "${{ runner.temp }}/build_files"
               
       - name: Run LS
         run: ls
         #working-directory: /
-      - run: docker ps
       #- run: docker cp jamie-holland-imi/gitdocker:latest:/src/. stm32_executable.elf
       - name: Upload Elf and Hex file from Docker Image
         uses: actions/upload-artifact@v3
