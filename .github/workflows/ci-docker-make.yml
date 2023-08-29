@@ -47,6 +47,9 @@ jobs:
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v3
+      - name: Create a temporary artifact file downloads folder
+        run: mkdir file_downloads
+        
       - name: docker build push action
         uses: docker/build-push-action@v4
         with:
@@ -60,14 +63,18 @@ jobs:
             run: |
               make
               ls
-              mkdir -p ${{ runner.temp }}/build_files
+              cd file_downloads
               cp stm32_executable.elf ${{ runner.temp }}/build_files
+              echo 'stm32_executable.elf' > stm32_executable.elf
+              cd ..
               
       - name: Run LS in Build
         run: ls
+        working-directory: /
+        
       - name: Upload Elf and Hex file from Docker Image
         uses: actions/upload-artifact@v3
         with:
           name: BuildFiles
-          path: ${{ runner.temp }}/build_files
+          path: file_downloads
           retention-days: 1
