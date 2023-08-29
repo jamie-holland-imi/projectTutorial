@@ -9,6 +9,9 @@ RUN apt-get update && \
              git \
              wget \
              gcc-multilib \
+             docker-ce \
+             docker-ce-cli \
+             containerd.io \
              curl 
              
 # Download the Toolchain             
