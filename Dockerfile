@@ -3,15 +3,13 @@ FROM ubuntu:latest
 # Download Linux support tools
 RUN apt-get update && \
          apt-get clean && \ 
+         apt-get install docker-ce docker-ce-cli containerd.io && \ 
          apt-get install -y \
              build-essential \
              make \
              git \
              wget \
              gcc-multilib \
-             docker-ce \
-             docker-ce-cli \
-             containerd.io \
              curl 
              
 # Download the Toolchain             
