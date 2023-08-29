@@ -62,6 +62,6 @@ jobs:
         with:
           name: BuildFiles
           path: |
-            /*.elf
+            ./*.elf
             #stm32_executable*.hex
           retention-days: 1
