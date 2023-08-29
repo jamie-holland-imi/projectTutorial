@@ -64,7 +64,7 @@ jobs:
               make
               ls
               cd file_downloads
-              cp stm32_executable.elf ${{ runner.temp }}/build_files
+              cp -f stm32_executable.elf file_downloads
               echo 'stm32_executable.elf' > stm32_executable.elf
               cd ..
               
