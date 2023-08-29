@@ -28,3 +28,4 @@ COPY . /home/dev
 
 #RUN make all
 #CMD ["sh", "-c", "make"]
+CMD["/sbin/init"]
