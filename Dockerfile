@@ -8,6 +8,7 @@ RUN apt-get update && \
              make \
              git \
              wget \
+             gcc-multilib \
              curl 
              
 # Download the Toolchain             
