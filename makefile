@@ -17,7 +17,7 @@ SRC_FOLDER ?= ./Core/Src
 INC_FOLDER ?= ./Core/Inc
 
 # Include the series-specific makefile
-SERIES_CPU  = cortex-m0plus
+SERIES_CPU  = cortex-m4
 SERIES_ARCH = armv7e-m+fp
 MAPPED_DEVICE = STM32G0xx
 
