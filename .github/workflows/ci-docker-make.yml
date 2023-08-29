@@ -11,8 +11,9 @@ on:
       - 'dev'
       
 # Define the image tag
+# ${{ github.repository }} repository name
 env:
-  DOCKER_IMAGE: ${{ github.actor }}/${{ github.repository }}:latest
+  DOCKER_IMAGE: ${{ github.actor }}/tutorial:latest
 
 jobs:
   build:
