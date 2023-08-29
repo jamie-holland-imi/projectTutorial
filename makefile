@@ -85,6 +85,9 @@ CPPFLAGS += -mlittle-endian
 CPPFLAGS += -mthumb
 CPPFLAGS += -masm-syntax-unified
 
+
+OBJECT_FILES := $(patsubst %.c,%.o,$(wildcard *.c))
+
 # Output files
 BUILD_ARTIFACT_NAME := stm32_executable
 ELF_FILE_NAME ?= $(BUILD_ARTIFACT_NAME).elf
@@ -133,7 +136,7 @@ $(BIN_FILE_PATH): $(ELF_FILE_PATH)
 	$(OBJCOPY) -O binary $^ $@
 
 $(ELF_FILE_PATH) $(MAP_FILE_PATH): $(SRC) $(OBJ_FILE_PATH) $(BASE_LINKER).ld | $(BUILD_FOLDER)
-	$(CC) -o "$(ELF_FILE_PATH)" @"$(OBJ_FILE_PATH)" -mcpu=cortex-m0plus -T"$(BASE_LINKER).ld" --specs=nosys.specs -Wl,-Map="$(MAP_FILE_PATH)" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+	$(CC) -o "$(ELF_FILE_NAME)" @"$(OBJ_FILE_PATH)" -mcpu=cortex-m0plus -T"$(BASE_LINKER).ld" --specs=nosys.specs -Wl,-Map="$(MAP_FILE_PATH)" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 
 $(OBJ_FILE_PATH): $(DEVICE_STARTUP) | $(BUILD_FOLDER)
 	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) $^ -o $@
