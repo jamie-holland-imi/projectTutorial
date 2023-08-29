@@ -13,7 +13,6 @@ on:
 # Define the image tag
 # ${{ github.repository }} repository name
 env:
-  REGISTRY: ghcr.io
   DOCKER_IMAGE: ${{github.actor}}/gitdocker:latest
 
 jobs:
@@ -27,9 +26,9 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag $REGISTRY/$IMAGE_NAME
+      run: docker build . --file Dockerfile --tag $DOCKER_IMAGE
     - name: Build the Docker container
-      run: docker run -it ghcr.io/jamiehollandimi/gitdocker:latest
+      run: docker run -it docker.io/$DOCKER_IMAGE
       #run: docker run --rm $REGISTRY/$IMAGE_NAME
       
     - name: run ls
@@ -57,7 +56,7 @@ jobs:
         #retention-days: 1
   build2:
     runs-on: ubuntu-latest
-    container: $REGISTRY/$IMAGE_NAME
+    container: docker.io/$DOCKER_IMAGE
     steps:
     - name: Find all Hex files and fail if found
       uses: DovnarAlexander/github-action-file-detection@master
