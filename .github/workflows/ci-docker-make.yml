@@ -66,6 +66,7 @@ jobs:
             run: |
               make
               ls
+              ps
               #docker cp jamie-holland-imi/gitdocker:latest:/src/. stm32_executable.elf
               #copy -p stm32_executable.elf > "${{ runner.temp }}/build_files"
               
