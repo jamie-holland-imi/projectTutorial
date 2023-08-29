@@ -55,7 +55,7 @@ jobs:
       - name: Run the build process with Docker
         uses: addnab/docker-run-action@v3
         with:
-            image: $DOCKER_IMAGE
+            image: jamie-holland-imi/gitdocker:latest
             options: -v ${{ github.workspace }}:/var/www
             run: |
               composer install
