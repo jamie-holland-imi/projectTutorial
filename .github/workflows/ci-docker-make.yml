@@ -60,13 +60,14 @@ jobs:
             run: |
               make
               ls
+              mkdir -p ${{ runner.temp }}/build_files
+              cp stm32_executable.elf ${{ runner.temp }}/build_files
+              
       - name: Run LS in Build
         run: ls
-      #- name: Upload Elf and Hex file from Docker Image
-        #uses: actions/upload-artifact@v3
-        #with:
-          #name: BuildFiles
-          #path: |
-            #./*.elf
-            ##stm32_executable*.hex
-          #retention-days: 1
+      - name: Upload Elf and Hex file from Docker Image
+        uses: actions/upload-artifact@v3
+        with:
+          name: BuildFiles
+          path: ${{ runner.temp }}/build_files
+          retention-days: 1
