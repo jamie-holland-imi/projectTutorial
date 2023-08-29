@@ -27,28 +27,18 @@ jobs:
   
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag $DOCKER_IMAGE
-    - name: Build the Docker container
-      run: docker run -t docker.io/$DOCKER_IMAGE
-      #run: docker run --rm $REGISTRY/$IMAGE_NAME
-    - name: run ls
-      run: ls
-    - name: run ls
-      run: ls
-      working-directory: ./Build
+    #- name: Build the Docker container
+      #run: |
+        #docker run -t docker.io/$DOCKER_IMAGE
+        #ls
+      #run: docker run --rm docker.io/$IMAGE_NAME
     #- name: Extract files from Docker Image
       #uses: shrink/actions-docker-extract@v2
       #id: extract
       #with:
-        #image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        #image: docker.io/$IMAGE_NAME
         #path: "Build/stm32_executable.elf"        
-    #- name: Upload Elf and Hex file from Docker Image
-      #uses: actions/upload-artifact@v3
-      #with:
-        #name: BuildFiles
-        #path: |
-          #/Build/*.hex
-          #/Build/*.elf
-        #retention-days: 1
+    
   compile:
     name: Compile site assets
     runs-on: ubuntu-latest
@@ -65,15 +55,16 @@ jobs:
             image: jamie-holland-imi/gitdocker:latest
             options: -v ${{ github.workspace }}:/var/www
             run: |
-              ls
               make
               ls
-      - name: Find all Hex files and fail if found
-        uses: DovnarAlexander/github-action-file-detection@master
+      - name: run ls in build directory to list files
+        run: ls
+        working-directory: ./Build
+      - name: Upload Elf and Hex file from Docker Image
+        uses: actions/upload-artifact@v3
         with:
-          wildcard: '*.elf'
-          exit_code_found: 1
-          exit_code_not_found: 0
-          base_path: '/'     
-    #- name: Removes the Docker Container
-      #run: docker --rm $DOCKER_IMAGE
+          name: BuildFiles
+          path: |
+            /*.hex
+            /*.elf
+          retention-days: 1
