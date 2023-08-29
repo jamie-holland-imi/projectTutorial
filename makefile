@@ -129,16 +129,16 @@ all: main-build
 
 main-build: $(BIN_FILE_PATH) secondary-outputs
 
-$(BIN_FILE_PATH): $(ELF_FILE_PATH)
+$(BIN_FILE_NAME): $(ELF_FILE_PATH)
 	$(OBJCOPY) -O binary $^ $@
 
-$(ELF_FILE_PATH): $(SRC) $(OBJ_FILE_PATH) | $(BUILD_FOLDER)
+$(ELF_FILE_NAME): $(SRC) $(OBJ_FILE_PATH) | $(BUILD_FOLDER)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) $^ -o $@
 
 $(OBJ_FILE_PATH): $(DEVICE_STARTUP) | $(BUILD_FOLDER)
 	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) $^ -o $@
 
-$(HEX_FILE_PATH): $(ELF_FILE_PATH) | $(BUILD_FOLDER)
+$(HEX_FILE_NAME): $(ELF_FILE_PATH) | $(BUILD_FOLDER)
 	$(OBJCOPY) -O ihex $^ $@
 
 $(BUILD_FOLDER):
@@ -148,6 +148,6 @@ $(BUILD_FOLDER):
 clean:
 	rm -f $(ELF_FILE_PATH) $(BIN_FILE_PATH) $(OBJ_FILE_PATH) $(HEX_FILE_PATH)
 
-secondary-outputs: $(ELF_FILE_NAME) $(HEX_FILE_PATH) $(BIN_FILE_NAME)
+secondary-outputs: $(ELF_FILE_NAME) $(HEX_FILE_NAME)
 
 .PHONY: all clean main-build
