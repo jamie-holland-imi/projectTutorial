@@ -57,6 +57,7 @@ jobs:
             run: |
               make
               ls
+      - run: ls
       - name: Upload Elf and Hex file from Docker Image
         uses: actions/upload-artifact@v3
         with:
