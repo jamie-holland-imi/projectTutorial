@@ -14,7 +14,7 @@ on:
 # ${{ github.repository }} repository name
 env:
   REGISTRY: ghcr.io
-  DOCKER_IMAGE: ${{ github.actor }}/tutorial:latest
+  DOCKER_IMAGE: ${{github.actor}}/gitdocker:latest
 
 jobs:
   build:
@@ -27,12 +27,13 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-    - name: run ls
-      run: ls
+      run: docker build . --file Dockerfile --tag $REGISTRY/$IMAGE_NAME
     - name: Build the Docker container
-      run: docker run --rm ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+      run: docker run -it ghcr.io/jamiehollandimi/gitdocker:latest
+      #run: docker run --rm $REGISTRY/$IMAGE_NAME
       
+    - name: run ls
+      run: ls    
     #- name: Extract files from Docker Image
       #uses: shrink/actions-docker-extract@v2
       #id: extract
@@ -56,7 +57,7 @@ jobs:
         #retention-days: 1
   build2:
     runs-on: ubuntu-latest
-    container: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+    container: $REGISTRY/$IMAGE_NAME
     steps:
     - name: Find all Hex files and fail if found
       uses: DovnarAlexander/github-action-file-detection@master
