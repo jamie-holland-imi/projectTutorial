@@ -17,7 +17,7 @@ SRC_FOLDER ?= ./Core/Src
 INC_FOLDER ?= ./Core/Inc
 
 # Include the series-specific makefile
-SERIES_CPU  = cortex-m0plus
+SERIES_CPU  = cortex-m4
 SERIES_ARCH = armv7e-m+fp
 MAPPED_DEVICE = STM32G0xx
 
@@ -132,8 +132,8 @@ main-build: $(BIN_FILE_PATH) secondary-outputs
 $(BIN_FILE_PATH): $(ELF_FILE_PATH)
 	$(OBJCOPY) -O binary $^ $@
 
-$(ELF_FILE_PATH): $(SRC) $(OBJ_FILE_PATH) | $(BUILD_FOLDER)
-	$(CC) $(CPPFLAGS) $(CXXFLAGS) $^ -o $@
+$(ELF_FILE_PATH) $(MAP_FILE_PATH): $(SRC) $(OBJ_FILE_PATH) $(BASE_LINKER).ld | $(BUILD_FOLDER)
+	$(CC) -o "$(ELF_FILE_PATH)" @"$(OBJ_FILE_PATH)" -mcpu=cortex-m0plus -T"$(BASE_LINKER).ld" --specs=nosys.specs -Wl,-Map="$(MAP_FILE_PATH)" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 
 $(OBJ_FILE_PATH): $(DEVICE_STARTUP) | $(BUILD_FOLDER)
 	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) $^ -o $@
