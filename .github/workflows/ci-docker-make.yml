@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
   
 # Define the image tag
-# ${{ github.repository }} repository name
+# ${{ github.repository }} is the repository name
 env:
   DOCKER_IMAGE: jamie-holland-imi/gitdocker:latest
   REGISTRY: ghcr.io
@@ -31,7 +31,7 @@ jobs:
     - name: checkout repository
       uses: actions/checkout@v3
     - name: Login to GitHub Container Registry
-      uses: docker/login-action@v1
+      uses: docker/login-action@v2.2.0
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
@@ -64,31 +64,28 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     permissions:
       packages: write
-      contents: read
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v3
         
-      - name: Build
-        shell: bash
+      - name: Run the Makefile and Build the Project
         run: |
           make
           ls
-      - name: Publish
-        shell: bash
+          pwd
+      - name: Run LS after build
         run: |
-          echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE" >> $GITHUB_ENV
-          for f in $(find src -name '*.elf'); do
-            d=$(dirname  $f)
-            outputFolder=${{ env.GITHUB_WORKSPACE }}/${{ env.ARTIFACT }}/$d
-            ( cd "$d" && dotnet publish --no-self-contained -c $BUILD_CONFIGURATION -o $outputFolder )
-          done
+          ls
+          pwd
+      - name: Publish
+        run: |
+          Copy 'Build/' '${github.workspace}/Build'
       - name: Publish artifacts
         uses: actions/upload-artifact@v3.1.2
         with:
-          name: ${{ env.ARTIFACT }}-v${{ github.run_number }}
+          name: build_files
+          path: ${{ github.workspace }} 
           retention-days: 1
-          path: ${{ env.GITHUB_WORKSPACE }}/${{ env.ARTIFACT }}/src
           if-no-files-found: error
 #      - name: Create a temporary artifact file downloads folder
 #        run: mkdir -p "${{ runner.temp }}/build_files"        
@@ -108,12 +105,6 @@ jobs:
 #              pwd
 #              docker cp jamie-holland-imi/gitdocker:latest:/src/. stm32_executable.elf
 #              copy -p stm32_executable.elf > "${{ runner.temp }}/build_files"
-              
-      - name: Run LS
-        run: |
-          ls
-          pwd
-        #working-directory: /
       #- run: docker cp jamie-holland-imi/gitdocker:latest:/src/. stm32_executable.elf
 #      - name: Upload Elf and Hex file from Docker Image
 #        uses: actions/upload-artifact@v3.1.2
@@ -121,3 +112,10 @@ jobs:
 #          name: BuildFiles
 #          path: ${{ runner.temp }}/build_files
 #          retention-days: 1
+#    - name: Find all Hex files and fail if found
+#      uses: DovnarAlexander/github-action-file-detection@master
+#      with:
+#        wildcard: '*.elf'
+#        exit_code_found: 1
+#        exit_code_not_found: 0
+#        base_path: '/'  
