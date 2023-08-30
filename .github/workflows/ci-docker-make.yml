@@ -5,10 +5,12 @@ on:
     branches:
       - 'main'
       - 'dev'
+      - 'dev2'
   pull_request:
     branches:
       - 'main'
       - 'dev'
+      - 'dev2'
   workflow_dispatch:
   
 # Define the image tag
@@ -28,12 +30,11 @@ jobs:
   
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag $DOCKER_IMAGE
-    - name: Build the Docker container
-      run: |
-        docker run --rm docker.io/$DOCKER_IMAGE
-        make
-        ls
-    - run: ls
+    #- name: Build the Docker container
+      #run: |
+        #docker run --rm docker.io/$DOCKER_IMAGE
+        #make
+        #ls
     #- name: Extract files from Docker Image
       #uses: shrink/actions-docker-extract@v2
       #id: extract
@@ -43,6 +44,8 @@ jobs:
     
   compile:
     runs-on: ubuntu-latest
+    container:
+      image: docker.io/$DOCKER_IMAGE
     permissions:
       packages: write
       contents: read
@@ -50,25 +53,45 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v3
         
-      - name: Create a temporary artifact file downloads folder
-        run: mkdir -p "${{ runner.temp }}/build_files"
-        
-      - name: docker build push action
-        uses: docker/build-push-action@v4
+      - name: Build
+        shell: bash
+        run: |
+          make
+          ls
+      - name: Publish
+        shell: bash
+        run: |
+          echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE" >> $GITHUB_ENV
+          for f in $(find src -name '*.elf'); do
+            d=$(dirname  $f)
+            outputFolder=${{ env.GITHUB_WORKSPACE }}/${{ env.ARTIFACT }}/$d
+            ( cd "$d" && dotnet publish --no-self-contained -c $BUILD_CONFIGURATION -o $outputFolder )
+          done
+      - name: Publish artifacts
+        uses: actions/upload-artifact@v3.1.2
         with:
-          tags: jamie-holland-imi/gitdocker:latest
-          push: false
-      - name: Run the makefile with Docker
-        uses: addnab/docker-run-action@v3
-        with:
-            image: jamie-holland-imi/gitdocker:latest
-            options: -v ${{ github.workspace }}:/var/www
-            run: |
-              make
-              ls
-              pwd
-              #docker cp jamie-holland-imi/gitdocker:latest:/src/. stm32_executable.elf
-              copy -p stm32_executable.elf > "${{ runner.temp }}/build_files"
+          name: ${{ env.ARTIFACT }}-v${{ github.run_number }}
+          retention-days: 1
+          path: ${{ env.GITHUB_WORKSPACE }}/${{ env.ARTIFACT }}/src
+          if-no-files-found: error
+#      - name: Create a temporary artifact file downloads folder
+#        run: mkdir -p "${{ runner.temp }}/build_files"        
+#      - name: docker build push action
+#        uses: docker/build-push-action@v4
+#        with:
+#          tags: docker.io/$DOCKER_IMAGE
+#          push: false
+#      - name: Run the makefile with Docker
+#        uses: addnab/docker-run-action@v3
+#        with:
+#            image: docker.io/$DOCKER_IMAGE
+#            options: -v ${{ github.workspace }}:/var/www
+#            run: |
+#              make
+#              ls
+#              pwd
+#              docker cp jamie-holland-imi/gitdocker:latest:/src/. stm32_executable.elf
+#              copy -p stm32_executable.elf > "${{ runner.temp }}/build_files"
               
       - name: Run LS
         run: |
@@ -76,9 +99,9 @@ jobs:
           pwd
         #working-directory: /
       #- run: docker cp jamie-holland-imi/gitdocker:latest:/src/. stm32_executable.elf
-      - name: Upload Elf and Hex file from Docker Image
-        uses: actions/upload-artifact@v3
-        with:
-          name: BuildFiles
-          path: ${{ runner.temp }}/build_files
-          retention-days: 1
+#      - name: Upload Elf and Hex file from Docker Image
+#        uses: actions/upload-artifact@v3.1.2
+#        with:
+#          name: BuildFiles
+#          path: ${{ runner.temp }}/build_files
+#          retention-days: 1
