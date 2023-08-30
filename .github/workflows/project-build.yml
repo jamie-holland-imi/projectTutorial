@@ -3,14 +3,10 @@ name: Project Build CI
 on:
   push:
     paths:
-      - '**.c'
-      - '**.makefile'
-      - '**.dockerfile'
+      - 'dev'
   pull_request:
     paths:
-      - '**.c'
-      - '**.makefile'
-      - '**.dockerfile'
+      - 'dev'
   workflow_dispatch:
 
 env:
