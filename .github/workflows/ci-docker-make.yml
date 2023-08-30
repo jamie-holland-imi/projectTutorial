@@ -47,7 +47,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     container:
-      image: $IMAGE_TAG
+      image: ghcr.io/jamie-holland-imi/project-name:latest
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
