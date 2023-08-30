@@ -60,7 +60,7 @@ jobs:
       image: ghcr.io/jamie-holland-imi/project-name:latest
       credentials:
         username: ${{ github.actor }}
-        password: ${{ secrets.ghcr_token }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     permissions:
       packages: write
       contents: read
