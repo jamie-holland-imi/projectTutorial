@@ -16,8 +16,11 @@ on:
 # IMAGE_TAG must be lowercase
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
-  IMAGE_TAG: ghcr.io/jamie-holland-imi/project-name:latest
+  IMAGE_NAME: ${{ lowercase(github.repository) }}
+  USER_NAME: ${{ lowercase(github.actor) }}
+  TAG: ${{ lowercase(github.sha) }}
+  IMAGE_TAG: $(REGISTRY)/$(USER_NAME)/$(IMAGE_NAME):$(TAG)
+  # TAG example: ghcr.io/jamie-holland-imi/project-name:latest
 
 jobs:
   build:
@@ -44,7 +47,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/jamie-holland-imi/project-name:latest
+      image: $IMAGE_TAG
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
