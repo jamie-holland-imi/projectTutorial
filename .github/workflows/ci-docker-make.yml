@@ -33,6 +33,8 @@ jobs:
   
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag $IMAGE_TAG
+    - run: docker push $IMAGE_TAG
+
     #- name: Build the Docker container
       #run: |
         #docker run --rm docker.io/$DOCKER_IMAGE
