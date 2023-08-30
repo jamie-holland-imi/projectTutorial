@@ -1,0 +1,38 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches:
+      - '**.dockerfile'
+  pull_request:
+    branches:
+      - '**.dockerfile'
+  workflow_dispatch:
+  
+# Define the image tag
+# ${{ github.repository }} is the repository name
+# IMAGE_TAG must be lowercase
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_TAG: ghcr.io/jamie-holland-imi/project-name:latest
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    steps:
+    - name: checkout repository
+      uses: actions/checkout@v3
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v2.2.0
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Build the Docker image
+      run: |
+        docker build . --file Dockerfile --tag $IMAGE_TAG
+        docker run $IMAGE_TAG
+        docker push $IMAGE_TAG   
