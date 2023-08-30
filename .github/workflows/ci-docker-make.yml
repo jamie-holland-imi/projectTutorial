@@ -66,11 +66,14 @@ jobs:
             run: |
               make
               ls
+              pwd
               #docker cp jamie-holland-imi/gitdocker:latest:/src/. stm32_executable.elf
               copy -p stm32_executable.elf > "${{ runner.temp }}/build_files"
               
       - name: Run LS
-        run: ls
+        run: |
+          ls
+          pwd
         #working-directory: /
       #- run: docker cp jamie-holland-imi/gitdocker:latest:/src/. stm32_executable.elf
       - name: Upload Elf and Hex file from Docker Image
