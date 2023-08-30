@@ -16,10 +16,10 @@ on:
 # IMAGE_TAG must be lowercase
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${lower(${{ github.repository }})}
-  USER_NAME: ${lower(${{ github.actor }})}
-  VERSION: ${lower(${{ github.sha }})}
-  IMAGE_TAG: $(REGISTRY)/$(USER_NAME)/$(IMAGE_NAME):$(VERSION)
+  IMAGE_NAME: ${{ github.repository }}
+  USER_NAME: ${{ github.actor }}
+  VERSION: ${{ github.sha }}
+  IMAGE_TAG: ${lower($(REGISTRY)/$(USER_NAME)/$(IMAGE_NAME):$(VERSION))}
   #IMAGE_TAG: ghcr.io/jamie-holland-imi/project-name:latest
 
 jobs:
