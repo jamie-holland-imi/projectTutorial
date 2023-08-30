@@ -70,5 +70,3 @@ jobs:
             ./*.hex
           retention-days: 1
           if-no-files-found: error
-      - name: Remove image
-        run: docker rmi $IMAGE_TAG   
