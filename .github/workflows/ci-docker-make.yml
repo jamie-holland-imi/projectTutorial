@@ -4,13 +4,9 @@ on:
   push:
     branches:
       - 'main'
-      - 'dev'
-      - 'dev2'
   pull_request:
     branches:
       - 'main'
-      - 'dev'
-      - 'dev2'
   workflow_dispatch:
   
 # Define the image tag
