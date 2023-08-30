@@ -15,8 +15,8 @@ on:
   
 # Define the image tag
 # ${{ github.repository }} is the repository name
+# IMAGE_TAG must be lowercase
 env:
-  DOCKER_IMAGE: jamie-holland-imi/gitdocker:latest
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
   IMAGE_TAG: ghcr.io/jamie-holland-imi/project-name:latest
@@ -40,19 +40,7 @@ jobs:
       run: |
         docker build . --file Dockerfile --tag $IMAGE_TAG
         docker run $IMAGE_TAG
-        docker push $IMAGE_TAG
-
-    #- name: Build the Docker container
-      #run: |
-        #docker run --rm docker.io/$DOCKER_IMAGE
-        #make
-        #ls
-    #- name: Extract files from Docker Image
-      #uses: shrink/actions-docker-extract@v2
-      #id: extract
-      #with:
-        #image: docker.io/$IMAGE_NAME
-        #path: "Build/stm32_executable.elf"        
+        docker push $IMAGE_TAG   
     
   compile:
     needs: build
@@ -73,9 +61,7 @@ jobs:
           make
           ls
           pwd
-      #- name: Publish
-        #run: cp 'Build/' '${github.workspace}/Build'
-      - name: Publish artifacts
+      - name: Publish Artifacts
         uses: actions/upload-artifact@v3.1.2
         with:
           name: build_files
@@ -84,35 +70,3 @@ jobs:
             ./*.hex
           retention-days: 1
           if-no-files-found: error
-#      - name: Create a temporary artifact file downloads folder
-#        run: mkdir -p "${{ runner.temp }}/build_files"        
-#      - name: docker build push action
-#        uses: docker/build-push-action@v4
-#        with:
-#          tags: docker.io/$DOCKER_IMAGE
-#          push: false
-#      - name: Run the makefile with Docker
-#        uses: addnab/docker-run-action@v3
-#        with:
-#            image: docker.io/$DOCKER_IMAGE
-#            options: -v ${{ github.workspace }}:/var/www
-#            run: |
-#              make
-#              ls
-#              pwd
-#              docker cp jamie-holland-imi/gitdocker:latest:/src/. stm32_executable.elf
-#              copy -p stm32_executable.elf > "${{ runner.temp }}/build_files"
-      #- run: docker cp jamie-holland-imi/gitdocker:latest:/src/. stm32_executable.elf
-#      - name: Upload Elf and Hex file from Docker Image
-#        uses: actions/upload-artifact@v3.1.2
-#        with:
-#          name: BuildFiles
-#          path: ${{ runner.temp }}/build_files
-#          retention-days: 1
-#    - name: Find all Hex files and fail if found
-#      uses: DovnarAlexander/github-action-file-detection@master
-#      with:
-#        wildcard: '*.elf'
-#        exit_code_found: 1
-#        exit_code_not_found: 0
-#        base_path: '/'  
