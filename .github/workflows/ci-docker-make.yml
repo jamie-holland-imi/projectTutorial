@@ -16,7 +16,7 @@ on:
 # Define the image tag
 # ${{ github.repository }} repository name
 env:
-  DOCKER_IMAGE: ${{github.actor}}/gitdocker:latest
+  DOCKER_IMAGE: jamie-holland-imi/gitdocker:latest
 
 jobs:
   build:
@@ -45,7 +45,7 @@ jobs:
   compile:
     runs-on: ubuntu-latest
     container:
-      image: docker.io/$DOCKER_IMAGE
+      image: docker.io/jamie-holland-imi/gitdocker:latest
     permissions:
       packages: write
       contents: read
