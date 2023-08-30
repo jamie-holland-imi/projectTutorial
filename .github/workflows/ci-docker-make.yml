@@ -14,7 +14,6 @@ on:
   workflow_dispatch:
   
 # Define the image tag
-# ${{ github.repository }} is the repository name
 env:
   DOCKER_IMAGE: jamie-holland-imi/gitdocker:latest
   REGISTRY: ghcr.io
