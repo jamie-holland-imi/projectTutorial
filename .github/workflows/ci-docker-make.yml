@@ -55,6 +55,7 @@ jobs:
         #path: "Build/stm32_executable.elf"        
     
   compile:
+    needs: build
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/jamie-holland-imi/project-name:latest
