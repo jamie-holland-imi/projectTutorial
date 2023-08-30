@@ -2,10 +2,10 @@ name: Project Build CI
 
 on:
   push:
-    paths:
+    branches:
       - 'dev'
   pull_request:
-    paths:
+    branches:
       - 'dev'
   workflow_dispatch:
 
