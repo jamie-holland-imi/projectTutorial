@@ -73,18 +73,15 @@ jobs:
           make
           ls
           pwd
-      - name: Run LS after build
-        run: |
-          ls
-          pwd
-      - name: Publish
-        run: |
-          Copy 'Build/' '${github.workspace}/Build'
+      #- name: Publish
+        #run: cp 'Build/' '${github.workspace}/Build'
       - name: Publish artifacts
         uses: actions/upload-artifact@v3.1.2
         with:
           name: build_files
-          path: ${{ github.workspace }} 
+          path: |
+            ./*.elf
+            ./*.hex
           retention-days: 1
           if-no-files-found: error
 #      - name: Create a temporary artifact file downloads folder
