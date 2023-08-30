@@ -49,6 +49,9 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/jamie-holland-imi/project-name:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.ghcr_token }}
     permissions:
       packages: write
       contents: read
