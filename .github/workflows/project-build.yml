@@ -12,7 +12,8 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  IMAGE_TAG: ghcr.io/jamie-holland-imi/project-name:latest
+  IMAGE_TAG: ghcr.io/jamie-holland-imi/projectdfgdf:latest
+  needs.check.outputs.status: 'success'
 
 jobs:
   check:
@@ -28,9 +29,6 @@ jobs:
       - name: Exit if Fails
         if: ${{ failure() }}
         run: needs.check.outputs.status == 'failure'
-      - name: Success Status
-        if: ${{ success() }}
-        run: needs.check.outputs.status == 'success'
             
   compile:
     needs: check
