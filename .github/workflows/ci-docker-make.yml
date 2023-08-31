@@ -27,6 +27,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       image: ${{ env.IMAGE_TAG }}
+    steps:       
+      - run: echo "null"
       
   build:
     runs-on: ubuntu-latest
