@@ -56,7 +56,7 @@ jobs:
       - prepare-image
     runs-on: ubuntu-latest
     container:
-      image: ${{ needs.prepare-image.outputs.image }}
+      image: ${{env.IMAGE_TAG}}
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
