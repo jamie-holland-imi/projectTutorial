@@ -21,18 +21,9 @@ env:
   IMAGE_TAG: $REGISTRY"/"$USER_NAME"/"$REPO_NAME":"$VERSION
   #IMAGE_TAG: ghcr.io/jamie-holland-imi/project-name:latest
 
-jobs:
-  initialization:
-    runs-on: ubuntu-latest
-    outputs:
-      image: ${{ steps.set_image.outputs.image }}
-    steps:
-      - id: set_image
-        run: echo "{image}=${{env.IMAGE_TAG}}" >> $GITHUB_OUTPUT
-        
+jobs:       
   build:
     runs-on: ubuntu-latest
-    needs: initialization
     permissions:
       packages: write
     steps:
@@ -49,14 +40,24 @@ jobs:
         docker build . --file Dockerfile --tag ${{env.IMAGE_TAG}}
         docker run ${{env.IMAGE_TAG}}
         docker push ${{env.IMAGE_TAG}}
-    
+
+  initialization:
+    runs-on: ubuntu-latest    
+    permissions:
+      packages: write
+    outputs:
+      image: ${{ steps.setimage.outputs.image1 }}
+    steps:
+      - id: setimage
+        run: echo "image1=${{env.IMAGE_TAG}}" >> $GITHUB_OUTPUT
+        
   compile:
     needs: 
       - build 
       - initialization
     runs-on: ubuntu-latest
     container:
-      image: ${{ needs.initialization.outputs.image }}
+      image: ${{ jobs.initialization.outputs.image }}
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
