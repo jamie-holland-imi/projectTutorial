@@ -41,20 +41,20 @@ jobs:
         docker run ${{env.IMAGE_TAG}}
         docker push ${{env.IMAGE_TAG}}
 
-  job0:
+  var_init:
     runs-on: ubuntu-latest
     needs: build
     outputs:
       image: ${{ steps.set_image.outputs.image }}
     steps:
       - id: set_image
-        run: echo "::set-output name=image::${{env.IMAGE_TAG}}"
-        
+        run: echo "image=${{env.IMAGE_TAG}}" >> $GITHUB_OUTPUT
+
   compile:
-    needs: job0
+    needs: var_init
     runs-on: ubuntu-latest
     container:
-      image: ${{ needs.job0.outputs.image }}
+      image: ${{ needs.var_init.outputs.image }}
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
