@@ -23,8 +23,14 @@ env:
   #IMAGE_TAG: ghcr.io/jamie-holland-imi/project-name:latest
 
 jobs:
+  prepare-image:
+    runs-on: ubuntu-latest
+    outputs:
+      image: ${{ env.IMAGE_TAG }}
+      
   build:
     runs-on: ubuntu-latest
+    needs: prepare-image
     permissions:
       packages: write
       contents: read
@@ -39,15 +45,17 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Build the Docker image
       run: |
-        docker build . --file Dockerfile --tag ${{env.IMAGE_TAG}}
-        docker run ${{env.IMAGE_TAG}}
-        docker push ${{env.IMAGE_TAG}}
+        docker build . --file Dockerfile --tag ${{ needs.prepare-image.outputs.image }}
+        docker run ${{ needs.prepare-image.outputs.image }}
+        docker push ${{ needs.prepare-image.outputs.image }}
     
   compile:
-    needs: build
+    needs: 
+      - build 
+      - prepare-image
     runs-on: ubuntu-latest
     container:
-      image: ${{env.IMAGE_TAG}}
+      image: ${{ needs.prepare-image.outputs.image }}
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
