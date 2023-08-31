@@ -19,7 +19,7 @@ env:
   REPO_NAME: ${{ github.event.repository.name }}
   USER_NAME: ${{ github.actor }}
   VERSION: ${{ github.sha }}
-  IMAGE_TAG: $REGISTRY"/"$USER_NAME"/"$REPO_NAME":"$VERSION
+  IMAGE_TAG: $REGISTRY'/'$USER_NAME'/'$REPO_NAME':'$VERSION
   #IMAGE_TAG: ghcr.io/jamie-holland-imi/project-name:latest
 
 jobs:
