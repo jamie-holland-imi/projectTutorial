@@ -1,4 +1,7 @@
 DEVICE = STM32G071xx
+DEV_DRIVER = STM32G0xx
+BOARD = STM32G071RBTX
+
 FLASH  = 0x08000000
 
 USE_ST_CMSIS = true
@@ -7,9 +10,9 @@ USE_ST_HAL = true
 STM32_BASE_PATH   ?= .
 
 # STM32-base sub-folders
-BASE_LINKER   = $(STM32_BASE_PATH)/STM32G071RBTX_FLASH
-#BASE_MAKE     = $(STM32_BASE_PATH)/make
-BASE_STARTUP  = $(STM32_BASE_PATH)/Core/Startup
+BASE_LINKER = $(STM32_BASE_PATH)/$(BOARD)_FLASH
+#BASE_MAKE = $(STM32_BASE_PATH)/make
+BASE_STARTUP = $(STM32_BASE_PATH)/Core/Startup
 
 # Standard values for project folders
 BUILD_FOLDER ?= ./Build
@@ -19,7 +22,7 @@ INC_FOLDER ?= ./Core/Inc
 # Include the series-specific makefile
 SERIES_CPU  = cortex-m4
 SERIES_ARCH = armv7e-m+fp
-MAPPED_DEVICE = STM32G071xx
+MAPPED_DEVICE = $(DEVICE)
 
 # The toolchain path, defaults to using the globally installed toolchain
 ifdef TOOLCHAIN_PATH
@@ -103,23 +106,23 @@ SRC ?=
 SRC += $(SRC_FOLDER)/*.c
 
 # Startup file
-DEVICE_STARTUP = $(BASE_STARTUP)/startup_stm32g071rbtx.s
+DEVICE_STARTUP = $(BASE_STARTUP)/startup_$(BOARD).s
 
 # Include the CMSIS files, using the HAL implies using the CMSIS
 ifneq (,$(or USE_ST_CMSIS, USE_ST_HAL))
-    CPPFLAGS += -I$(STM32_BASE_PATH)/Drivers/CMSIS/Device/ST/STM32G0xx/Include
+    CPPFLAGS += -I$(STM32_BASE_PATH)/Drivers/CMSIS/Device/ST/$(DEV_DRIVER)/Include
     CPPFLAGS += -I$(STM32_BASE_PATH)/Drivers/CMSIS/Include
 
-    #SRC += $(STM32_BASE_PATH)/Drivers/CMSIS/Device/ST/STM32G0xx/Source/*.c
+    #SRC += $(STM32_BASE_PATH)/Drivers/CMSIS/Device/ST/$(DEV_DRIVER)/Source/*.c
 endif
 
 # Include the HAL files
 ifdef USE_ST_HAL
     CPPFLAGS += -D USE_HAL_DRIVER
-    CPPFLAGS += -I$(STM32_BASE_PATH)/Drivers/STM32G0xx_HAL_Driver/Inc
+    CPPFLAGS += -I$(STM32_BASE_PATH)/Drivers/$(DEV_DRIVER)_HAL_Driver/Inc
 
     # A simply expanded variable is used here to perform the find command only once.
-    HAL_SRC := $(shell find $(STM32_BASE_PATH)/Drivers/STM32G0xx_HAL_Driver/Src/*.c ! -name '*_template.c')
+    HAL_SRC := $(shell find $(STM32_BASE_PATH)/Drivers/$(DEV_DRIVER)_HAL_Driver/Src/*.c ! -name '*_template.c')
     SRC += $(HAL_SRC)
 endif
 
@@ -150,3 +153,4 @@ clean:
 secondary-outputs: $(ELF_FILE_NAME) $(HEX_FILE_NAME)
 
 .PHONY: all clean main-build
+
