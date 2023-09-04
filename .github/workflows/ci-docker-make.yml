@@ -11,8 +11,7 @@ on:
       - 'dev'
   workflow_dispatch:
   
-# Define the image tag
-# The IMAGE_TAG must be lowercase the ,, convert to lowercase
+# The IMAGE_TAG sets the docker image name, it must be lowercase the ,, convert to lowercase
 env:
   REGISTRY: ghcr.io
   REPO_NAME: ${{ github.event.repository.name }}
