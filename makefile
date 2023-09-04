@@ -87,6 +87,9 @@ CPPFLAGS += -mlittle-endian
 CPPFLAGS += -mthumb
 CPPFLAGS += -masm-syntax-unified
 
+# Startup file
+DEVICE_STARTUP = $(BASE_STARTUP)/*.s
+
 # Output files
 BUILD_ARTIFACT_NAME := stm32_executable
 ELF_FILE_NAME ?= $(BUILD_ARTIFACT_NAME).elf
@@ -104,9 +107,6 @@ MAP_FILE_PATH += $(BUILD_FOLDER)/$(MAP_FILES)
 # Input files
 SRC ?=
 SRC += $(SRC_FOLDER)/*.c
-
-# Startup file
-DEVICE_STARTUP = $(BASE_STARTUP)/startup_$(BOARD).s
 
 # Include the CMSIS files, using the HAL implies using the CMSIS
 ifneq (,$(or USE_ST_CMSIS, USE_ST_HAL))
