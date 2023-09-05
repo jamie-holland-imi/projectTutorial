@@ -72,9 +72,3 @@ jobs:
             ./*.hex
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           content-type: text/plain # Optional
-
-      - uses: microsoft/ApplicationInspector-Action@v1.0.1
-      - uses: actions/upload-artifact@v2
-        with:
-          name: AppInspectorResults
-          path: AppInspectorResults.json
