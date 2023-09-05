@@ -1,3 +1,4 @@
+# Include the series-specific makefile
 MAPPED_DEVICE = STM32G071xx
 DEV_DRIVER = STM32G0xx
 BOARD = STM32G071RBTX
@@ -5,6 +6,7 @@ SERIES_CPU  = cortex-m4
 SERIES_ARCH = armv7e-m+fp
 
 FLASH  = 0x08000000
+
 USE_ST_CMSIS = true
 USE_ST_HAL = true
 
@@ -147,4 +149,3 @@ clean:
 secondary-outputs: $(ELF_FILE_NAME) $(HEX_FILE_NAME)
 
 .PHONY: all clean main-build
-
