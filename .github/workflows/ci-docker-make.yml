@@ -53,7 +53,7 @@ jobs:
     needs: variable_substitution
     runs-on: ubuntu-latest
     container:
-      image: ${{ needs.var_init.outputs.image }}
+      image: ${{ needs.variable_substitution.outputs.image }}
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
