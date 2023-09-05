@@ -76,3 +76,9 @@ jobs:
             ./*.hex
           retention-days: 7
           if-no-files-found: error
+          
+      - uses: microsoft/ApplicationInspector-Action@v1.0.1
+      - uses: actions/upload-artifact@v2
+        with:
+          name: AppInspectorResults
+          path: AppInspectorResults.json
