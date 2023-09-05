@@ -27,7 +27,7 @@ jobs:
       packages: write
     steps:
     - name: checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v3
     - name: Login to GitHub Container Registry
       uses: docker/login-action@v2.2.0
       with:
@@ -61,7 +61,7 @@ jobs:
       packages: write
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
         
       - name: Run the Makefile and Build the Project
         run: |
@@ -69,7 +69,7 @@ jobs:
           ls
           pwd
           
-      - name: Publish Artifacts
+      - name: Create Artifacts
         uses: actions/upload-artifact@v3.1.2
         with:
           name: build_files
