@@ -1,6 +1,9 @@
 name: Releases
 
 on:
+  push:
+    tags:
+      - 'v*'
   workflow_dispatch:
   
 # Define the image tag
@@ -61,9 +64,11 @@ jobs:
           make
 
       - name: Create Release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
+        uses: Shopify/upload-to-release@v1
         with:
-          files: |
+          name: release_files
+          path: |
             ./*.elf
             ./*.hex
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          content-type: text/plain # Optional
