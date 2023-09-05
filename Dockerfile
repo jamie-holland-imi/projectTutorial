@@ -25,6 +25,4 @@ RUN arm-none-eabi-gcc --version
 # Add all files in the repository
 WORKDIR /home/dev
 COPY . /home/dev
-# WORKDIR /home/dev/Build
 
-#CMD ["sh", "-c", "make"]
