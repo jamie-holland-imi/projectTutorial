@@ -1,9 +1,10 @@
-DEVICE = STM32G071xx
+MAPPED_DEVICE = STM32G071xx
 DEV_DRIVER = STM32G0xx
 BOARD = STM32G071RBTX
+SERIES_CPU  = cortex-m4
+SERIES_ARCH = armv7e-m+fp
 
 FLASH  = 0x08000000
-
 USE_ST_CMSIS = true
 USE_ST_HAL = true
 
@@ -16,11 +17,6 @@ BASE_STARTUP = $(STM32_BASE_PATH)/Core/Startup
 BUILD_FOLDER ?= ./Build
 SRC_FOLDER ?= ./Core/Src
 INC_FOLDER ?= ./Core/Inc
-
-# Include the series-specific makefile
-SERIES_CPU  = cortex-m4
-SERIES_ARCH = armv7e-m+fp
-MAPPED_DEVICE = $(DEVICE)
 
 # The toolchain path, defaults to using the globally installed toolchain
 ifdef TOOLCHAIN_PATH
