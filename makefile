@@ -7,11 +7,9 @@ FLASH  = 0x08000000
 USE_ST_CMSIS = true
 USE_ST_HAL = true
 
-STM32_BASE_PATH   ?= .
-
 # STM32-base sub-folders
+STM32_BASE_PATH   ?= .
 BASE_LINKER = $(STM32_BASE_PATH)/$(BOARD)_FLASH
-#BASE_MAKE = $(STM32_BASE_PATH)/make
 BASE_STARTUP = $(STM32_BASE_PATH)/Core/Startup
 
 # Standard values for project folders
