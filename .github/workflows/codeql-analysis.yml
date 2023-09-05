@@ -15,11 +15,9 @@ on:
   push:
     branches:
       - 'main'
-      - 'dev'
   pull_request:
     branches:
       - 'main'
-      - 'dev'
   workflow_dispatch:
 
 
@@ -55,7 +53,7 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Runs the makefile
       run: |
-        docker run ghcr.io"/"${{ github.actor,, }}"/"${{ github.event.repository.name,, }}":"latest
+        docker run ghcr.io/jamie-holland-imi/project-name:latest
         make
 
     - name: Perform CodeQL Analysis
