@@ -47,8 +47,14 @@ jobs:
       with:
         languages: ${{ matrix.language }}
         
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v2
+    - name: QLBuild
+      uses: docker/login-action@v2.2.0
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Runs the makefile
+      run: make
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
