@@ -4,11 +4,9 @@ on:
   push:
     branches:
       - 'main'
-      - 'dev'
   pull_request:
     branches:
       - 'main'
-      - 'dev'
   workflow_dispatch:
   
 # The IMAGE_TAG sets the docker image name, it must be lowercase the ,, convert to lowercase
