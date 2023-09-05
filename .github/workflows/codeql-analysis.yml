@@ -54,7 +54,9 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Runs the makefile
-      run: make
+      run: |
+        docker run ghcr.io"/"${{ github.actor,, }}"/"${{ github.event.repository.name,, }}":"latest
+        make
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
