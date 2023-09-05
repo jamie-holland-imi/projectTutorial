@@ -19,11 +19,11 @@ RUN tar xf gcc-arm-none-eabi.tar.xz -C gcc-arm-none-eabi --strip-components 1
 # remove the archive
 RUN rm gcc-arm-none-eabi.tar.xz
 
-#ENV PATH="/gcc-arm-none-eabi/bin:${PATH}"
-CMD export PATH="/gcc-arm-none-eabi/bin:${PATH}"
+ENV PATH="/gcc-arm-none-eabi/bin:${PATH}"
 
 RUN arm-none-eabi-gcc --version
 # Add all files in the repository
 WORKDIR /home/dev
 COPY . /home/dev
 
+#CMD ["sh", "-c", "make"]
