@@ -43,7 +43,8 @@ jobs:
     - name: Install ClangFormat
       run: |
         apt-get install -y clang-format
-        git config --global --add safe.directory
+        git config --system --add safe.directory '*'
+        
 
     - name: Run linters
       uses: wearerequired/lint-action@v2.3.0
