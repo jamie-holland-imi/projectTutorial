@@ -37,11 +37,13 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
-
+    - name: run make
+      run: make
+      
     - name: Install ClangFormat
       run: apt-get install -y clang-format
 
     - name: Run linters
-      uses: wearerequired/lint-action@v2
+      uses: wearerequired/lint-action@v2.3.0
       with:
         clang_format: true
