@@ -54,13 +54,22 @@ jobs:
       with:
         name: AppInspectorResults
         path: AppInspectorResults.json
-        
-    - name: Install ClangFormat
-      run: apt-get install -y clang-format
 
-    - run: git config --global --add safe.directory /__w/projectTutorial/projectTutorial
-        
-    - name: Run linters
-      uses: wearerequired/lint-action@v2.3.0
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
       with:
-        clang_format: true
+        languages: ${{ matrix.language }}
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
+        
+#    - name: Install ClangFormat
+#      run: | 
+#        apt-get install -y clang-format
+#        git config --global --add safe.directory /__w/projectTutorial/projectTutorial
+#        
+#    - name: Run linters
+#      uses: wearerequired/lint-action@v2.3.0
+#      with:
+#        clang_format: true
+#        stylelint: true
