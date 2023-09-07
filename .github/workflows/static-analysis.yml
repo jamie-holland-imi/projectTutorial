@@ -48,27 +48,19 @@ jobs:
       
 # Builds your Make project using 'cpptesttrace' to collect input data for code analysis.
     - name: Build project
-      run: | 
-        cpptesttrace make
-        apt-get install -y clang-format
-        git config --system --add safe.directory '*'
-        mkdir reports/report.sarif
-# Runs code analysis with C/C++test.
-    - name: Run C test
-      uses: parasoft/run-cpptest-action@2.0.1
-      with:
-        input: build/compile_commands.json
-        testConfig: 'builtin://MISRA C 2012'
-        compilerConfig: 'clang_10_0'
+      run: cpptesttrace make
         
-# Uploads analysis results in the SARIF format, so that they are displayed as GitHub code scanning alerts.
+    - name: Run C Tests
+      uses: parasoft/run-cpptest-action@2.0.1
+
+    # Uploads analysis results in the SARIF format, so that they are displayed as GitHub code scanning alerts.
     - name: Upload results (SARIF)
       if: always()
       uses: github/codeql-action/upload-sarif@v2
       with:
         sarif_file: reports/report.sarif
-
-# Uploads an archive that includes all report files (.xml, .html, .sarif).
+    
+    # Uploads an archive that includes all report files (.xml, .html, .sarif).
     - name: Archive reports
       if: always()
       uses: actions/upload-artifact@v3
