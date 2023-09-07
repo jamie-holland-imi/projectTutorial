@@ -49,12 +49,11 @@ jobs:
     - uses: microsoft/ApplicationInspector-Action@v1.0.1
       with:
         location-to-scan: ./Core/Src
-        output-format: text
         
-    - uses: actions/upload-artifact@v3.1.2
+    - uses: actions/upload-artifact@v3
       with:
         name: AppInspectorResults
-        path: AppInspectorResults.text
+        path: AppInspectorResults.json
         
 #    - name: Run linters
 #      uses: wearerequired/lint-action@v2.3.0
