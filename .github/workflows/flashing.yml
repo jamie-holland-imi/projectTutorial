@@ -1,4 +1,4 @@
-name: "Flahing to Board"
+name: "Flashing to Board"
 
 on:
   push:
