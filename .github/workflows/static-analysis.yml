@@ -46,31 +46,15 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
       
-    - run: mkdir -p reports/report.sarif
-    - run: cpptestcli -detect-compiler gcc
-# Builds your Make project using 'cpptesttrace' to collect input data for code analysis.
-    - name: Build project
-      run: cpptestcli -config "builtin://Recommended Rules" -compiler gcc_4_5 -module . -trace make
-      
-    # Runs code analysis with C test.
-    - name: Run C Tests
-      uses: parasoft/run-cpptest-action@2.0.1
-
-    # Uploads analysis results in the SARIF format, so that they are displayed as GitHub code scanning alerts.
-    - name: Upload results (SARIF)
-      if: always()
-      uses: github/codeql-action/upload-sarif@v2
+    - uses: microsoft/ApplicationInspector-Action@v1.0.1
       with:
-        sarif_file: reports/report.sarif
-    
-    # Uploads an archive that includes all report files (.xml, .html, .sarif).
-    - name: Archive reports
-      if: always()
-      uses: actions/upload-artifact@v3
+        location-to-scan: ./Core/Src
+        
+    - uses: actions/upload-artifact@v2
       with:
-        name: CpptestReports
-        path: reports/*.*
-
+        name: AppInspectorResults
+        path: AppInspectorResults.json
+        
 #    - name: Run linters
 #      uses: wearerequired/lint-action@v2.3.0
 #      with:
