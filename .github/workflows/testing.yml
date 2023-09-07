@@ -51,10 +51,11 @@ jobs:
       with:
         repository: ThrowTheSwitch/CMock
         
-      
+    - run: ls
     - name: Run Tests
       run: |
         cd test
         rake
+      working-directory: ./test
 
       
