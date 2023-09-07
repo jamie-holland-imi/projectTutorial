@@ -1,4 +1,4 @@
-name: "Lint"
+name: "Static Analysis"
 
 on:
   push:
@@ -37,17 +37,21 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
-    - name: run make
-      run: make
-      
-    - name: Install ClangFormat
-      run: |
-        apt-get install -y clang-format
-        git config --system --add safe.directory '*'
-        
 
-    - name: Run linters
-      uses: wearerequired/lint-action@v2.3.0
+# Runs code analysis with C/C++test.
+    - name: Run C/C++test
+      uses: parasoft/run-cpptest-action@2.0.1
       with:
-        clang_format: true
-        working-directory:: ./Core/Src/
+        input: build/compile_commands.json
+        testConfig: 'builtin://MISRA C 2012'
+        compilerConfig: 'clang_10_0'
+      
+#    - name: Install ClangFormat
+#      run: |
+#        apt-get install -y clang-format
+#        git config --system --add safe.directory '*'
+#    - name: Run linters
+#      uses: wearerequired/lint-action@v2.3.0
+#      with:
+#        clang_format: true
+#        working-directory:: ./Core/Src/
