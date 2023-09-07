@@ -51,10 +51,6 @@ jobs:
       with:
         repository: https://github.com/ThrowTheSwitch/CMock
         
-    - run: |
-      cd cmock
-      gem install bundler
-      bundle install
       
     - name: Run Tests
       run: |
