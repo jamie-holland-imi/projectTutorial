@@ -55,8 +55,8 @@ jobs:
         name: AppInspectorResults
         path: AppInspectorResults.json
         
-#    - name: Run linters
-#      uses: wearerequired/lint-action@v2.3.0
-#      with:
-#        clang_format: true
-#        working-directory:: ./Core/Src/
+    - name: Run linters
+      uses: wearerequired/lint-action@v2.3.0
+      with:
+        clang_format: true
+        working-directory:: ./Core/Src/main.c
