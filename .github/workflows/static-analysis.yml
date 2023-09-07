@@ -47,7 +47,7 @@ jobs:
       uses: actions/checkout@v3
       
     - run: mkdir -p reports/report.sarif
-      
+    - run: cpptestcli -detect-compiler gcc
 # Builds your Make project using 'cpptesttrace' to collect input data for code analysis.
     - name: Build project
       run: cpptestcli -config "builtin://Recommended Rules" -compiler gcc_4_5 -module . -trace make
