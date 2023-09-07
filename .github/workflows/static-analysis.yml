@@ -52,6 +52,7 @@ jobs:
         cpptesttrace make
         apt-get install -y clang-format
         git config --system --add safe.directory '*'
+        mkdir reports/report.sarif
 # Runs code analysis with C/C++test.
     - name: Run C test
       uses: parasoft/run-cpptest-action@2.0.1
