@@ -49,7 +49,7 @@ jobs:
     - name: 'Preparing Cmock -environment'
       uses: actions/checkout@v3
       with:
-        repository: https://github.com/ThrowTheSwitch/CMock
+        repository: ThrowTheSwitch/CMock
         
       
     - name: Run Tests
