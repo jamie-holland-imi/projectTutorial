@@ -54,7 +54,7 @@ jobs:
     - uses: actions/upload-artifact@v3.1.2
       with:
         name: AppInspectorResults
-        path: AppInspectorResults.txt
+        path: AppInspectorResults.text
         
 #    - name: Run linters
 #      uses: wearerequired/lint-action@v2.3.0
