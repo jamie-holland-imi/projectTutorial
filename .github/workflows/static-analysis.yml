@@ -46,7 +46,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
       
-    - run: mkdir -p reports        
+    - run: mkdir -p reports/report.sarif
       
 # Builds your Make project using 'cpptesttrace' to collect input data for code analysis.
     - name: Build project
