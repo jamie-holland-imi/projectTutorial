@@ -64,4 +64,3 @@ jobs:
       uses: wearerequired/lint-action@v2.3.0
       with:
         clang_format: true
-        path: ./Core/Src/main.c
