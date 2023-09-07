@@ -62,4 +62,4 @@ jobs:
       uses: wearerequired/lint-action@v2.3.0
       with:
         clang_format: true
-        working-directory: ./Core/Src/main.c
+        path: ./Core/Src/main.c
