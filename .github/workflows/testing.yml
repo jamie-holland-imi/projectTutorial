@@ -43,37 +43,38 @@ jobs:
       contents: read
     steps:
 # Checks out your repository under $GITHUB_WORKSPACE, so that your job can access it.
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-  # CppCheck analysis task
-      - name: cppcheck
-        uses: deep5050/cppcheck-action@main
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN}}
-          
-      - uses: actions/upload-artifact@v3
-        with:
-          name: CppCheckReport
-          path: ./CppCheckReport.txt
+# CppCheck analysis task
+    - name: cppcheck
+      uses: deep5050/cppcheck-action@V3.0
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN}}
+        output_file: CppCheckReport.txt
+    - run: ls
+    - uses: actions/upload-artifact@v3
+      with:
+        name: CppCheckReport
+        path: ./CppCheckReport.txt
         
-  # Report generating task
-  #    - name: publish report    
-  #      uses: mikeal/publish-to-github-action@master
-  #      env:
-  #        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #        BRANCH_NAME: 'dev' # your branch name goes here
-            
-  #    - name: 'Preparing Cmock -environment'
-  #      uses: actions/checkout@v3
-  #      with:
-  #        repository: ThrowTheSwitch/CMock
-  #        
-  #    - run: ls
-  #    - name: Run Tests
-  #      run: |
-  #        cd test
-  #        rake
-  #      working-directory: ./test
+# Report generating task
+#    - name: publish report    
+#      uses: mikeal/publish-to-github-action@master
+#      env:
+#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        BRANCH_NAME: 'dev' # your branch name goes here
+          
+#    - name: 'Preparing Cmock -environment'
+#      uses: actions/checkout@v3
+#      with:
+#        repository: ThrowTheSwitch/CMock
+#        
+#    - run: ls
+#    - name: Run Tests
+#      run: |
+#        cd test
+#        rake
+#      working-directory: ./test
 
       
