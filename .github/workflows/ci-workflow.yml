@@ -64,6 +64,7 @@ jobs:
       - name: Run the Makefile and Build the Project
         run: |
           make
+          ls
           
       - name: Create Artifacts
         uses: actions/upload-artifact@v3.1.2
