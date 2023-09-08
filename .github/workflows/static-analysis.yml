@@ -46,15 +46,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
       
-    - uses: microsoft/ApplicationInspector-Action@v1.0.1
-      with:
-        location-to-scan: ./Core/Src
-        
-    - uses: actions/upload-artifact@v3
-      with:
-        name: AppInspectorResults
-        path: AppInspectorResults.json
-
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
       with:
