@@ -45,14 +45,20 @@ jobs:
 # Checks out your repository under $GITHUB_WORKSPACE, so that your job can access it.
     - name: Checkout repository
       uses: actions/checkout@v3
-
+      
+    - name: Run the Makefile and Build the Project
+      run: make
+      
 # CppCheck analysis task
     - name: cppcheck
       uses: deep5050/cppcheck-action@v3.0
       with:
         github_token: ${{ secrets.GITHUB_TOKEN}}
+        exclude_check: ./Drivers
+        force_language: c
+        max_ctu_depth: 8
         output_file: CppCheckReport.txt
-    - run: ls
+        
     - uses: actions/upload-artifact@v3
       with:
         name: CppCheckReport
