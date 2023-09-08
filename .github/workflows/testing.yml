@@ -48,7 +48,7 @@ jobs:
 
 # CppCheck analysis task
     - name: cppcheck
-      uses: deep5050/cppcheck-action@V3.0
+      uses: deep5050/cppcheck-action@v3.0
       with:
         github_token: ${{ secrets.GITHUB_TOKEN}}
         output_file: CppCheckReport.txt
