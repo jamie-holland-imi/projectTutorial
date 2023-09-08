@@ -64,6 +64,13 @@ jobs:
         name: CppCheckReport
         path: ./CppCheckReport.txt
         
+    - uses: microsoft/ApplicationInspector-Action@v1.0.1
+    
+    - uses: actions/upload-artifact@v3.1.2
+      with:
+        name: AppInspectorResults
+        path: AppInspectorResults.json
+        
 # Report generating task
 #    - name: publish report    
 #      uses: mikeal/publish-to-github-action@master
