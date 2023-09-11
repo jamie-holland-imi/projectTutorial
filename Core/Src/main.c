@@ -104,8 +104,8 @@ int main(void)
 		  HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
 		  HAL_Delay(myNum);
 	  }
-	  if (myNum<10) break;
-	  myNum = myNum -50;
+if (myNum<10) break
+myNum = myNum -50
   }
   /* USER CODE END 3 */
 }
