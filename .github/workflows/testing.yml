@@ -51,27 +51,18 @@ jobs:
       
 # CppCheck analysis task
     - name: cppcheck
-      uses: deep5050/cppcheck-action@v3.0
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN}}
-        exclude_check: ./Drivers
-        force_language: c
-        max_ctu_depth: 8
-        output_file: deep5050CppCheckReport.txt
-
-    - name: cppcheck
       uses: chmorgan/cppcheck-action@v1.4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN}}
         force_language: c
-        output_file: chmorganCppCheckReport.txt
-        
+        output_file: CppCheckReport.txt
+        exclude_check: ./Drivers
+
     - uses: actions/upload-artifact@v3
       with:
         name: CppCheckReport
         path: |
-          ./deep5050CppCheckReport.txt
-          ./chmorganCppCheckReport.txt
+          ./CppCheckReport.txt
           
     - name: ApplicationInspector
       uses: microsoft/ApplicationInspector-Action@v1.0.1
@@ -81,9 +72,10 @@ jobs:
         path: AppInspectorResults.json
         
     - name: lint
-      uses: devblackops/github-action-psscriptanalyzer@master
+      uses: devblackops/github-action-psscriptanalyzer@v2.4.0
       with:
         repoToken: ${{ secrets.GITHUB_TOKEN }}
+        sendComment: true
         
 # Report generating task
 #    - name: publish report    
