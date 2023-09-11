@@ -64,12 +64,18 @@ jobs:
         name: CppCheckReport
         path: ./CppCheckReport.txt
         
-    - uses: microsoft/ApplicationInspector-Action@v1.0.1
+    - name: ApplicationInspector
+      uses: microsoft/ApplicationInspector-Action@v1.0.1
     
     - uses: actions/upload-artifact@v3.1.2
       with:
         name: AppInspectorResults
         path: AppInspectorResults.json
+        
+    - name: lint
+      uses: devblackops/github-action-psscriptanalyzer@master
+      with:
+        repoToken: ${{ secrets.GITHUB_TOKEN }}
         
 # Report generating task
 #    - name: publish report    
