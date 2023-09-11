@@ -57,16 +57,24 @@ jobs:
         exclude_check: ./Drivers
         force_language: c
         max_ctu_depth: 8
-        output_file: CppCheckReport.txt
+        output_file: deep5050CppCheckReport.txt
+
+    - name: cppcheck
+      uses: chmorgan/cppcheck-action-jackson@v1.4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN}}
+        force_language: c
+        output_file: chmorganCppCheckReport.txt
         
     - uses: actions/upload-artifact@v3
       with:
         name: CppCheckReport
-        path: ./CppCheckReport.txt
-        
+        path: |
+          ./deep5050CppCheckReport.txt
+          ./chmorganCppCheckReport.txt
+          
     - name: ApplicationInspector
       uses: microsoft/ApplicationInspector-Action@v1.0.1
-    
     - uses: actions/upload-artifact@v3.1.2
       with:
         name: AppInspectorResults
