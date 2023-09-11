@@ -53,7 +53,7 @@ jobs:
         languages: ${{ matrix.language }}
         
     - name: Autobuild
-      run: make -j$(nproc) HAVE_RULES=yes cppcheck
+      uses: github/codeql-action/autobuild@v2
   
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
