@@ -60,7 +60,7 @@ jobs:
         output_file: deep5050CppCheckReport.txt
 
     - name: cppcheck
-      uses: chmorgan/cppcheck-action-jackson@v1.4
+      uses: chmorgan/cppcheck-action@v1.4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN}}
         force_language: c
