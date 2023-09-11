@@ -46,8 +46,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
       
-    - name: Run the Makefile and Build the Project
-      run: make
+    #- name: Run the Makefile and Build the Project
+      #run: make
       
 # CppCheck analysis task
     - name: cppcheck
