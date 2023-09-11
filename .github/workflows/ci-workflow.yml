@@ -32,11 +32,19 @@ jobs:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-    - name: Build the Docker image
+        
+    - name: Check if Image already exists if not Build it
       run: |
-        docker build . --file Dockerfile --tag ${{env.IMAGE_TAG}}
-        docker run ${{env.IMAGE_TAG}}
-        docker push ${{env.IMAGE_TAG}}
+        if [[ "$(docker images -q ${{env.IMAGE_TAG}} 2> /dev/null)" == "" ]]; then
+          docker build . --file Dockerfile --tag ${{env.IMAGE_TAG}}
+          docker run ${{env.IMAGE_TAG}}
+          docker push ${{env.IMAGE_TAG}}
+        fi
+    #- name: Build the Docker image
+      #run: |
+        #docker build . --file Dockerfile --tag ${{env.IMAGE_TAG}}
+        #docker run ${{env.IMAGE_TAG}}
+        #docker push ${{env.IMAGE_TAG}}
 
   variable_substitution:
     runs-on: ubuntu-latest
