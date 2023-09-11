@@ -35,7 +35,7 @@ jobs:
         
     - name: Check if Image already exists if not Build it
       run: |
-        if [[ "$(docker images -q ${{env.IMAGE_TAG}} 2> /dev/null)" == "" ]]; then
+        if [ -n "$(docker images -q someimage:sometag)" ]; then
           docker build . --file Dockerfile --tag ${{env.IMAGE_TAG}}
           docker run ${{env.IMAGE_TAG}}
           docker push ${{env.IMAGE_TAG}}
