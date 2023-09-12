@@ -39,7 +39,7 @@ jobs:
     - name: git log
       run: |
         echo $(git log -n 1 --pretty=format:%h -- ./README.md)
-        echo $(git log --follow -- README.md)
+        echo $(git log --name-only Dockerfile)
 
 
         
