@@ -23,16 +23,20 @@ jobs:
     outputs:
       image: ${{ steps.set_image.outputs.image }}
     steps:
-      - name: Adds Dockerfile Version to Image Tag
-        run: |
-          find ./ -type f -name 'Dockerfile' | while read filename; 
-            do unixtime=$(git log -1 --format="%at" -- "${filename}"); 
-            touchtime=$(date -d @$unixtime +'%Y%m%d%H%M.%S'); 
-            echo "VERSION=${touchtime}" >> $GITHUB_ENV;
-          done
-      - run: echo "The image " ${{env.IMAGE_TAG}}
-      - id: set_image
-        run: echo "image=${{env.IMAGE_TAG}}" >> $GITHUB_OUTPUT
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+    - name: Adds Dockerfile Version to Image Tag
+      run: |
+        find ./ -name 'Dockerfile' | while read filename; 
+          do unixtime=$(git log -1 --format="%at" -- "${filename}"); 
+          touchtime=$(date -d @$unixtime +'%Y%m%d%H%M.%S'); 
+          echo "VERSION='${touchtime}'" >> $GITHUB_ENV;
+        done
+    - run: |
+        echo "The image " ${{env.IMAGE_TAG}}
+        echo git log ./ Dockerfile
+    - id: set_image
+      run: echo "image=${{env.IMAGE_TAG}}" >> $GITHUB_OUTPUT
       
   build:
     needs: variable_substitution
@@ -70,20 +74,20 @@ jobs:
     permissions:
       packages: write
     steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v3
+    - name: Checkout the repository
+      uses: actions/checkout@v3
+      
+    - name: Run the Makefile and Build the Project
+      run: |
+        make
+        ls
         
-      - name: Run the Makefile and Build the Project
-        run: |
-          make
-          ls
-          
-      - name: Create Artifacts
-        uses: actions/upload-artifact@v3.1.2
-        with:
-          name: build_files
-          path: |
-            ./*.elf
-            ./*.hex
-          retention-days: 7
-          if-no-files-found: error
+    - name: Create Artifacts
+      uses: actions/upload-artifact@v3.1.2
+      with:
+        name: build_files
+        path: |
+          ./*.elf
+          ./*.hex
+        retention-days: 7
+        if-no-files-found: error
