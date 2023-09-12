@@ -26,6 +26,10 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
+    - name: Check if dockerfile changed
+      run: |
+        find ./ -name 'Dockerfile' | while read filename; do unixtime=$(git log -1 --format="%at" -- "${filename}"); touchtime=$(date -d @$unixtime +'%Y%m%d%H%M.%S'); echo "${touchtime}"; done
+
     - name: Login to GitHub Container Registry
       uses: docker/login-action@v2.2.0
       with:
