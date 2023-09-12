@@ -34,7 +34,7 @@ jobs:
         done
     - run: |
         echo "The image " ${{env.IMAGE_TAG}}
-        echo git log --pretty=format ./ -name 'Dockerfile'
+        git log -- ./Dockerfile --pretty=format:"%h - %an, %ar : %s"
     - id: set_image
       run: echo "image=${{env.IMAGE_TAG}}" >> $GITHUB_OUTPUT
       
