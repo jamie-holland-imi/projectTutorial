@@ -43,12 +43,13 @@ jobs:
         
     - name: If Docker image doesnt exist build it
       run: |
-        echo "${{env.IMAGE_TAG}}"
+        echo "$(docker images -q ${{env.IMAGE_TAG}})"
         if [ -n "$(docker images -q ${{env.IMAGE_TAG}})" ]; then
           docker build . --file Dockerfile --tag ${{env.IMAGE_TAG}}
           docker run ${{env.IMAGE_TAG}}
           docker push ${{env.IMAGE_TAG}}
           echo "The image: " ${{env.IMAGE_TAG}} " has been created"
+          echo "The image: " ${{env.IMAGE_TAG}} " already exists"
         else
           echo "The image: " ${{env.IMAGE_TAG}} " already exists"
         fi
