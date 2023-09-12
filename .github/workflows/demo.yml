@@ -36,8 +36,7 @@ jobs:
         done
     - run: echo "The image" ${{env.IMAGE_TAG}}
     - run: |
-        echo "VARIBLE = '$(git log -- filename ./Dockerfile --pretty=format:"%h - %t - %cd")'"  >> $GITHUB_ENV;
-        echo "${VARIBLE}";
+        git log -- filename ./Dockerfile --pretty=format:"%h - %t - %cd"
 
 
         
