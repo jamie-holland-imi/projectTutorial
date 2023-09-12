@@ -60,7 +60,8 @@ jobs:
     steps:
       - id: set_image
         run: echo "image=${{env.IMAGE_TAG}}" >> $GITHUB_OUTPUT
-
+      - run: echo "The image " ${{env.IMAGE_TAG}}
+      
   compile:
     needs: variable_substitution
     runs-on: ubuntu-latest
