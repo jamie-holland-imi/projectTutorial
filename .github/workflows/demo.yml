@@ -33,6 +33,8 @@ jobs:
           echo "VERSION='${touchtime}'" >> $GITHUB_ENV;
         done
     - run: echo "The image " ${{env.IMAGE_TAG}}
-    - run: git log -- filename ./Dockerfile --pretty=format:"%h - %t - %cd"
+    - run: |
+        vari = $(git log -- filename ./Dockerfile --pretty=format:"%h - %t - %cd")
+        echo $vari
     - id: set_image
       run: echo "image=${{env.IMAGE_TAG}}" >> $GITHUB_OUTPUT
