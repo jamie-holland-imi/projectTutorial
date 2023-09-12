@@ -28,9 +28,18 @@ jobs:
       uses: actions/checkout@v3
     - name: Check if dockerfile changed
       run: |
-        find ./ -name 'Dockerfile' | while read filename; do unixtime=$(git log -1 --format="%at" -- "${filename}"); touchtime=$(date -d @$unixtime +'%Y%m%d%H%M.%S'); echo "${touchtime}"; done
+        find ./ -name 'Dockerfile' 
+        while read filename; do unixtime=$(git log -1 --format="%at" -- "${filename}"); 
+          touchtime=$(date -d @$unixtime +'%Y%m%d%H%M.%S'); 
+          echo "${touchtime}"; 
+        done
         ::set-env ${touchtime}=VERSION::failure
         echo $(VERSION)
+    - name: set outputs
+      id: set_outputs
+      run: |
+        echo "::set-output name=test-result::$TEST_RESULT"
+        
     - name: Login to GitHub Container Registry
       uses: docker/login-action@v2.2.0
       with:
