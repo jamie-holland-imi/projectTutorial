@@ -43,7 +43,7 @@ jobs:
 
     - name: If Docker image doesnt exist build it
       run: |
-        if docker image inspect $IMAGE_TAG >/dev/null 2>&1; then
+        if docker image inspect --tag ${{env.IMAGE_TAG}} >/dev/null 2>&1; then
           echo "The image: " ${{env.IMAGE_TAG}} " already exists"
         else
           docker build . --file Dockerfile --tag ${{env.IMAGE_TAG}}
