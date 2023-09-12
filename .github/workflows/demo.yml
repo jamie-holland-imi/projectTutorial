@@ -37,7 +37,7 @@ jobs:
     - run: echo "The image" ${{env.IMAGE_TAG}}
     - name: git log
       run: |
-        git log -- filename ./Dockerfile --pretty=format:"%h - %t - %cd"
+        git log -- filename ./Dockerfile -1 --pretty=format:%h 
 
 
         
