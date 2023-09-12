@@ -34,13 +34,14 @@ jobs:
           echo "VERSION='${touchtime}'" >> $GITHUB_ENV;
           echo "${unixtime}";
         done
+        ls
     - run: echo "The image" ${{env.IMAGE_TAG}}
     - name: git log
       run: |
         echo $(git hash-object ./Dockerfile)
-        echo $(git log -n 1 --pretty=format:%H -- ./Dockerfile)
-        echo $(git rev-list -1 --all ./Dockerfile)
-        echo $(git log -n 1 --pretty=format:%h -- ./Dockerfile)
+        echo $(git log -n 1 --pretty=format:%H -- Dockerfile)
+        echo $(git rev-list -1 --all Dockerfile)
+        echo $(git log -n 1 --pretty=format:%h -- Dockerfile)
 
 
         
