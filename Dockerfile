@@ -17,10 +17,11 @@ RUN mkdir gcc-arm-none-eabi
 RUN tar xf gcc-arm-none-eabi.tar.xz -C gcc-arm-none-eabi --strip-components 1
 # remove the archive
 RUN rm gcc-arm-none-eabi.tar.xz
-
+# Add toolchain to enviroment path
 ENV PATH="/gcc-arm-none-eabi/bin:${PATH}"
-
+# Check if toolchain has been installed correctly
 RUN arm-none-eabi-gcc --version
+
 # Add all files in the repository
 WORKDIR /home/dev
 COPY . /home/dev
