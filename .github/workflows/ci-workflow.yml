@@ -42,7 +42,7 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: If Docker image doesnt exist build it
       run: |
-        if docker image inspect --tag ${{needs.variable_substitution.outputs.image}} >/dev/null 2>&1; then
+        if ( docker pull ${{needs.variable_substitution.outputs.image}} ) >/dev/null 2>&1; then
           docker build . --file Dockerfile --tag ${{needs.variable_substitution.outputs.image}}
           docker run ${{needs.variable_substitution.outputs.image}}
           docker push ${{needs.variable_substitution.outputs.image}}
