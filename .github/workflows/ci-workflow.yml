@@ -33,7 +33,7 @@ jobs:
           touchtime=$(date -d @$unixtime +'%Y%m%d%H%M.%S'); 
           echo "${touchtime}"; 
         done
-        ::set-env ${touchtime}=VERSION::failure
+        VERSION=${touchtime} >> $GITHUB_ENV
         echo $(VERSION)
     - name: set outputs
       id: set_outputs
