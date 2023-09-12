@@ -43,11 +43,6 @@ jobs:
         else
           echo "The image: " ${{env.IMAGE_TAG}} " already exists"
         fi
-    #- name: Build the Docker image
-      #run: |
-        #docker build . --file Dockerfile --tag ${{env.IMAGE_TAG}}
-        #docker run ${{env.IMAGE_TAG}}
-        #docker push ${{env.IMAGE_TAG}}
 
   variable_substitution:
     runs-on: ubuntu-latest
