@@ -38,9 +38,9 @@ jobs:
     - run: echo "The image" ${{env.IMAGE_TAG}}
     - name: git log
       run: |
-        echo $(git log -n 1 --pretty=format:%H -- ./README.md)
-        echo $(git rev-list -1 --all ./README.md)
-        echo $(git log -n 1 --pretty=format:%h -- ./README.md)
+        echo $(git log -n 1 --pretty=format:%H -- ./README.md^{commit})
+        echo $(git rev-list -1 --all ./README.md^{commit})
+        echo $(git log -n 1 --pretty=format:%h -- ./README.md^{commit})
 
 
         
