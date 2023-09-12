@@ -32,9 +32,9 @@ jobs:
         find ./ -name 'Dockerfile' | while read filename; 
           do unixtime=$(git log -1 --format="%at" -- "${filename}"); 
           touchtime=$(date -d @$unixtime +'%Y%m%d%H%M.%S'); 
-          echo "${touchtime}"; 
+          echo "${touchtime}";
+          echo "env.VERSION=${touchtime}" >> $GITHUB_ENV
         done
-        echo "${{env.VERSION}}=${touchtime}" >> $GITHUB_ENV
         echo ${{env.VERSION}}
         
     - name: Login to GitHub Container Registry
