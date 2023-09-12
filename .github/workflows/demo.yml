@@ -39,6 +39,8 @@ jobs:
       run: |
         echo $(git hash-object ./Dockerfile)
         echo $(git log -n 1 --pretty=format:%H -- ./Dockerfile)
+        echo $(git rev-list -1 --all ./Dockerfile)
+
 
 
 
