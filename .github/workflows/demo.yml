@@ -32,11 +32,12 @@ jobs:
           do unixtime=$(git log -1 --format="%at" -- "${filename}"); 
           touchtime=$(date -d @$unixtime +'%Y%m%d%H%M.%S'); 
           echo "VERSION='${touchtime}'" >> $GITHUB_ENV;
+          echo ${unixtime}
         done
-    - run: echo "The image " ${{env.IMAGE_TAG}}
+    - run: echo "The image" ${{env.IMAGE_TAG}}
     - run: |
         echo "VARIBLE = $(git log -- filename ./Dockerfile --pretty=format:"%h - %t - %cd")"  >> $GITHUB_ENV
-        echo $VARIBLE
+        echo ${VARIBLE}
 
 
         
