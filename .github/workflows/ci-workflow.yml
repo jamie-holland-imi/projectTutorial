@@ -33,7 +33,7 @@ jobs:
           do unixtime=$(git log -1 --format="%at" -- "${filename}"); 
           touchtime=$(date -d @$unixtime +'%Y%m%d%H%M.%S'); 
           echo "${touchtime}";
-          echo "${touchtime}" >> $VERSION
+          echo "${touchtime}" >> ${{env.VERSION}}
         done
         echo ${{env.VERSION}}
         
