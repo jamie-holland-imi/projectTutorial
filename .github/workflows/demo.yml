@@ -35,7 +35,8 @@ jobs:
           echo "${unixtime}";
         done
     - run: echo "The image" ${{env.IMAGE_TAG}}
-    - run: |
+    - name: git log
+      run: |
         git log -- filename ./Dockerfile --pretty=format:"%h - %t - %cd"
 
 
