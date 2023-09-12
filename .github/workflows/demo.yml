@@ -37,7 +37,9 @@ jobs:
     - run: echo "The image" ${{env.IMAGE_TAG}}
     - name: git log
       run: |
-        echo $(git hash-object ./Dockerfile --format="%at")
+        echo $(git hash-object ./Dockerfile)
+        echo $(git log -n 1 --pretty=format:%H -- ./Dockerfile)
+
 
 
         
