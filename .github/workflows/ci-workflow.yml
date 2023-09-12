@@ -26,7 +26,7 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
-    - name: Check if dockerfile changed
+    - name: Adds Dockerfile Version to Image Tag
       run: |
         find ./ -name 'Dockerfile' | while read filename; 
           do unixtime=$(git log -1 --format="%at" -- "${filename}"); 
@@ -43,7 +43,7 @@ jobs:
         
     - name: If Docker image doesnt exist build it
       run: |
-        echo "$(docker images ls -q ${{env.IMAGE_TAG}})"
+        echo "docker images ls -q ${{env.IMAGE_TAG}}"
         if [ -n "$(docker images -q ${{env.IMAGE_TAG}})" ]; then
           docker build . --file Dockerfile --tag ${{env.IMAGE_TAG}}
           docker run ${{env.IMAGE_TAG}}
