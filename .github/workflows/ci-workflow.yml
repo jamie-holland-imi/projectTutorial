@@ -65,14 +65,14 @@ jobs:
     needs: variable_substitution
     runs-on: ubuntu-latest
     container:
-      image: $IMAGE_TAG
+      image: ${{ needs.variable_substitution.outputs.image }}
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
     permissions:
       packages: write
     steps:
-      - name: Checkout Repository
+      - name: Checkout the repository
         uses: actions/checkout@v3
         
       - name: Run the Makefile and Build the Project
