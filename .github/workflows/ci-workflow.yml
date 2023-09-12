@@ -20,7 +20,6 @@ env:
 jobs:
   variable_substitution:
     runs-on: ubuntu-latest
-    needs: build
     outputs:
       image: ${{ steps.set_image.outputs.image }}
     steps:
