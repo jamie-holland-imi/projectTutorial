@@ -40,7 +40,7 @@ jobs:
           docker run ${{env.IMAGE_TAG}}
           docker push ${{env.IMAGE_TAG}}
         else
-          echo "image" ${{env.IMAGE_TAG}} "already exists
+          echo "image" ${{env.IMAGE_TAG}} "already exists"
         fi
     #- name: Build the Docker image
       #run: |
