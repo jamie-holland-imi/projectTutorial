@@ -23,18 +23,6 @@ jobs:
     outputs:
       image: ${{ steps.set_image.outputs.image }}
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
-    - name: Adds Dockerfile Version to Image Tag
-      run: |
-        find ./ -name 'Dockerfile' | while read filename; 
-          do unixtime=$(git log -1 --format="%at" -- "${filename}"); 
-          touchtime=$(date -d @$unixtime +'%Y%m%d%H%M.%S'); 
-          echo "VERSION='${touchtime}'" >> $GITHUB_ENV;
-        done
-    - run: |
-        echo "The image " ${{env.IMAGE_TAG}}
-        git log -- ./Dockerfile --pretty=format:"%h - %an, %ar : %s"
     - id: set_image
       run: echo "image=${{env.IMAGE_TAG}}" >> $GITHUB_OUTPUT
       
