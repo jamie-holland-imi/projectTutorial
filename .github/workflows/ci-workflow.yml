@@ -24,7 +24,7 @@ jobs:
     permissions:
       packages: write
     steps:
-    - name: checkout repository
+    - name: Checkout Repository
       uses: actions/checkout@v3
     - name: Login to GitHub Container Registry
       uses: docker/login-action@v2.2.0
@@ -33,14 +33,15 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
         
-    - name: Check if Image already exists if not Build it
+    - name: If Docker image doesnt exist build it
       run: |
         if [ -n "$(docker images -q ${{env.IMAGE_TAG}})" ]; then
           docker build . --file Dockerfile --tag ${{env.IMAGE_TAG}}
           docker run ${{env.IMAGE_TAG}}
           docker push ${{env.IMAGE_TAG}}
+          echo "The image: " ${{env.IMAGE_TAG}} " has been created"
         else
-          echo "image" ${{env.IMAGE_TAG}} "already exists"
+          echo "The image: " ${{env.IMAGE_TAG}} " already exists"
         fi
     #- name: Build the Docker image
       #run: |
@@ -68,7 +69,7 @@ jobs:
     permissions:
       packages: write
     steps:
-      - name: Checkout the repository
+      - name: Checkout Repository
         uses: actions/checkout@v3
         
       - name: Run the Makefile and Build the Project
