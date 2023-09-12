@@ -1,3 +1,4 @@
+# Specify Opperating System and its version
 FROM ubuntu:latest
 
 # Download Linux support tools
