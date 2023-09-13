@@ -3,10 +3,10 @@ name: "Static Analysis"
 on:
   push:
     branches:
-      - 'main'
+      - 'dev'
   pull_request:
     branches:
-      - 'main'
+      - 'dev'
 # Allows you to run this workflow manually from the Actions tab.
   workflow_dispatch:
   
@@ -44,13 +44,21 @@ jobs:
     steps:
 # Checks out your repository under $GITHUB_WORKSPACE, so that your job can access it.
     - uses: actions/checkout@v3
-
-    - name: Cppcheck build 
+    - name: install cppcheck
       run: |
-        apt-get install cppcheck
+        wget -O cppcheck.tar.gz "https://sourceforge.net/projects/cppcheck/files/cppcheck/2.12/cppcheck-2.12.0.tar.gz" --no-check-certificate
+        # unpack the archive to a neatly named target directory
+        mkdir cppcheck
+        tar xf cppcheck.tar.gz -C cppcheck --strip-components 1
+        cd /cppcheck/build
+        cmake ..
+        cmake --build . -- -j16
+        make install
+        cd /
+        # remove the archive
+        rm cppcheck.tar.gz
         cppcheck --version
-        mkdir -p build
-        cppcheck --cppcheck-build-dir=build src # <- All files are analyzed
+
 
 #    - name: Initialize CodeQL
 #      uses: github/codeql-action/init@v2
