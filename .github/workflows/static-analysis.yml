@@ -48,7 +48,7 @@ jobs:
       run: |
         wget -O cppcheck.tar.gz "https://sourceforge.net/projects/cppcheck/files/cppcheck/2.12/cppcheck-2.12.0.tar.gz" --no-check-certificate
         # unpack the archive to a neatly named target directory
-        mkdir cppcheck
+        mkdir /cppcheck/build
         tar xf cppcheck.tar.gz -C cppcheck --strip-components 1
         cd /cppcheck/build
         cmake ..
