@@ -45,15 +45,26 @@ jobs:
 # Checks out your repository under $GITHUB_WORKSPACE, so that your job can access it.
     - name: Checkout repository
       uses: actions/checkout@v3
-      
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
-      with:
-        languages: ${{ matrix.language }}
 
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
-        
+    - name: cppcheck
+      run: |
+        git clone https://github.com/danmar/cppcheck.git \
+        cd cppcheck \
+        && git checkout 1.72 \
+        && make SRCDIR=build CFGDIR=/usr/bin/cfg HAVE_RULES=yes install \
+        && cd /tmp \
+        && rm -rf /tmp/cppcheck \
+        && ldconfig
+        make SRCDIR=build CFGDIR=/usr/bin/cfg HAVE_RULES=yes install
+
+#    - name: Initialize CodeQL
+#      uses: github/codeql-action/init@v2
+#      with:
+#        languages: ${{ matrix.language }}
+#
+#    - name: Perform CodeQL Analysis
+#      uses: github/codeql-action/analyze@v2
+#        
 #    - name: Install ClangFormat
 #      run: | 
 #        apt-get install -y clang-format
