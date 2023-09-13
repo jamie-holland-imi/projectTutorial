@@ -53,7 +53,7 @@ jobs:
         tar xf cppcheck.tar.gz -C cppcheck --strip-components 1
         # remove the archive
         rm cppcheck.tar.gz
-        export PATH="/cppcheck/cfg:${PATH}"
+        echo "${HOME}/cppcheck/cfg"  >> $GITHUB_PATH
         cppcheck --version
 
 
