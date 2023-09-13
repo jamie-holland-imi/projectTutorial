@@ -43,7 +43,7 @@ jobs:
       contents: read
     steps:
 # Checks out your repository under $GITHUB_WORKSPACE, so that your job can access it.
-    - uses: actions/checkout@v3
+#    - uses: actions/checkout@v3
 
     - name: install cppcheck
       run: |
@@ -53,11 +53,10 @@ jobs:
         tar xf cppcheck.tar.gz -C cppcheck
         # remove the archive
         rm cppcheck.tar.gz
-        ls
         export PATH="/cppcheck/cfg:${PATH}"
         ls
         cd cppcheck
-        cppcheck --version
+        pwd
         ls
 
 
