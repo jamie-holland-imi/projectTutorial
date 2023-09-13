@@ -49,7 +49,9 @@ jobs:
         git clone https://github.com/danmar/cppcheck.git \
         cd cppcheck \
         && git checkout 1.72
+        ls
         OUT_PATH=/home/user/bin  # target location of binary
+        ls
         make SRCDIR=build CFGDIR=~/Downloads/cppcheck-1.76.1/cfg PREFIX=$OUT_PATH
         make install CFGDIR=$OUT_PATH/cppcheck-1.76.1/cfg PREFIX=$OUT_PATH
         cd /tmp
