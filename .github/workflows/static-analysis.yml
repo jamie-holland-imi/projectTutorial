@@ -44,11 +44,12 @@ jobs:
     steps:
 # Checks out your repository under $GITHUB_WORKSPACE, so that your job can access it.
     - uses: actions/checkout@v3
+    
     - name: Cppcheck build 
       run: |
         cppcheck --version
-        mkdir -p build
-        cppcheck --cppcheck-build-dir=build src # <- All files are analyzed
+        mkdir build
+        cppcheck --cppcheck-build-dir=build src
         cppcheck--addon=misra.py Core/Src/main.c
 
 #    - name: Initialize CodeQL
