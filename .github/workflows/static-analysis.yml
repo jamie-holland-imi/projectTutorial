@@ -50,12 +50,13 @@ jobs:
       run: |
         git clone https://github.com/danmar/cppcheck.git \
         cd cppcheck \
-        && git checkout 1.72 \
-        && make SRCDIR=build CFGDIR=/usr/bin/cfg HAVE_RULES=yes install \
-        && cd /tmp \
-        && rm -rf /tmp/cppcheck \
-        && ldconfig
-        make SRCDIR=build CFGDIR=/usr/bin/cfg HAVE_RULES=yes install
+        && git checkout 1.72
+        OUT_PATH=/home/user/bin  # target location of binary
+        make SRCDIR=build CFGDIR=~/Downloads/cppcheck-1.76.1/cfg PREFIX=$OUT_PATH
+        make install CFGDIR=$OUT_PATH/cppcheck-1.76.1/cfg PREFIX=$OUT_PATH
+        cd /tmp
+        rm -rf /tmp/cppcheck
+        ldconfig
 
 #    - name: Initialize CodeQL
 #      uses: github/codeql-action/init@v2
