@@ -48,8 +48,6 @@ jobs:
     - name: Cppcheck build 
       run: |
         cppcheck --version
-        mkdir build
-        cppcheck --cppcheck-build-dir=build src
         cppcheck--addon=misra.py Core/Src/main.c
 
 #    - name: Initialize CodeQL
