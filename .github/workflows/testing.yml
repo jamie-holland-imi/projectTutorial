@@ -57,12 +57,7 @@ jobs:
         force_language: c
         output_file: CppCheckReport.txt
         exclude_check: ./Drivers
-        
-    - name: Install sudo package
-      run: apt update && apt install sudo
-    - name: cppcheck and review         
-      uses: linuxdeepin/action-cppcheck@v0.0.11    
-  
+
     - uses: actions/upload-artifact@v3
       with:
         name: CppCheckReport
