@@ -50,10 +50,13 @@ jobs:
         wget -O cppcheck.tar.gz "https://sourceforge.net/projects/cppcheck/files/cppcheck/2.12/cppcheck-2.12.0.tar.gz" --no-check-certificate
         # unpack the archive to a neatly named target directory
         mkdir cppcheck
-        tar xf cppcheck.tar.gz -C cppcheck --strip-components 1
+        tar xf cppcheck.tar.gz -C cppcheck
         # remove the archive
         rm cppcheck.tar.gz
-        export PATH="/cppcheck/bin:${PATH}"
+        ls
+        export PATH="/cppcheck/cfg:${PATH}"
+        ls
+        cd cppcheck
         cppcheck --version
         ls
 
