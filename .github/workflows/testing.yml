@@ -58,6 +58,9 @@ jobs:
         output_file: CppCheckReport.txt
         exclude_check: ./Drivers
 
+    - name: cppcheck and review         
+      uses: linuxdeepin/action-cppcheck@v0.0.11    
+  
     - uses: actions/upload-artifact@v3
       with:
         name: CppCheckReport
