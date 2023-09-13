@@ -51,8 +51,6 @@ jobs:
         mkdir cppcheck
         tar xf cppcheck.tar.gz -C cppcheck --strip-components 1
         cd cppcheck
-        cmake ..
-        cmake --build . -- -j16
         make install
         cd /
         # remove the archive
