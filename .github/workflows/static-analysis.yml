@@ -44,19 +44,12 @@ jobs:
     steps:
 # Checks out your repository under $GITHUB_WORKSPACE, so that your job can access it.
     - uses: actions/checkout@v3
-    - name: install cppcheck
+    - name: Cppcheck build 
       run: |
-        wget -O cppcheck.tar.gz "https://sourceforge.net/projects/cppcheck/files/cppcheck/2.12/cppcheck-2.12.0.tar.gz" --no-check-certificate
-        # unpack the archive to a neatly named target directory
-        mkdir cppcheck
-        tar xf cppcheck.tar.gz -C cppcheck --strip-components 1
-        cd cppcheck
-        make install
-        cd /
-        # remove the archive
-        rm cppcheck.tar.gz
         cppcheck --version
-
+        mkdir -p build
+        cppcheck --cppcheck-build-dir=build src # <- All files are analyzed
+        cppcheck--addon=misra.py Core/Src/main.c
 
 #    - name: Initialize CodeQL
 #      uses: github/codeql-action/init@v2
