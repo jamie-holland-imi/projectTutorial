@@ -16,15 +16,23 @@ env:
   USER_NAME: ${{ github.actor }}
   VERSION: "latest"
   IMAGE_TAG: ${REGISTRY,,}"/"${USER_NAME,,}"/"${REPO_NAME,,}":"${VERSION,,}
-  #example result: IMAGE_TAG: ghcr.io/jamie-holland-imi/project-name:latest
 
-jobs:       
+jobs:
+  variable_substitution:
+    runs-on: ubuntu-latest
+    outputs:
+      image: ${{ steps.set_image.outputs.image }}
+    steps:
+    - id: set_image
+      run: echo "image=${{env.IMAGE_TAG}}" >> $GITHUB_OUTPUT
+      
   build:
+    needs: variable_substitution
     runs-on: ubuntu-latest
     permissions:
       packages: write
     steps:
-    - name: checkout repository
+    - name: Checkout Repository
       uses: actions/checkout@v3
     - name: Login to GitHub Container Registry
       uses: docker/login-action@v2.2.0
@@ -32,53 +40,42 @@ jobs:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-    - name: Build the Docker image
+    - name: If Docker image doesnt exist build it
       run: |
-        docker build . --file Dockerfile --tag ${{env.IMAGE_TAG}}
-        docker run ${{env.IMAGE_TAG}}
-        docker push ${{env.IMAGE_TAG}}
-
-  variable_substitution:
-    runs-on: ubuntu-latest
-    needs: build
-    outputs:
-      image: ${{ steps.set_image.outputs.image }}
-    steps:
-      - id: set_image
-        run: echo "image=${{env.IMAGE_TAG}}" >> $GITHUB_OUTPUT
-
+        if ( docker pull ${{needs.variable_substitution.outputs.image}} ) >/dev/null 2>&1; then
+          echo "The image " ${{needs.variable_substitution.outputs.image}} " already exists"
+        else
+          docker build . --file Dockerfile --tag ${{needs.variable_substitution.outputs.image}}
+          docker run ${{needs.variable_substitution.outputs.image}}
+          docker push ${{needs.variable_substitution.outputs.image}}
+          echo "The image " ${{needs.variable_substitution.outputs.image}} " has been created"
+        fi
+      
   compile:
-    needs: variable_substitution
+    needs: [variable_substitution, build]
     runs-on: ubuntu-latest
     container:
-      image: ${{ needs.variable_substitution.outputs.image }}
+      image: ${{needs.variable_substitution.outputs.image}}
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
     permissions:
       packages: write
     steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v3
+    - name: Checkout the repository
+      uses: actions/checkout@v3
+      
+    - name: Run the Makefile and Build the Project
+      run: |
+        make
+        ls
         
-      - name: Run the Makefile and Build the Project
-        run: |
-          make
-          ls
-          pwd
-          
-      - name: Create Artifacts
-        uses: actions/upload-artifact@v3.1.2
-        with:
-          name: build_files
-          path: |
-            ./*.elf
-            ./*.hex
-          retention-days: 7
-          if-no-files-found: error
-          
-      - uses: microsoft/ApplicationInspector-Action@v1.0.1
-      - uses: actions/upload-artifact@v2
-        with:
-          name: AppInspectorResults
-          path: AppInspectorResults.json
+    - name: Create Artifacts
+      uses: actions/upload-artifact@v3.1.2
+      with:
+        name: build_files
+        path: |
+          ./*.elf
+          ./*.hex
+        retention-days: 7
+        if-no-files-found: error
