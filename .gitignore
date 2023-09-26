@@ -26,6 +26,7 @@
 
 # Executables
 *.exe
+*.bat
 *.out
 *.app
 *.i*86
@@ -39,21 +40,19 @@
 *.idb
 *.pdb
 
-# STM32CubeIDE
-applications/*/Release/*
-applications/*/Debug/*
-applications/*/Build/*
-applications/*/.settings/*
-docs/build/*
-
-#settings
-.settings/*
-
 #metadata
 .metadata/
 
-#Debug
+#settings
+
+# STM32CubeIDE
+.settings/*
+docs/build/*
+Build/
+build/
 Debug/
 debug/
 Release/
 release
+
+applications/*/lint/*
