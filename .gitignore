@@ -43,8 +43,6 @@
 #metadata
 .metadata/
 
-#settings
-
 # STM32CubeIDE
 .settings/*
 docs/build/*
@@ -55,4 +53,5 @@ debug/
 Release/
 release
 
-applications/*/lint/*
+Lint/
+lint/
