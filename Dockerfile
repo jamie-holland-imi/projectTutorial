@@ -1,5 +1,5 @@
 # Specify Opperating System and its version
-FROM ubuntu:latest
+FROM ubuntu:20.04
 
 # Download Linux support tools
 RUN apt-get update && \
