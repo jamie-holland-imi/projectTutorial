@@ -58,7 +58,7 @@ jobs:
     container:
       image: ${{needs.variable_substitution.outputs.image}}
       credentials:
-        username: ${{ github.actor }}
+        username: ${ORG_NAME,,}
         password: ${{ secrets.GITHUB_TOKEN }}
     permissions:
       packages: write
