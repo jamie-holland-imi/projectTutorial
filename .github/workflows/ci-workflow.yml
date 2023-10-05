@@ -16,7 +16,7 @@ env:
   USER_NAME: ${{ github.actor }}
   ORG_NAME: ${{ github.repository_owner }}
   VERSION: "latest"
-  IMAGE_TAG: ${REGISTRY,,}"/"${USER_NAME,,}"/"${REPO_NAME,,}":"${VERSION,,}
+  IMAGE_TAG: ${REGISTRY,,}"/"${ORG_NAME,,}"/"${REPO_NAME,,}":"${VERSION,,}
 
 jobs:
   variable_substitution:
