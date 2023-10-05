@@ -27,3 +27,4 @@ jobs:
           name: build_files
       - name: Flash target
         run: gdb-multiarch -x gdb-st-link-flash-and-exit.py build_files
+
