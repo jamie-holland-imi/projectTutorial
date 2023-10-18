@@ -1,4 +1,4 @@
-name: "Static Analysis"
+name: "cppchecker"
 on:
   workflow_dispatch:
   push:
