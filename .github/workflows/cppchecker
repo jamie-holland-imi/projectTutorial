@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - 'v0.0Test'
+      - 'test'
       
 env:
   REGISTRY: ghcr.io
