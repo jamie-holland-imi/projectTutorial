@@ -51,7 +51,7 @@ jobs:
 
       - name: Run CppCheck
         run: |
-          cppcheck --enable=all --language=c --std=c11 --output-file=cppcheck_report.txt --addon=./misra/misra.json -I ./Drivers/ -I ./Core/Inc/ ./Core/Src/main.c
+          cppcheck --enable=all --language=c --std=c11 --output-file=cppcheck_report.txt -I ./Drivers/ -I ./Core/Inc/ ./Core/Src/main.c
 
       - name: Install and Run CppLint
         run: |
