@@ -112,7 +112,7 @@ ifdef USE_ST_HAL
     CPPFLAGS += -I$(STM32_BASE_PATH)/Drivers/$(DEV_DRIVER)_HAL_Driver/Inc
 
     # A simply expanded variable is used here to perform the find command only once.
-    HAL_SRC := $(shell find $(STM32_BASE_PATH)/Drivers/$(DEV_DRIVER)_HAL_Driver/Src/*.c ! -name '*_template.c')
+    HAL_SRC := $(shell find $(STM32_BASE_PATH)/Drivers/$(DEV_DRIVER)_HAL_Driver/Src/*.c ! -name '*.c')
     SRC += $(HAL_SRC)
 endif
 
