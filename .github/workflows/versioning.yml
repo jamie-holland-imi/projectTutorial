@@ -35,6 +35,7 @@ jobs:
         major_pattern: "(MAJOR)"
         minor_pattern: "(MINOR)"
         version_format: "${major}.${minor}.${patch}"
+        use_branches: true
         # Optional path to check for changes. If any changes are detected in the path the
         # 'changed' output will true. Enter multiple paths separated by spaces.
         change_path: "./Core/Src"
