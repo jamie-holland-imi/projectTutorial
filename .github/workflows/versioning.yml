@@ -34,4 +34,3 @@ jobs:
         major_pattern: "(MAJOR)"
         minor_pattern: "(MINOR)"
         version_format: "${major}.${minor}.${patch}-${{ steps.extract_branch.outputs.branch }}.${increment}"
-
