@@ -97,7 +97,6 @@ int main(void)
   int myNum = 320;
   while (myNum>=50)
   {
-    /* USER CODE END WHILE */
 	int i;
 	for (i = 0; i < 5; i++)
 	{
@@ -107,7 +106,6 @@ int main(void)
 	if (myNum<10) break;
 	myNum = myNum -50;
   }
-  /* USER CODE END 3 */
 }
 
 /**
