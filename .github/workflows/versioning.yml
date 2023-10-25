@@ -35,5 +35,4 @@ jobs:
         major_pattern: "(MAJOR)"
         minor_pattern: "(MINOR)"
         version_format: "${major}.${minor}.${patch}-${{ steps.extract_branch.outputs.branch }}.${increment}"
-    - run: |
-        echo "${{ steps.semantic_versioning.outputs.version_format_output }}"
+        user_format_type: "json"
