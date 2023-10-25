@@ -16,7 +16,8 @@ env:
   ORG_NAME: ${{ github.repository_owner }}
   VERSION: "latest"
   IMAGE_TAG: ${REGISTRY,,}"/"${ORG_NAME,,}"/"${REPO_NAME,,}":"${VERSION,,}
-
+  BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+  
 jobs:
   versioning:
     runs-on: ubuntu-22.04
