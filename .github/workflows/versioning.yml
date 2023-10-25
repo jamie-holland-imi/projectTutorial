@@ -36,4 +36,4 @@ jobs:
         minor_pattern: "(MINOR)"
         version_format: "${major}.${minor}.${patch}-${{ steps.extract_branch.outputs.branch }}.${increment}"
     - run: |
-        ${{ steps.semantic_versioning.outputs.version_format }}
+        ${{ steps.semantic_versioning.outputs.version_format_output }}
