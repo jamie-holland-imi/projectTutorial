@@ -10,12 +10,6 @@ on:
   workflow_dispatch:
   
 env:
-  REGISTRY: ghcr.io
-  REPO_NAME: ${{ github.event.repository.name }}
-  USER_NAME: ${{ github.actor }}
-  ORG_NAME: ${{ github.repository_owner }}
-  VERSION: "latest"
-  IMAGE_TAG: ${REGISTRY,,}"/"${ORG_NAME,,}"/"${REPO_NAME,,}":"${VERSION,,}
   BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
   
 jobs:
@@ -37,6 +31,3 @@ jobs:
         minor_pattern: "(MINOR)"
         version_format: "${major}.${minor}.${patch}-${{ env.BRANCH_NAME }}.${increment}"
         user_format_type: "json"
-      env: 
-        BRANCH_NAME: ${{ github.head_ref || github.ref_name }} 
-    - run: echo ${GITHUB_REF#refs/heads/}
