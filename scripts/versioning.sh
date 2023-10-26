@@ -7,32 +7,28 @@ VERSION=`git describe --abbrev=0 --tags`
 VNUM1=$(echo "$VERSION" | cut -d"." -f1)
 VNUM2=$(echo "$VERSION" | cut -d"." -f2)
 VNUM3=$(echo "$VERSION" | cut -d"." -f3)
-VNUM4=$(echo "$VERSION" | cut -d"." -f4)
+#VNUM4=$(echo "$VERSION" | cut -d"." -f4)
 VNUM1=`echo $VNUM1 | sed 's/v//'`
 
 # Check for #major or #minor in commit message and increment the relevant version number
 MAJOR=`git log --format=%B -n 1 HEAD | grep '#major'`
 MINOR=`git log --format=%B -n 1 HEAD | grep '#minor'`
 PATCH=`git log --format=%B -n 1 HEAD | grep '#patch'`
-RELCAN=`git log --format=%B -n 1 HEAD | grep '#releasecandidate'`
+#RELCAN=`git log --format=%B -n 1 HEAD | grep '#releasecandidate'`
 
 if [ "$MAJOR" ]; then
     echo "Update major version"
     VNUM1=$((VNUM1+1))
     VNUM2=0
     VNUM3=0
-    VNUM4=0
 elif [ "$MINOR" ]; then
     echo "Update minor version"
     VNUM2=$((VNUM2+1))
     VNUM3=0
-    VNUM4=0
 elif [ "$PATCH" ]; then
     echo "Update patch version"
     VNUM3=$((VNUM3+1))
-    VNUM4=0
 else
-    VNUM4=0
     echo "No instruction detected a tag wont be added to this commit"
 fi
 
