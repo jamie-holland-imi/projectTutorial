@@ -24,5 +24,3 @@ jobs:
          ./scripts/versioning.sh
       shell: bash
 
-    - name: check commit
-      run: git describe --tags
