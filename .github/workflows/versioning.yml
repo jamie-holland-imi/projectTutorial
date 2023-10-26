@@ -30,7 +30,7 @@ jobs:
         bump_each_commit: true
         bump_each_commit_patch_pattern: ""
         search_commit_body: true
-        enable_prerelease_mode: true
+        enable_prerelease_mode: false
         debug: true
 
 
