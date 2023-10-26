@@ -11,10 +11,10 @@ VNUM4=$(echo "$VERSION" | cut -d"." -f4)
 VNUM1=`echo $VNUM1 | sed 's/v//'`
 
 # Check for #major or #minor in commit message and increment the relevant version number
-MAJOR=`git log --format=%B -n 1 HEAD | grep 'major'`
-MINOR=`git log --format=%B -n 1 HEAD | grep 'minor'`
-PATCH=`git log --format=%B -n 1 HEAD | grep 'patch'`
-RELCAN=`git log --format=%B -n 1 HEAD | grep 'releasecandidate'`
+MAJOR=`git log --format=%B -n 1 HEAD | grep 'MAJOR'`
+MINOR=`git log --format=%B -n 1 HEAD | grep 'MINOR'`
+PATCH=`git log --format=%B -n 1 HEAD | grep 'PATCH'`
+RELCAN=`git log --format=%B -n 1 HEAD | grep 'RELEASECANDIDATE'`
 
 if [ "$MAJOR" ]; then
     echo "Update major version"
