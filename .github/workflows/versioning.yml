@@ -24,7 +24,10 @@ jobs:
          ./scripts/versioning.sh
       shell: bash
 
+    - id: git_tag
+      run: echo "tag = git describe --tags" >> GITHUB_OUTPUT
     - name: Check output
-      id: git_tag
       run: |
-        git describe --tags
+        echo $RELEASE_VERSION
+        echo ${{ steps.git_tag.outputs.tag }}
+          
