@@ -87,12 +87,14 @@ CPPFLAGS += -masm-syntax-unified
 DEVICE_STARTUP = $(BASE_STARTUP)/*.s
 
 # Output files
-BUILD_ARTIFACT_NAME := stm32_executable
-ELF_FILE_NAME ?= $(BUILD_ARTIFACT_NAME).elf
-BIN_FILE_NAME ?= stm32_bin_image.bin
+PROJECT_NAME := $(shell basename $(dir $(abspath $(dir $$PWD))))
+FILE_NAME := $(PROJECT_NAME)_$(TAG_NAME)
+
+ELF_FILE_NAME ?= $(FILE_NAME).elf
+BIN_FILE_NAME ?= $(FILE_NAME)_bin_image.bin
 OBJ_FILE_NAME ?= startup_$(MAPPED_DEVICE).o
-HEX_FILE_NAME ?= $(BUILD_ARTIFACT_NAME).hex
-MAP_FILES ?= $(BUILD_ARTIFACT_NAME).map
+HEX_FILE_NAME ?= $(FILE_NAME).hex
+MAP_FILES ?= $(FILE_NAME).map
 
 # Input files
 SRC ?=
