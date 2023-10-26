@@ -31,15 +31,15 @@ else
     echo "No instruction detected a tag wont be added to this commit"
 fi
 
-#create new tag
-NEW_TAG="v$VNUM1.$VNUM2.$VNUM3"
-
 # check for release
 if [ "$RELCAN" ]; then
     echo "Update release candidate version"
     VNUM4=$((VNUM4+1))
     NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-rc.$VNUM4"
 fi
+
+#create new tag
+NEW_TAG="v$VNUM1.$VNUM2.$VNUM3"
 
 #get current hash and see if it already has a tag
 GIT_COMMIT=`git rev-parse HEAD`
