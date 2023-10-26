@@ -16,6 +16,7 @@ MAJOR=`git log --format=%B -n 1 HEAD | grep 'MAJOR'`
 MINOR=`git log --format=%B -n 1 HEAD | grep 'MINOR'`
 PATCH=`git log --format=%B -n 1 HEAD | grep 'PATCH'`
 RELCAN=`git log --format=%B -n 1 HEAD | grep 'RELEASECANDIDATE'`
+MAJORRC=`git log --format=%B -n 1 HEAD | grep 'MAJORRC'`
 
 if [ "$MAJOR" ]; then
     echo "Update major version"
@@ -36,8 +37,15 @@ fi
 #create new tag
 NEW_TAG="v$VNUM1.$VNUM2.$VNUM3"
 
-# check for release candidate
-if [ "$RELCAN" ]; then
+# check for release candidates
+if [ "$MAJORRC" ]; then
+    echo "Update major and set release candidate"
+    VNUM1=$((VNUM1+1))
+    VNUM2=0
+    VNUM3=0
+    VNUM5=$((VNUM5+1))
+    NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-rc.$VNUM5"
+elif [ "$RELCAN" ]; then
     echo "Update release candidate version"
     VNUM5=$((VNUM5+1))
     NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-rc.$VNUM5"
