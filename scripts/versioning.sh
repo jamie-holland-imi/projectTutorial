@@ -55,6 +55,6 @@ elif [ -z "$NEEDS_TAG" ]; then
     git tag $NEW_TAG
     git push --tags
 else
-    echo "The tag $NEW_TAG already exists on this commit"
+    echo "Already a tag on this commit"
 fi
 echo "###############################################################"
