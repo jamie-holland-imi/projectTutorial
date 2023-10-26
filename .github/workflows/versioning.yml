@@ -27,10 +27,11 @@ jobs:
         major_regexp_flags: ""
         minor_pattern: "(MINOR)"
         minor_regexp_flags: ""
-        version_format: "${major}.${minor}.${patch}-${{ env.BRANCH_NAME }}.${increment}"
+        version_format: "${major}.${minor}.${patch}"
         bump_each_commit: false
         bump_each_commit_patch_pattern: ""
         search_commit_body: true
         enable_prerelease_mode: true
         debug: true
         
+#version_format: "${major}.${minor}.${patch}-${{ env.BRANCH_NAME }}.${increment}"
