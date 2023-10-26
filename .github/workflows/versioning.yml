@@ -27,4 +27,4 @@ jobs:
     - name: Check output
       id: git_tag
       run: |
-        git describe --abbrev=1 --tags
+        git describe --tags
