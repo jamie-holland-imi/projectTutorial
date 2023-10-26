@@ -43,7 +43,7 @@ if [ "$MAJORRC" ]; then
     VNUM1=$((VNUM1+1))
     VNUM2=0
     VNUM3=0
-    VNUM5=$((VNUM5+1))
+    VNUM5=1
     NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-rc.$VNUM5"
 elif [ "$RELCAN" ]; then
     echo "Update release candidate version"
