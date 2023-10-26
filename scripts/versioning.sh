@@ -31,8 +31,6 @@ elif [ "$PATCH" ]; then
     VNUM3=$((VNUM3+1))
     VNUM4=0
 else
-    VNUM3=0
-    VNUM4=0
     echo "No instruction detected a tag wont be added to this commit"
 fi
 
