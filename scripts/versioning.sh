@@ -7,7 +7,8 @@ VERSION=`git describe --abbrev=0 --tags`
 VNUM1=$(echo "$VERSION" | cut -d"." -f1)
 VNUM2=$(echo "$VERSION" | cut -d"." -f2)
 VNUM3=$(echo "$VERSION" | cut -d"." -f3)
-VNUM4=$(echo "$VERSION" | cut -d"." -f4)
+VNUM4=$(echo "$VERSION" | cut -d"-" -f4)
+VNUM5=$(echo "$VERSION" | cut -d"." -f5)
 VNUM1=`echo $VNUM1 | sed 's/v//'`
 
 # Check for #major or #minor in commit message and increment the relevant version number
@@ -38,8 +39,8 @@ NEW_TAG="v$VNUM1.$VNUM2.$VNUM3"
 # check for release candidate
 if [ "$RELCAN" ]; then
     echo "Update release candidate version"
-    VNUM4=$((VNUM4+1))
-    NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-rc.$VNUM4"
+    VNUM5=$((VNUM5+1))
+    NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-rc.$VNUM5"
 fi
 
 #get current hash and see if it already has a tag
