@@ -78,11 +78,9 @@ jobs:
     - id: git_tag
       run: echo "tag = ${git describe --abbrev=0 --tags}" >> $GITHUB_OUTPUT
     - name: Check output
-      env:
-        RELEASE_VERSION: ${{ steps.git_tag.outputs.tag }}
-        run: |
-          echo $RELEASE_VERSION
-          echo ${{ steps.git_tag.outputs.tag }}
+      run: |
+        echo $RELEASE_VERSION
+        echo ${{ steps.git_tag.outputs.tag }}
           
     - name: Run the Makefile and Build the Project
       run: make TAG_NAME=${{ steps.git_tag.outputs.tag }}
