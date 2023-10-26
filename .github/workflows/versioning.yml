@@ -34,3 +34,5 @@ jobs:
         enable_prerelease_mode: false
         debug: true
 
+    - name: check commit
+      run: git describe --tags
