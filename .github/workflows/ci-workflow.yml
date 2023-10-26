@@ -60,7 +60,7 @@ jobs:
         tags: ${{needs.variable_substitution.outputs.image}}
         secrets: |
             GIT_AUTH_TOKEN=${{ secrets.GITHUB_TOKEN }}
-      
+
   compile:
     needs: [variable_substitution, build]
     runs-on: ubuntu-22.04
@@ -76,7 +76,11 @@ jobs:
     - name: Checkout the repository
       uses: actions/checkout@v4   
     - id: git_tag
-      run: echo "tag = git describe --abbrev=0 --tags" >> $GITHUB_OUTPUT
+      run: echo "tag = ${git describe --abbrev=0 --tags}" >> $GITHUB_OUTPUT
+    - name: Check output
+      env:
+        RELEASE_VERSION: ${{ steps.git_tag.outputs.tag }}
+      
     - name: Run the Makefile and Build the Project
       run: make TAG_NAME=${{ steps.git_tag.outputs.tag }}
     - name: Create Artifacts
