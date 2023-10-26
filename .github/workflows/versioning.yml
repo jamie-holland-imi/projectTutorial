@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - 'versioning'
-  pull_request:
-    branches:
-      - 'versioning'
   workflow_dispatch:
   
 env:
