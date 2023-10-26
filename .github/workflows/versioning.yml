@@ -29,3 +29,4 @@ jobs:
       run: |
         ${git describe --abbrev=0 --tags}
         git describe --abbrev=0 --tags
+      shell: bash
