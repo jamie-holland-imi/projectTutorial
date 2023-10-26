@@ -51,7 +51,9 @@ GIT_COMMIT=`git rev-parse HEAD`
 NEEDS_TAG=`git describe --contains $GIT_COMMIT 2>/dev/null`
 
 echo "###############################################################"
-if [ -z "$NEEDS_TAG" ]; then
+if [ git tag -l $NEW_TAG ]; then
+    echo "The tag $NEW_TAG already exists"
+elif [ -z "$NEEDS_TAG" ]; then
     echo "Updating $VERSION to $NEW_TAG"
 #    echo "Tagged with $NEW_TAG (Ignoring fatal:cannot describe - this means commit is untagged) "
     git tag $NEW_TAG
