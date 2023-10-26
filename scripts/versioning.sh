@@ -51,7 +51,7 @@ if [ $(git tag -l $NEW_TAG) ]; then
     echo "The tag $NEW_TAG already exists"
 elif [ -z "$NEEDS_TAG" ]; then
     echo "Updating $VERSION to $NEW_TAG"
-#    echo "Tagged with $NEW_TAG (Ignoring fatal:cannot describe - this means commit is untagged) "
+    echo "Tagged with $NEW_TAG (Ignoring fatal:cannot describe - this means commit is untagged) "
     git tag $NEW_TAG
     git push --tags
 else
