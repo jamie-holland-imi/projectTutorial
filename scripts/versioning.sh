@@ -11,9 +11,9 @@ VNUM3=$(echo "$VERSION" | cut -d"." -f3)
 VNUM1=`echo $VNUM1 | sed 's/v//'`
 
 # Check for #major or #minor in commit message and increment the relevant version number
-MAJOR=`git log --format=%B -n 1 HEAD | grep '#major'`
-MINOR=`git log --format=%B -n 1 HEAD | grep '#minor'`
-PATCH=`git log --format=%B -n 1 HEAD | grep '#patch'`
+MAJOR=`git log --format=%B -n 1 HEAD | grep 'major'`
+MINOR=`git log --format=%B -n 1 HEAD | grep 'minor'`
+PATCH=`git log --format=%B -n 1 HEAD | grep 'patch'`
 #RELCAN=`git log --format=%B -n 1 HEAD | grep '#releasecandidate'`
 
 if [ "$MAJOR" ]; then
