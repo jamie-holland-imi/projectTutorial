@@ -52,12 +52,12 @@ NEEDS_TAG=`git describe --contains $GIT_COMMIT 2>/dev/null`
 
 echo "###############################################################"  
 #only tag if no tag already (would be better if the git describe command above could have a silent option)
-if [ -z "$NEEDS_TAG" ]; then
+if [ -z "$NEEDS_TAG" && !$(git tag -l "$NEW_TAG") ]; then
     echo "Updating $VERSION to $NEW_TAG"
 #    echo "Tagged with $NEW_TAG (Ignoring fatal:cannot describe - this means commit is untagged) "
     git tag $NEW_TAG
     git push --tags
 else
-    echo "Already a tag on this commit"
+    echo "The tag $NEW_TAG already exists on this commit"
 fi
 echo "###############################################################"  
