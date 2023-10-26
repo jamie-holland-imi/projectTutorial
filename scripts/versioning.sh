@@ -20,16 +20,13 @@ if [ "$MAJOR" ]; then
     VNUM1=$((VNUM1+1))
     VNUM2=0
     VNUM3=0
-    VNUM4=0
 elif [ "$MINOR" ]; then
     echo "Update minor version"
     VNUM2=$((VNUM2+1))
     VNUM3=0
-    VNUM4=0
 elif [ "$PATCH" ]; then
     echo "Update patch version"
     VNUM3=$((VNUM3+1))
-    VNUM4=0
 else
     echo "No instruction detected a tag wont be added to this commit"
 fi
