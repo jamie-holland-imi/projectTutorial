@@ -25,9 +25,9 @@ jobs:
       shell: bash
 
     - id: git_tag
-      run: echo "tag = git describe --tags" >> GITHUB_OUTPUT
+      run: echo "GIT_TAG=`echo $(git describe --tags)`" >> $GITHUB_ENV
     - name: Check output
       run: |
         echo $RELEASE_VERSION
-        echo ${{ steps.git_tag.outputs.tag }}
+        echo ${{ steps.git_tag.outputs.GIT_TAG }}
           
