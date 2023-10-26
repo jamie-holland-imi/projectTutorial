@@ -24,5 +24,9 @@ jobs:
       with:
         tag_prefix: "v"
         major_pattern: "(MAJOR)"
+        major_regexp_flags: ""
         minor_pattern: "(MINOR)"
+        minor_regexp_flags: ""
         version_format: "${major}.${minor}.${patch}-${{ env.BRANCH_NAME }}.${increment}"
+        search_commit_body: true
+        enable_prerelease_mode: true
