@@ -30,3 +30,4 @@ jobs:
         version_format: "${major}.${minor}.${patch}-${{ env.BRANCH_NAME }}.${increment}"
         search_commit_body: true
         enable_prerelease_mode: true
+        
