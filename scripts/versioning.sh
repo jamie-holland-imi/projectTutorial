@@ -80,6 +80,7 @@ if [ "$OLDVERSION" == "$NEW_TAG" ]; then
     echo "The tag $NEW_TAG already exists"
 elif [ "$NEW_TAG" == "" ]; then
     echo "No instruction detected"
+    echo "tag is set to " (`git describe --abbrev=0 --tags`)
 elif [ -z "$NEEDS_TAG" ]; then
     echo "Updating $OLDVERSION to $NEW_TAG"
 #    echo "Tagged with $NEW_TAG (Ignoring fatal:cannot describe - this means commit is untagged) "
