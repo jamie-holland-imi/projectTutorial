@@ -80,7 +80,7 @@ if [ "$OLDVERSION" == "$NEW_TAG" ]; then
     echo "The tag $NEW_TAG already exists"
 elif [ "$NEW_TAG" == "nochange" ]; then
     echo "No instruction detected"
-    CURRENTTAG=`git describe --abbrev=0 --tags`
+    CURRENTTAG=`git describe --tags`
     echo "tag is set to $CURRENTTAG"
 elif [ -z "$NEEDS_TAG" ]; then
     echo "Updating $OLDVERSION to $NEW_TAG"
