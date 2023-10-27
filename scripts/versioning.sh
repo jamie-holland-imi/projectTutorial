@@ -68,7 +68,7 @@ fi
 GIT_COMMIT=`git rev-parse HEAD`
 NEEDS_TAG=`git describe --contains $GIT_COMMIT 2>/dev/null`
 
-echo "###############################################################"
+echo "################################################################"
 if [ $(git tag -l $NEW_TAG) ]; then
     echo "The tag $NEW_TAG already exists"
 elif [ -z "$NEEDS_TAG" ]; then
@@ -79,4 +79,4 @@ elif [ -z "$NEEDS_TAG" ]; then
 else
     echo "Already a tag on this commit"
 fi
-echo "###############################################################"
+echo "################################################################"
