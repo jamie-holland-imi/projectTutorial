@@ -59,13 +59,11 @@ elif [ "$MAJORRC" ]; then
         VNUM5=1
         NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
     fi
-else
-    NEW_TAG="nochange"
-fi
-
-if [ -z "$VERSION" ]; then
+elif [ -z "$VERSION" ]; then
     echo "No tag exists setting the first tag to 0.0.1"
     NEW_TAG="v0.0.1"
+else
+    NEW_TAG="nochange"
 fi
 
 #get current hash and see if it already has a tag
