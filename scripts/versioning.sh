@@ -10,7 +10,7 @@ VNUM2=$(echo "$VERSION" | cut -d"." -f2)
 VNUM3=$(echo "$VERSION" | cut -d"." -f3)
 VNUM4=$(echo "$VERSION" | cut -d"-" -f4)
 VNUM5=$(echo "$VERSION" | cut -d"." -f5)
-VNUM1=`echo $VNUM1 | sed 's/v.-//'`
+VNUM1=`echo $VNUM1 | sed 's/v/./-//'`
 
 echo "**************"
 echo "1 $VNUM1"
@@ -74,7 +74,7 @@ GIT_COMMIT=`git rev-parse HEAD`
 NEEDS_TAG=`git describe --contains $GIT_COMMIT 2>/dev/null`
 
 echo "################################################################"
-if [ $OLDVERSION == $NEW_TAG) ]; then
+if [ "$OLDVERSION" == "$NEW_TAG") ]; then
     echo "The tag $NEW_TAG already exists"
 elif [ -z "$NEEDS_TAG" ]; then
     echo "Updating $OLDVERSION to $NEW_TAG"
