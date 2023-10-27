@@ -74,14 +74,13 @@ jobs:
       packages: write
       contents: read
     steps:
-    - name: Checkout the repository
-      uses: actions/checkout@v4   
-      
     - id: git_tag
       run: echo "GIT_TAG=`echo $(git describe --tags)`" >> $GITHUB_ENV
-          
+    - name: Checkout the repository
+      uses: actions/checkout@v4   
+  
     - name: Run the Makefile and Build the Project
-      run: make TAG_NAME=${{ steps.git_tag.outputs.GIT_TAG }}
+      run: make
       
     - name: Create Artifacts
       uses: actions/upload-artifact@v3.1.2
