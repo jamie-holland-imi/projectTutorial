@@ -64,6 +64,11 @@ else
     echo "No incremental instruction detected"
 fi
 
+if [ -z "$VERSION" ]; then
+    echo "No tag exists setting the first tag to 0.0.1"
+    NEW_TAG="v0.0.1"
+fi
+
 #get current hash and see if it already has a tag
 GIT_COMMIT=`git rev-parse HEAD`
 NEEDS_TAG=`git describe --contains $GIT_COMMIT 2>/dev/null`
