@@ -7,7 +7,7 @@ OLDVERSION=$VERSION
 #get number parts and increase last one by 1
 VNUM1=$(echo "$VERSION" | cut -d"." -f1)
 VNUM2=$(echo "$VERSION" | cut -d"." -f2)
-VNUM3=$(echo "$VERSION" | cut -d"." -f3)
+VNUM3=$(echo "$VERSION" | cut -d"-" -f3)
 VNUM4=$(echo "$VERSION" | cut -d"." -f4)
 VNUM5=$(echo "$VERSION" | cut -d"." -f5)
 VNUM1=`echo $VNUM1 | sed 's/v//'`
@@ -44,7 +44,7 @@ elif [ "$RC" ]; then
     VNUM5=$((VNUM5+1))
     NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VCHAR.$VNUM5"
 elif [ "$MAJORRC" ]; then
-    if [[ "$VNUM4" == "rc" ]]; then
+    if [[ "$VNUM4" == 'rc' ]]; then
         echo "Going to RC as currently already a major version"
         VNUM5=$((VNUM5+1))
         NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
@@ -53,7 +53,7 @@ elif [ "$MAJORRC" ]; then
         VNUM1=$((VNUM1+1))
         VNUM2=0
         VNUM3=0
-        VNUM4="rc"
+        VNUM4='rc'
         VNUM5=1
         NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
     fi
