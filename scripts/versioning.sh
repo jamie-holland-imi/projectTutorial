@@ -2,6 +2,7 @@
 
 #get highest tag number
 VERSION=`git describe --abbrev=0 --tags`
+OLDVERSION=$VERSION
 
 #get number parts and increase last one by 1
 VNUM1=$(echo "$VERSION" | cut -d"." -f1)
@@ -39,7 +40,7 @@ NEW_TAG="v$VNUM1.$VNUM2.$VNUM3"
 
 # check for release candidates
 if [ "$MAJORRC" ]; then
-    if [ 0==$VNUM2 && 0==$VNUM3 ]; then
+    if [ 0=="$VNUM2" ] && [ 0=="$VNUM3" ]; then
         echo "Going to RC as currently already a major version"
         VNUM5=$((VNUM5+1))
     else
@@ -64,7 +65,7 @@ echo "###############################################################"
 if [ $(git tag -l $NEW_TAG) ]; then
     echo "The tag $NEW_TAG already exists"
 elif [ -z "$NEEDS_TAG" ]; then
-    echo "Updating $VERSION to $NEW_TAG"
+    echo "Updating $OLDVERSION to $NEW_TAG"
 #    echo "Tagged with $NEW_TAG (Ignoring fatal:cannot describe - this means commit is untagged) "
     git tag $NEW_TAG
     git push --tags
