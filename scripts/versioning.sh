@@ -8,9 +8,9 @@ OLDVERSION=$VERSION
 VNUM1=$(echo "$VERSION" | cut -d"." -f1)
 VNUM2=$(echo "$VERSION" | cut -d"." -f2)
 VNUM3=$(echo "$VERSION" | cut -d"." -f3)
-VNUM4=$(echo "$VERSION" | cut -c"-" -f4)
+VNUM4=$(echo "$VERSION" | cut -d"-" -f4)
 VNUM5=$(echo "$VERSION" | cut -d"." -f5)
-VNUM1=`echo $VNUM1 | sed 's/v//'`
+VNUM1=`echo $VNUM1 | sed 's/v.-//'`
 
 echo "**************"
 echo "1 $VNUM1"
