@@ -40,7 +40,7 @@ NEW_TAG="v$VNUM1.$VNUM2.$VNUM3"
 
 # check for release candidates
 if [ "$MAJORRC" ]; then
-    if [ 0=="$VNUM2" ] && [ 0=="$VNUM3" ]; then
+    if [ "$VCHAR" == "rc" ] && [ "$VNUM2" == "0" ] && [ "$VNUM3" == "0" ]; then
         echo "Going to RC as currently already a major version"
         VNUM5=$((VNUM5+1))
     else
@@ -48,14 +48,14 @@ if [ "$MAJORRC" ]; then
         VNUM1=$((VNUM1+1))
         VNUM2=0
         VNUM3=0
-        VNUM4="rc"
+        VCHAR="rc"
         VNUM5=1
     fi
-    NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
+    NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VCHAR.$VNUM5"
 elif [ "$RELCAN" ]; then
     echo "Update release candidate version"
     VNUM5=$((VNUM5+1))
-    NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
+    NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VCHAR.$VNUM5"
 fi
 
 #get current hash and see if it already has a tag
