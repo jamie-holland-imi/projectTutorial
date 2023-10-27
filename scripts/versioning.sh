@@ -13,7 +13,11 @@ VNUM5=$(echo "$VERSION" | cut -d"." -f5)
 VNUM1=`echo $VNUM1 | sed 's/v//'`
 
 echo "**************"
-echo "$VNUM4"
+echo "1 $VNUM1"
+echo "2 $VNUM2"
+echo "3 $VNUM3"
+echo "4 $VNUM4"
+echo "5 $VNUM5"
 echo "**************"
 
 # Check for #major or #minor in commit message and increment the relevant version number
