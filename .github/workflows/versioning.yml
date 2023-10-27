@@ -8,7 +8,6 @@ on:
   
 env:
   BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
-  GIT_TAG: ${{ git describe --tags }}
   
 jobs:
   versioning:
@@ -25,8 +24,8 @@ jobs:
          ./scripts/versioning.sh
       shell: bash
 
-    - name: Check output
-      run: |
-        echo $GIT_TAG
-        echo ${{ env.GIT_TAG }}
+    - name: set up env var
+      run: echo "TAG=$(echo git describe --exact-match --tags $(git log -n1 --pretty='%h'))" >> $GITHUB_ENV
+    - name: use env var
+      run: echo ${{ env.TAG }}
           
