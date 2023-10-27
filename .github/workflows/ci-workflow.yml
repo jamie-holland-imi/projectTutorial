@@ -2,12 +2,12 @@ name: CI Github Actions Workflow
 
 on:
   push:
+    paths:
+      - '.github/workflows/ci-workflow.yml'
     branches:
       - 'main'
       - 'dev'
       - 'release/*'
-    paths:
-      - '.github/workflows/ci-workflow.yml'
   pull_request:
     branches:
       - 'main'
