@@ -48,7 +48,7 @@ if [ "$MAJORRC" ]; then
         VNUM1=$((VNUM1+1))
         VNUM2=0
         VNUM3=0
-        VNUM4=rc
+        VNUM4="rc"
         VNUM5=1
     fi
     NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
