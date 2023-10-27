@@ -63,7 +63,7 @@ elif [ "$MAJORRC" ]; then
         NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
     fi
 else
-    NEW_TAG = "nochange"
+    NEW_TAG="nochange"
 fi
 
 if [ -z "$VERSION" ]; then
@@ -80,8 +80,8 @@ if [ "$OLDVERSION" == "$NEW_TAG" ]; then
     echo "The tag $NEW_TAG already exists"
 elif [ "$NEW_TAG" == "nochange" ]; then
     echo "No instruction detected"
-    CURRENTVERSION=`git describe --abbrev=0 --tags`
-    echo "tag is set to $CURRENTVERSION"
+    CURRENTTAG=`git describe --abbrev=0 --tags`
+    echo "tag is set to $CURRENTTAG"
 elif [ -z "$NEEDS_TAG" ]; then
     echo "Updating $OLDVERSION to $NEW_TAG"
 #    echo "Tagged with $NEW_TAG (Ignoring fatal:cannot describe - this means commit is untagged) "
