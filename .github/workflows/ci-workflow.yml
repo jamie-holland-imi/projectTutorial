@@ -76,10 +76,10 @@ jobs:
     steps:
     - name: Checkout the repository
       uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
     - name: set up env var
-      run: echo "GIT_TAG=$(git describe --tags)" >> $GITHUB_ENV
+      run: |
+        git config --global --add safe.directory '*'
+        echo "GIT_TAG=$(git describe --tags)" >> $GITHUB_ENV
       shell: bash
       
     - name: Run the Makefile and Build the Project
