@@ -25,7 +25,7 @@ jobs:
       shell: bash
 
     - name: set up env var
-      run: echo "TAG=$(echo git describe --exact-match --tags $(git log -n1 --pretty='%h'))" >> $GITHUB_ENV
+      run: echo "TAG=$(echo git describe --tags)" >> $GITHUB_ENV
     - name: use env var
       run: echo ${{ env.TAG }}
           
