@@ -87,7 +87,7 @@ CPPFLAGS += -masm-syntax-unified
 DEVICE_STARTUP = $(BASE_STARTUP)/*.s
 
 # Output files
-TAG_NAME ?= (shell git log)
+TAG_NAME ?= (shell git describe --tag)
 PROJECT_NAME := $(shell basename $(dir $(abspath $(dir $$PWD))))
 FILE_NAME := $(PROJECT_NAME)_$(TAG_NAME)
 
