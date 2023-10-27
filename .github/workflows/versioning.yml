@@ -8,6 +8,7 @@ on:
   
 env:
   BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+  GIT_TAG: ${{ git describe --tags }}
   
 jobs:
   versioning:
@@ -24,10 +25,8 @@ jobs:
          ./scripts/versioning.sh
       shell: bash
 
-    - id: git_tag
-      run: echo "GIT_TAG=`echo $(git describe --tags)`" >> $GITHUB_ENV
     - name: Check output
       run: |
-        echo $RELEASE_VERSION
-        echo ${{ steps.git_tag.outputs.GIT_TAG }}
+        echo $GIT_TAG
+        echo ${{ env.GIT_TAG }}
           
