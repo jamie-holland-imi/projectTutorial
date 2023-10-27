@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #get highest tag number
 VERSION=`git describe --abbrev=0 --tags`
@@ -32,13 +32,16 @@ if [ "$MAJOR" ]; then
     VNUM1=$((VNUM1+1))
     VNUM2=0
     VNUM3=0
+    NEW_TAG="v$VNUM1.$VNUM2.$VNUM3"
 elif [ "$MINOR" ]; then
     echo "Update minor version"
     VNUM2=$((VNUM2+1))
     VNUM3=0
+    NEW_TAG="v$VNUM1.$VNUM2.$VNUM3"
 elif [ "$PATCH" ]; then
     echo "Update patch version"
     VNUM3=$((VNUM3+1))
+    NEW_TAG="v$VNUM1.$VNUM2.$VNUM3"
 elif [ "$RC" ]; then
     echo "Update release candidate version"
     VNUM5=$((VNUM5+1))
@@ -59,11 +62,6 @@ elif [ "$MAJORRC" ]; then
     fi
 else
     echo "No incremental instruction detected"
-fi
-
-#create new tag
-if (( "$MAJOR" ) || ( "$MINOR" ) || ( "$PATCH" )); then
-    NEW_TAG="v$VNUM1.$VNUM2.$VNUM3"
 fi
 
 #get current hash and see if it already has a tag
