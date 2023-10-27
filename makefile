@@ -87,9 +87,8 @@ CPPFLAGS += -masm-syntax-unified
 DEVICE_STARTUP = $(BASE_STARTUP)/*.s
 
 # Output files
-TAG_NAME ?= $TAG_NAME
 PROJECT_NAME := $(shell basename $(dir $(abspath $(dir $$PWD))))
-FILE_NAME := $(PROJECT_NAME)_$(TAG_NAME)
+FILE_NAME := $(PROJECT_NAME)-$(TAG_NAME)
 
 ELF_FILE_NAME ?= $(FILE_NAME).elf
 BIN_FILE_NAME ?= $(FILE_NAME)_bin_image.bin
