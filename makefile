@@ -88,7 +88,7 @@ DEVICE_STARTUP = $(BASE_STARTUP)/*.s
 
 # Output files
 PROJECT_NAME := $(shell basename $(dir $(abspath $(dir $$PWD))))
-FILE_NAME := $(PROJECT_NAME)-$(TAG_NAME)
+FILE_NAME := $(PROJECT_NAME)_$(version)
 
 ELF_FILE_NAME ?= $(FILE_NAME).elf
 BIN_FILE_NAME ?= $(FILE_NAME)_bin_image.bin
