@@ -6,6 +6,7 @@ on:
       - 'main'
       - 'dev'
       - 'release/*'
+      - '.github/workflows/ci-workflow.yml'
   pull_request:
     branches:
       - 'main'
@@ -74,7 +75,9 @@ jobs:
       contents: read
     steps:
     - name: Checkout the repository
-      uses: actions/checkout@v4   
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
     - name: set up env var
       run: echo "GIT_TAG=$(git describe --tags)" >> $GITHUB_ENV
       shell: bash
