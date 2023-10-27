@@ -47,7 +47,7 @@ elif [ "$RC" ]; then
     VNUM5=$((VNUM5+1))
     NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VCHAR.$VNUM5"
 elif [ "$MAJORRC" ]; then
-    if [ $VNUM2 == '0' ] && [ $VNUM3 == '0' ] && [ $VNUM4 == 'rc' ]; then
+    if [ "$VNUM2" == '0' ] && [ "$VNUM3" == '0' ] && [ "$VNUM4" == 'rc' ]; then
         echo "Going to RC as currently already a major version"
         VNUM5=$((VNUM5+1))
         NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
