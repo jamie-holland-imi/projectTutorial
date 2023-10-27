@@ -87,10 +87,6 @@ CPPFLAGS += -masm-syntax-unified
 DEVICE_STARTUP = $(BASE_STARTUP)/*.s
 
 # Output files
-ifeq ($(TAG_NAME),)
-	@echo 'no TAG_NAME passed into make'
-	TAG_NAME ?= v0.0.0
-endif
 PROJECT_NAME := $(shell basename $(dir $(abspath $(dir $$PWD))))
 FILE_NAME := $(PROJECT_NAME)-$(TAG_NAME)
 
