@@ -22,7 +22,6 @@ env:
   ORG_NAME: ${{ github.repository_owner }}
   VERSION: "latest"
   IMAGE_TAG: ${REGISTRY,,}"/"${ORG_NAME,,}"/"${REPO_NAME,,}":"${VERSION,,}
-  GIT_TAG: v0.0.0
   
 jobs:
   variable_substitution:
