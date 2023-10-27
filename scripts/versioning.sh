@@ -63,7 +63,7 @@ elif [ "$MAJORRC" ]; then
         NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
     fi
 else
-    echo "No incremental instruction detected"
+    NEW_TAG = ""
 fi
 
 if [ -z "$VERSION" ]; then
@@ -76,8 +76,10 @@ GIT_COMMIT=`git rev-parse HEAD`
 NEEDS_TAG=`git describe --contains $GIT_COMMIT 2>/dev/null`
 
 echo "################################################################"
-if [[ "$OLDVERSION" == "$NEW_TAG" ]]; then
+if [ "$OLDVERSION" == "$NEW_TAG" ]; then
     echo "The tag $NEW_TAG already exists"
+elif [ "$NEW_TAG" == "" ]; then
+    echo "No instruction detected"
 elif [ -z "$NEEDS_TAG" ]; then
     echo "Updating $OLDVERSION to $NEW_TAG"
 #    echo "Tagged with $NEW_TAG (Ignoring fatal:cannot describe - this means commit is untagged) "
