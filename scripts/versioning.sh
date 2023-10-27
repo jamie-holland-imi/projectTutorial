@@ -12,6 +12,10 @@ VNUM4=$(echo "$VERSION" | cut -d"-" -f4)
 VNUM5=$(echo "$VERSION" | cut -d"." -f5)
 VNUM1=`echo $VNUM1 | sed 's/v//'`
 
+echo "**************"
+echo "$VNUM4"
+echo "**************"
+
 # Check for #major or #minor in commit message and increment the relevant version number
 MAJOR=`git log --format=%B -n 1 HEAD | grep '(MAJOR)'`
 MINOR=`git log --format=%B -n 1 HEAD | grep '(MINOR)'`
@@ -39,15 +43,15 @@ elif [ "$MAJORRC" ]; then
     if [ "$VNUM4" == "rc" ]; then
         echo "Going to RC as currently already a major version"
         VNUM5=$((VNUM5+1))
-        NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VCHAR.$VNUM5"
+        NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
     else
         echo "Update major and set release candidate"
         VNUM1=$((VNUM1+1))
         VNUM2=0
         VNUM3=0
-        VCHAR="rc"
+        VNUM4="rc"
         VNUM5=1
-        NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VCHAR.$VNUM5"
+        NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
     fi
 else
     echo "No incremental instruction detected"
