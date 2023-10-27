@@ -48,13 +48,14 @@ if [ "$MAJORRC" ]; then
         VNUM1=$((VNUM1+1))
         VNUM2=0
         VNUM3=0
+        VNUM4=rc
         VNUM5=1
     fi
-    NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-rc.$VNUM5"
+    NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
 elif [ "$RELCAN" ]; then
     echo "Update release candidate version"
     VNUM5=$((VNUM5+1))
-    NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-rc.$VNUM5"
+    NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
 fi
 
 #get current hash and see if it already has a tag
