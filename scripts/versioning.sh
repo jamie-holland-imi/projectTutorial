@@ -16,7 +16,7 @@ VNUM1=`echo $VNUM1 | sed 's/v//'`
 MAJOR=`git log --format=%B -n 1 HEAD | grep '(MAJOR)'`
 MINOR=`git log --format=%B -n 1 HEAD | grep '(MINOR)'`
 PATCH=`git log --format=%B -n 1 HEAD | grep '(PATCH)'`
-RELCAN=`git log --format=%B -n 1 HEAD | grep '(RC)'`
+RC=`git log --format=%B -n 1 HEAD | grep '(RC)'`
 MAJORRC=`git log --format=%B -n 1 HEAD | grep '(MAJORRC)'`
 
 if [ "$MAJOR" ]; then
@@ -39,7 +39,11 @@ fi
 NEW_TAG="v$VNUM1.$VNUM2.$VNUM3"
 
 # check for release candidates
-if [ "$MAJORRC" ]; then
+if [ "$RC" ]; then
+    echo "Update release candidate version"
+    VNUM5=$((VNUM5+1))
+    NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VCHAR.$VNUM5"
+elif [ "$MAJORRC" ]; then
     if [ "$VNUM2" == 0 ] && [ "$VNUM3" == 0 ] && [ "$VNUM4" == "rc" ]; then
         echo "Going to RC as currently already a major version"
         VNUM5=$((VNUM5+1))
@@ -50,11 +54,9 @@ if [ "$MAJORRC" ]; then
         VNUM3=0
         VCHAR="rc"
         VNUM5=1
+    else
+        echo "Their has been a problem no changes applied"
     fi
-    NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VCHAR.$VNUM5"
-elif [ "$RELCAN" ]; then
-    echo "Update release candidate version"
-    VNUM5=$((VNUM5+1))
     NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VCHAR.$VNUM5"
 fi
 
