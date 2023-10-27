@@ -23,10 +23,3 @@ jobs:
          chmod +x ./scripts/versioning.sh
          ./scripts/versioning.sh
       shell: bash
-
-    - name: set up env var
-      run: echo "TAG=$(git describe --tags)" >> $GITHUB_ENV
-      shell: bash
-    - name: use env var
-      run: echo ${{ env.TAG }}
-          
