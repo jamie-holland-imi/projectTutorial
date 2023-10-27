@@ -31,15 +31,7 @@ elif [ "$MINOR" ]; then
 elif [ "$PATCH" ]; then
     echo "Update patch version"
     VNUM3=$((VNUM3+1))
-else
-    echo "No incremental instruction detected"
-fi
-
-#create new tag
-NEW_TAG="v$VNUM1.$VNUM2.$VNUM3"
-
-# check for release candidates
-if [ "$RC" ]; then
+elif [ "$RC" ]; then
     echo "Update release candidate version"
     VNUM5=$((VNUM5+1))
     NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VCHAR.$VNUM5"
@@ -47,17 +39,23 @@ elif [ "$MAJORRC" ]; then
     if [ "$VNUM4" == "rc" ]; then
         echo "Going to RC as currently already a major version"
         VNUM5=$((VNUM5+1))
-    elif [ "$VNUM4" == "rc" ]; then
+        NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VCHAR.$VNUM5"
+    else
         echo "Update major and set release candidate"
         VNUM1=$((VNUM1+1))
         VNUM2=0
         VNUM3=0
         VCHAR="rc"
         VNUM5=1
-    else
-        echo "Their has been a problem no changes applied"
+        NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VCHAR.$VNUM5"
     fi
-    NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VCHAR.$VNUM5"
+else
+    echo "No incremental instruction detected"
+fi
+
+#create new tag
+if [ "$MAJOR" ] || [ "$MINOR" ] || [ "$PATCH" ]; then
+    NEW_TAG="v$VNUM1.$VNUM2.$VNUM3"
 fi
 
 #get current hash and see if it already has a tag
