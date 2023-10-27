@@ -12,14 +12,6 @@ VNUM4=$(echo "$VERSION" | cut -c 8-9)
 VNUM5=$(echo "$VERSION" | cut -c 11)
 VNUM1=`echo $VNUM1 | sed 's/v//'`
 
-echo "**************"
-echo "1 $VNUM1"
-echo "2 $VNUM2"
-echo "3 $VNUM3"
-echo "4 $VNUM4"
-echo "5 $VNUM5"
-echo "**************"
-
 # Check for #major or #minor in commit message and increment the relevant version number
 MAJOR=`git log --format=%B -n 1 HEAD | grep '(MAJOR)'`
 MINOR=`git log --format=%B -n 1 HEAD | grep '(MINOR)'`
