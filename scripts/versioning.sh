@@ -36,10 +36,7 @@ elif [ "$PATCH" ]; then
     NEW_TAG="v$VNUM1.$VNUM2.$VNUM3"
 elif [ "$RC" ]; then
     if [ -z "$VNUM5" ]; then
-        echo "Update major and set release candidate"
-        VNUM1=$((VNUM1+1))
-        VNUM2=0
-        VNUM3=0
+        echo "For current tag set release candidate"
         VNUM4='rc'
         VNUM5=1
         NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
