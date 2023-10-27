@@ -63,7 +63,7 @@ elif [ "$MAJORRC" ]; then
         NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
     fi
 else
-    NEW_TAG = ""
+    NEW_TAG = "nochange"
 fi
 
 if [ -z "$VERSION" ]; then
@@ -78,7 +78,7 @@ NEEDS_TAG=`git describe --contains $GIT_COMMIT 2>/dev/null`
 echo "################################################################"
 if [ "$OLDVERSION" == "$NEW_TAG" ]; then
     echo "The tag $NEW_TAG already exists"
-elif [ "$NEW_TAG" == "" ]; then
+elif [ "$NEW_TAG" == "nochange" ]; then
     echo "No instruction detected"
     echo "tag is set to " (`git describe --abbrev=0 --tags`)
 elif [ -z "$NEEDS_TAG" ]; then
