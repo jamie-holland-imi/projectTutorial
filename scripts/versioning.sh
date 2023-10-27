@@ -43,7 +43,7 @@ if [ "$MAJORRC" ]; then
     if [ "$VNUM2" == 0 ] && [ "$VNUM3" == 0 ] && [ "$VNUM4" == "rc" ]; then
         echo "Going to RC as currently already a major version"
         VNUM5=$((VNUM5+1))
-    else
+    elif [ "$VNUM4" == "rc" ]; then
         echo "Update major and set release candidate"
         VNUM1=$((VNUM1+1))
         VNUM2=0
