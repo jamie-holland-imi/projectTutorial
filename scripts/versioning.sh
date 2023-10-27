@@ -8,7 +8,7 @@ OLDVERSION=$VERSION
 VNUM1=$(echo "$VERSION" | cut -d"." -f1)
 VNUM2=$(echo "$VERSION" | cut -d"." -f2)
 VNUM3=$(echo "$VERSION" | cut -d"." -f3)
-VNUM4=$(echo "$VERSION" | cut -d"-" -f4)
+VNUM4=$(echo "$VERSION" | cut -d"." -f4)
 VNUM5=$(echo "$VERSION" | cut -d"." -f5)
 VNUM1=`echo $VNUM1 | sed 's/v//'`
 
@@ -47,7 +47,7 @@ elif [ "$MAJORRC" ]; then
     if [[ "$VNUM2"-eq '0' ] && [ "$VNUM3" -eq '0' ] && [ "$VNUM4" -eq 'rc' ]]; then
         echo "Going to RC as currently already a major version"
         VNUM5=$((VNUM5+1))
-        NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
+        NEW_TAG="v$VNUM1.$VNUM2.$VNUM3.$VNUM4.$VNUM5"
     else
         echo "Update major and set release candidate"
         VNUM1=$((VNUM1+1))
@@ -55,7 +55,7 @@ elif [ "$MAJORRC" ]; then
         VNUM3=0
         VNUM4='rc'
         VNUM5=1
-        NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
+        NEW_TAG="v$VNUM1.$VNUM2.$VNUM3.$VNUM4.$VNUM5"
     fi
 else
     echo "No incremental instruction detected"
