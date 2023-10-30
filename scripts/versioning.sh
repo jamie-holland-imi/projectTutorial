@@ -23,6 +23,7 @@ RC=`git log --format=%B -n 1 HEAD | grep '(RC)'`
 MAJORRC=`git log --format=%B -n 1 HEAD | grep '(MAJORRC)'`
 
 if [ "$RELEASE" ]; then
+    echo "Create a release tag removing the alpha, beta or rc labels"
     NEW_TAG="V$VNUM1.$VNUM2.$VNUM3"
 elif [ "$MAJOR" ]; then
     echo "Update major version"
@@ -95,18 +96,15 @@ GIT_COMMIT=`git rev-parse HEAD`
 NEEDS_TAG=`git describe --contains $GIT_COMMIT 2>/dev/null`
 
 echo "###############################################################"
-if [ "$OLDVERSION" == "$NEW_TAG" ]; then
-    echo "The tag $NEW_TAG already exists"
-elif [ "$NEW_TAG" == "nochange" ]; then
+if [ "$NEW_TAG" == "nochange" ]; then
     echo "No instruction detected"
     CURRENTTAG=`git describe --tags`
     echo "tag is set to $CURRENTTAG"
 elif [ -z "$NEEDS_TAG" ]; then
     echo "Updating $OLDVERSION to $NEW_TAG"
-#    echo "Tagged with $NEW_TAG (Ignoring fatal:cannot describe - this means commit is untagged) "
     git tag $NEW_TAG
     git push --tags
 else
-    echo "Already a tag on this commit"
+    echo "The tag $NEW_TAG already exists"
 fi
 echo "###############################################################"
