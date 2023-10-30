@@ -89,7 +89,8 @@ DEVICE_STARTUP = $(BASE_STARTUP)/*.s
 # Setting Output files
 #LAST_TAG_COMMIT = $(shell git rev-list --tags --max-count=1)
 #LAST_TAG = $(shell git describe --tags $(LAST_TAG_COMMIT) 2>/dev/null || true)
-VERSION ?= $(shell git describe --tags --first-parent)
+$(shell git config --global --add safe.directory '*')
+VERSION ?= $(shell git describe --tags)
 PROJECT_NAME := $(shell basename $(dir $(abspath $(dir $$PWD))))
 FILE_NAME := $(PROJECT_NAME)_$(VERSION)
 
