@@ -5,12 +5,18 @@ VERSION=`git describe --abbrev=0 --tags`
 OLDVERSION=$VERSION
 
 #get number parts and increase last one by 1
-VNUM1=$(echo "$VERSION" | cut -d"." -f1)
-VNUM2=$(echo "$VERSION" | cut -d"." -f2)
-VNUM3=$(echo "$VERSION" | awk -F'.|-')
-VNUM4=$(echo "$VERSION" | awk -F'-|.')
-VNUM5=$(echo "$VERSION" | cut -d"." -f5)
-VNUM1=`echo $VNUM1 | sed 's/V//'`
+#VNUM1=$(echo "$VERSION" | cut -d"." -f1)
+#VNUM2=$(echo "$VERSION" | cut -d"." -f2)
+#VNUM3=$(echo "$VERSION" | cut -d"." -f3)
+#VNUM4=$(echo "$VERSION" | cut -d"-" -f4)
+#VNUM5=$(echo "$VERSION" | cut -d"." -f5)
+#VNUM1=`echo $VNUM1 | sed 's/V//'`
+$(echo "$VERSION" | awk -F'.|-' '{print $1; print $2; print $3;print $4;print $5;}')
+VNUM1=$1
+VNUM2=$2
+VNUM3=$3
+VNUM4=$4
+VNUM5=$5
 
 # Check for #major or #minor in commit message and increment the relevant version number
 RELEASE=`git log --format=%B -n 1 HEAD | grep '(RELEASE)'`
