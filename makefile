@@ -91,8 +91,7 @@ DEVICE_STARTUP = $(BASE_STARTUP)/*.s
 #LAST_TAG = $(shell git describe --tags $(LAST_TAG_COMMIT) 2>/dev/null || true)
 $(shell git config --global --add safe.directory '*')
 VERSION ?= $(powershell git describe --tags)
-@echo "$VERSION"
-@echo "$(powershell git describe --tags)"
+@echo $(powershell git describe --tags)
 PROJECT_NAME := $(shell basename $(dir $(abspath $(dir $$PWD))))
 FILE_NAME := $(PROJECT_NAME)_$(VERSION)
 
