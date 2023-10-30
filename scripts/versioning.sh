@@ -7,9 +7,9 @@ OLDVERSION=$VERSION
 #get number parts and increase last one by 1
 VNUM1=$(echo "$VERSION" | cut -d"." -f1)
 VNUM2=$(echo "$VERSION" | cut -d"." -f2)
-VNUM3=$(echo "$VERSION" | cut -d".,-" -f3)
-VNUM4=$(echo "$VERSION" | cut -d"-,." -f4)
-VNUM5=$(echo "$VERSION" | cut -d"." -f5)
+VNUM3=$(echo "$VERSION" | cut -d"." -f3 | cut -d"-" -f4)
+VNUM4=$(echo "$VERSION" | cut -d"-" -f5 | cut -d"." -f6)
+VNUM5=$(echo "$VERSION" | cut -d"." -f7)
 VNUM1=`echo $VNUM1 | sed 's/v//'`
 
 # Check for #major or #minor in commit message and increment the relevant version number
@@ -19,7 +19,6 @@ PATCH=`git log --format=%B -n 1 HEAD | grep '(PATCH)'`
 RC=`git log --format=%B -n 1 HEAD | grep '(RC)'`
 MAJORRC=`git log --format=%B -n 1 HEAD | grep '(MAJORRC)'`
 
-cut --help
 echo "1 $VNUM1"
 echo "2 $VNUM2"
 echo "3 $VNUM3"
@@ -44,6 +43,9 @@ elif [ "$PATCH" ]; then
 elif [ "$RC" ]; then
     if [ -z "$VNUM5" ]; then
         echo "For current tag set release candidate"
+        VNUM1=$((VNUM1+1))
+        VNUM2=0
+        VNUM3=0
         VNUM4='rc'
         VNUM5=1
         NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
