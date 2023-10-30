@@ -1,4 +1,4 @@
-# Include the series-specific makefile
+S# Include the series-specific makefile
 MAPPED_DEVICE = STM32G071xx
 DEV_DRIVER = STM32G0xx
 BOARD = STM32G071RBTX
@@ -87,8 +87,9 @@ CPPFLAGS += -masm-syntax-unified
 DEVICE_STARTUP = $(BASE_STARTUP)/*.s
 
 # Output files
+VERSION ?= $(shell git describe --tags)
 PROJECT_NAME := $(shell basename $(dir $(abspath $(dir $$PWD))))
-FILE_NAME := $(PROJECT_NAME)_$(version)
+FILE_NAME := $(PROJECT_NAME)_$(VERSION)
 
 ELF_FILE_NAME ?= $(FILE_NAME).elf
 BIN_FILE_NAME ?= $(FILE_NAME)_bin_image.bin
