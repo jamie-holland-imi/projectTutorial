@@ -7,7 +7,7 @@ OLDVERSION=$VERSION
 #get number parts and increase last one by 1
 VNUM1=$(echo "$VERSION" | cut -d"." -f1)
 VNUM2=$(echo "$VERSION" | cut -d"." -f2)
-VNUM3=$(echo "$VERSION" | cut -c"." -f3)
+VNUM3=$(echo "$VERSION" | cut -d"." -f3)
 VNUM4=$(echo "$VERSION" | cut -c 8-9)
 VNUM5=$(echo "$VERSION" | cut -c 11)
 VNUM1=`echo $VNUM1 | sed 's/v//'`
@@ -18,6 +18,12 @@ MINOR=`git log --format=%B -n 1 HEAD | grep '(MINOR)'`
 PATCH=`git log --format=%B -n 1 HEAD | grep '(PATCH)'`
 RC=`git log --format=%B -n 1 HEAD | grep '(RC)'`
 MAJORRC=`git log --format=%B -n 1 HEAD | grep '(MAJORRC)'`
+
+echo "1 $VNUM1"
+echo "2 $VNUM2"
+echo "3 $VNUM3"
+echo "4 $VNUM4"
+echo "5 $VNUM5"
 
 if [ "$MAJOR" ]; then
     echo "Update major version"
@@ -75,7 +81,7 @@ fi
 GIT_COMMIT=`git rev-parse HEAD`
 NEEDS_TAG=`git describe --contains $GIT_COMMIT 2>/dev/null`
 
-echo "#################################################################"
+echo "################################################################"
 if [ "$OLDVERSION" == "$NEW_TAG" ]; then
     echo "The tag $NEW_TAG already exists"
 elif [ "$NEW_TAG" == "nochange" ]; then
@@ -90,4 +96,4 @@ elif [ -z "$NEEDS_TAG" ]; then
 else
     echo "Already a tag on this commit"
 fi
-echo "#################################################################"
+echo "################################################################"
