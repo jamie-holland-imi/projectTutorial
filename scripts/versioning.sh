@@ -115,8 +115,6 @@ NEEDS_TAG=`git describe --contains $GIT_COMMIT 2>/dev/null`
 echo "##############################################################"
 if [ "$NEW_TAG" == "nochange" ]; then
     echo "No instruction detected the branch will remain as $VERSION"
-    CURRENTTAG=`git describe --abbrev=0 --tags`
-    echo "tag will remain as $CURRENTTAG"
 elif [ "$NEW_TAG" == "invalidbranch" ]; then
     echo "The current branch is $BRANCH"
     echo "To do a release from you must be on the main branch not the $BRANCH branch"
