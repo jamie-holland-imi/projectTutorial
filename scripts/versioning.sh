@@ -2,7 +2,7 @@
 
 #get highest tag number
 VERSION=`git describe --abbrev=0 --tags`
-OLDVERSION=$VERSION
+BRANCH=`git rev-parse --abbrev-ref HEAD`
 
 #get number parts of the current tag
 VNUM1=$(echo "$VERSION" | cut -d"." -f1)
@@ -23,10 +23,14 @@ RC=`git log --format=%B -n 1 HEAD | grep '(RC)'`
 MAJORRC=`git log --format=%B -n 1 HEAD | grep '(MAJORRC)'`
 
 if [ "$RELEASE" ]; then
-    echo "Create a release tag removing the alpha, beta or rc labels"
-    VNUM4=''
-    VNUM5=0
-    NEW_TAG="V$VNUM1.$VNUM2.$VNUM3"
+    if [ "$BRANCH" == "main" ]; then
+        echo "Create a release tag removing the alpha, beta or rc labels"
+        VNUM4=''
+        VNUM5=0
+        NEW_TAG="V$VNUM1.$VNUM2.$VNUM3"
+    else
+        echo "Must be on the main branch to create a release tag"
+    fi
 elif [ "$MAJOR" ]; then
     echo "Update major version"
     VNUM1=$((VNUM1+1))
@@ -68,24 +72,32 @@ elif [ "$BETA" ]; then
         NEW_TAG="V$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
     fi
 elif [ "$RC" ]; then
-    if [ "$VNUM4" == 'rc' ]; then
-        echo "Update release candidate"
-        VNUM5=$((VNUM5+1))
-        NEW_TAG="V$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
+    if [ "$BRANCH" == "main" ]; then
+        if [ "$VNUM4" == 'rc' ]; then
+            echo "Update release candidate"
+            VNUM5=$((VNUM5+1))
+            NEW_TAG="V$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
+        else
+            echo "For current tag set release candidate"
+            VNUM4='rc'
+            VNUM5=1
+            NEW_TAG="V$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
+        fi
     else
-        echo "For current tag set release candidate"
+        echo "Must be on the main branch to create a release tag"
+    fi
+elif [ "$MAJORRC" ]; then
+    if [ "$BRANCH" == "main" ]; then
+        echo "Update major and set release candidate"
+        VNUM1=$((VNUM1+1))
+        VNUM2=0
+        VNUM3=0
         VNUM4='rc'
         VNUM5=1
         NEW_TAG="V$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
+    else
+        echo "Must be on the main branch to create a rc tag"
     fi
-elif [ "$MAJORRC" ]; then
-    echo "Update major and set release candidate"
-    VNUM1=$((VNUM1+1))
-    VNUM2=0
-    VNUM3=0
-    VNUM4='rc'
-    VNUM5=1
-    NEW_TAG="V$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
 elif [ -z "$VERSION" ]; then
     echo "No tag exists setting the first tag to V0.0.0"
     NEW_TAG="V0.0.0-alpha.1"
@@ -103,7 +115,7 @@ if [ "$NEW_TAG" == "nochange" ]; then
     CURRENTTAG=`git describe --abbrev=0 --tags`
     echo "tag is set to $CURRENTTAG"
 elif [ -z "$NEEDS_TAG" ]; then
-    echo "Updating $OLDVERSION to $NEW_TAG"
+    echo "Updating $VERSION to $NEW_TAG"
     git tag $NEW_TAG
     git push --tags
 else
