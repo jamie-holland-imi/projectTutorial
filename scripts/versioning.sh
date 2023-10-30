@@ -2,7 +2,7 @@
 
 #get highest tag number
 VERSION=`git describe --abbrev=0 --tags`
-BRANCH=`git rev-parse --abbrev-ref HEAD`
+BRANCH=`git branch --show-current`
 
 #get number parts of the current tag
 VNUM1=$(echo "$VERSION" | cut -d"." -f1)
