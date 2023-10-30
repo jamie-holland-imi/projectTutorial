@@ -3,7 +3,10 @@ name: Versioning
 on:
   push:
     branches:
-      - 'versioning'
+      - '**'
+  pull_request:
+    branches:
+      - '**'  
   workflow_dispatch:
   
 env:
