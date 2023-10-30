@@ -98,7 +98,7 @@ NEEDS_TAG=`git describe --contains $GIT_COMMIT 2>/dev/null`
 echo "###############################################################"
 if [ "$NEW_TAG" == "nochange" ]; then
     echo "No instruction detected"
-    CURRENTTAG=`git describe --tags`
+    CURRENTTAG=`git describe --abbrev=0 --tags`
     echo "tag is set to $CURRENTTAG"
 elif [ -z "$NEEDS_TAG" ]; then
     echo "Updating $OLDVERSION to $NEW_TAG"
