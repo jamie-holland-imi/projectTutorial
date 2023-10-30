@@ -31,6 +31,6 @@ jobs:
         ls
         pwd
         echo "**********"
-        cd..
+        cd ..
         ls
         pwd
