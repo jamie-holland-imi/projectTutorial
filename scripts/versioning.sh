@@ -24,6 +24,8 @@ MAJORRC=`git log --format=%B -n 1 HEAD | grep '(MAJORRC)'`
 
 if [ "$RELEASE" ]; then
     echo "Create a release tag removing the alpha, beta or rc labels"
+    VNUM4=''
+    VNUM5=0
     NEW_TAG="V$VNUM1.$VNUM2.$VNUM3"
 elif [ "$MAJOR" ]; then
     echo "Update major version"
