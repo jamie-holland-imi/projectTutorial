@@ -11,7 +11,7 @@ OLDVERSION=$VERSION
 #VNUM4=$(echo "$VERSION" | cut -d"-" -f4)
 #VNUM5=$(echo "$VERSION" | cut -d"." -f5)
 #VNUM1=`echo $VNUM1 | sed 's/V//'`
-$(echo "$VERSION" | awk -F'.|-' '{print $1; print $2; print $3;print $4;print $5;}')
+$(echo "$VERSION" | awk -F'[.-]' '{print $1; print $2; print $3;print $4;print $5;}')
 VNUM1=$1
 VNUM2=$2
 VNUM3=$3
@@ -28,11 +28,13 @@ BETA=`git log --format=%B -n 1 HEAD | grep '(BETA)'`
 RC=`git log --format=%B -n 1 HEAD | grep '(RC)'`
 MAJORRC=`git log --format=%B -n 1 HEAD | grep '(MAJORRC)'`
 
+echo "###############################"
 echo "1 $VNUM1"
 echo "2 $VNUM2"
 echo "3 $VNUM3"
 echo "4 $VNUM4"
 echo "5 $VNUM5"
+echo "###############################"
 
 if [ "$RELEASE" ]; then
     NEW_TAG="V$VNUM1.$VNUM2.$VNUM3"
