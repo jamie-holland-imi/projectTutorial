@@ -60,8 +60,8 @@ elif [ "$MAJORRC" ]; then
         NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
     fi
 elif [ -z "$VERSION" ]; then
-    echo "No tag exists setting the first tag to 0.0.1"
-    NEW_TAG="v0.0.1"
+    echo "No tag exists setting the first tag to 0.0.0"
+    NEW_TAG="v0.0.0"
 else
     NEW_TAG="nochange"
 fi
