@@ -2,7 +2,9 @@
 
 #get highest tag number
 VERSION=`git describe --abbrev=0 --tags`
+echo "The previous tag is $VERSION"
 BRANCH=`git branch --show-current`
+echo "The current branch is $BRANCH"
 
 #get number parts of the current tag
 VNUM1=$(echo "$VERSION" | cut -d"." -f1)
@@ -30,6 +32,7 @@ if [ "$RELEASE" ]; then
         NEW_TAG="V$VNUM1.$VNUM2.$VNUM3"
     else
         echo "Must be on the main branch to create a release tag"
+        NEW_TAG="invalidbranch"
     fi
 elif [ "$MAJOR" ]; then
     echo "Update major version"
@@ -84,7 +87,8 @@ elif [ "$RC" ]; then
             NEW_TAG="V$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
         fi
     else
-        echo "Must be on the main branch to create a release tag"
+        echo "Must be on the main branch to create a RC tag"
+        NEW_TAG="invalidbranch"
     fi
 elif [ "$MAJORRC" ]; then
     if [ "$BRANCH" == "main" ]; then
@@ -97,6 +101,7 @@ elif [ "$MAJORRC" ]; then
         NEW_TAG="V$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
     else
         echo "Must be on the main branch to create a rc tag"
+        NEW_TAG="invalidbranch"
     fi
 elif [ -z "$VERSION" ]; then
     echo "No tag exists setting the first tag to V0.0.0"
@@ -113,7 +118,9 @@ echo "##############################################################"
 if [ "$NEW_TAG" == "nochange" ]; then
     echo "No instruction detected"
     CURRENTTAG=`git describe --abbrev=0 --tags`
-    echo "tag is set to $CURRENTTAG"
+    echo "tag will remain as $CURRENTTAG"
+elif [ "$NEW_TAG" == "invalidbranch" ]; then
+    echo "Invalid branch to do a release from you must be on the main"
 elif [ -z "$NEEDS_TAG" ]; then
     echo "Updating $VERSION to $NEW_TAG"
     git tag $NEW_TAG
