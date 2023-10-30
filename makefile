@@ -87,7 +87,9 @@ CPPFLAGS += -masm-syntax-unified
 DEVICE_STARTUP = $(BASE_STARTUP)/*.s
 
 # Setting Output files
-VERSION ?= $(shell git describe --tags)
+ifeq ($(VERSION),)
+	VERSION ?= $(shell git describe --tags)
+endif
 PROJECT_NAME := $(shell basename $(dir $(abspath $(dir $$PWD))))
 FILE_NAME := $(PROJECT_NAME)_$(VERSION)
 
