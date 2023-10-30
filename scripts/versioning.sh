@@ -7,8 +7,8 @@ OLDVERSION=$VERSION
 #get number parts and increase last one by 1
 VNUM1=$(echo "$VERSION" | cut -d"." -f1)
 VNUM2=$(echo "$VERSION" | cut -d"." -f2)
-VNUM3=$(echo "$VERSION" | awk -F'.|-' -f3)
-VNUM4=$(echo "$VERSION" | awk -F'-|.' -f4)
+VNUM3=$(echo "$VERSION" | awk -F'.|-')
+VNUM4=$(echo "$VERSION" | awk -F'-|.')
 VNUM5=$(echo "$VERSION" | cut -d"." -f5)
 VNUM1=`echo $VNUM1 | sed 's/V//'`
 
