@@ -87,10 +87,10 @@ CPPFLAGS += -masm-syntax-unified
 DEVICE_STARTUP = $(BASE_STARTUP)/*.s
 
 # Setting Output files
-TAG_COMMIT := $(shell git rev-list --abbrev-commit --tags --max-count=1)
+#TAG_COMMIT := $(shell git rev-list --tags --max-count=1)
 # `2>/dev/null` suppress errors and `|| true` suppress the error codes.
-VERSION := $(shell git describe --tags ${TAG_COMMIT} 2>/dev/null || true)
-# VERSION ?= $(bash git describe --tags)
+#VERSION := $(shell git describe --tags ${TAG_COMMIT} 2>/dev/null || true)
+VERSION ?= $(bash git describe --tags)
 PROJECT_NAME := $(shell basename $(dir $(abspath $(dir $$PWD))))
 FILE_NAME := $(PROJECT_NAME)_$(VERSION)
 
