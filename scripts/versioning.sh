@@ -4,19 +4,12 @@
 VERSION=`git describe --abbrev=0 --tags`
 OLDVERSION=$VERSION
 
-#get number parts and increase last one by 1
-#VNUM1=$(echo "$VERSION" | cut -d"." -f1)
-#VNUM2=$(echo "$VERSION" | cut -d"." -f2)
-#VNUM3=$(echo "$VERSION" | cut -d"." -f3)
-#VNUM4=$(echo "$VERSION" | cut -d"-" -f4)
-#VNUM5=$(echo "$VERSION" | cut -d"." -f5)
-#VNUM1=`echo $VNUM1 | sed 's/V//'`
-$(echo "$VERSION" | awk -F'[.-]' '{print $1; print $2; print $3;print $4;print $5;}')
-VNUM1=$1
-VNUM2=$2
-VNUM3=$3
-VNUM4=$4
-VNUM5=$5
+#get number parts of the current tag
+VNUM1=$(echo "$VERSION" | cut -d"." -f1)
+VNUM2=$(echo "$VERSION" | cut -d"." -f2)
+VNUM3=$(echo "$VERSION" | cut -d"." -f3 | grep -Eo '[0-9]+')
+VNUM4=$(echo "$VERSION" | cut -d"." -f3 | grep -Eo '[[:alpha:]]+')
+VNUM5=$(echo "$VERSION" | cut -d"." -f4)
 
 # Check for #major or #minor in commit message and increment the relevant version number
 RELEASE=`git log --format=%B -n 1 HEAD | grep '(RELEASE)'`
@@ -27,14 +20,6 @@ ALPHA=`git log --format=%B -n 1 HEAD | grep '(ALPHA)'`
 BETA=`git log --format=%B -n 1 HEAD | grep '(BETA)'`
 RC=`git log --format=%B -n 1 HEAD | grep '(RC)'`
 MAJORRC=`git log --format=%B -n 1 HEAD | grep '(MAJORRC)'`
-
-echo "###############################"
-echo "1 $VNUM1"
-echo "2 $VNUM2"
-echo "3 $VNUM3"
-echo "4 $VNUM4"
-echo "5 $VNUM5"
-echo "###############################"
 
 if [ "$RELEASE" ]; then
     NEW_TAG="V$VNUM1.$VNUM2.$VNUM3"
