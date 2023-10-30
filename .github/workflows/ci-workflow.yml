@@ -87,8 +87,7 @@ jobs:
       
     - name: Run the Makefile and Build the Project
       run: |
-        make
-#make VERSION=${{ env.GIT_TAG }}
+        make VERSION=${{ env.GIT_TAG }}
 
     - name: Create Artifacts
       uses: actions/upload-artifact@v3.1.2
