@@ -34,3 +34,11 @@ jobs:
         cd ..
         ls
         pwd
+        echo "**********"
+        cd ..
+        ls
+        pwd
+        echo "**********"
+        cd ..
+        ls
+        pwd
