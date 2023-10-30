@@ -21,18 +21,18 @@ MAJORRC=`git log --format=%B -n 1 HEAD | grep '(MAJORRC)'`
 
 if [ "$MAJOR" ]; then
     echo "Update major version"
-    VNUM1=$((VNUM1+1))
+    VNUM1=$((VNUM1++))
     VNUM2=0
     VNUM3=0
     NEW_TAG="v$VNUM1.$VNUM2.$VNUM3"
 elif [ "$MINOR" ]; then
     echo "Update minor version"
-    VNUM2=$((VNUM2+1))
+    VNUM2=$((VNUM2++))
     VNUM3=0
     NEW_TAG="v$VNUM1.$VNUM2.$VNUM3"
 elif [ "$PATCH" ]; then
     echo "Update patch version"
-    VNUM3=$((VNUM3+1))
+    VNUM3=$((VNUM3++))
     NEW_TAG="v$VNUM1.$VNUM2.$VNUM3"
 elif [ "$RC" ]; then
     if [ -z "$VNUM5" ]; then
@@ -42,17 +42,17 @@ elif [ "$RC" ]; then
         NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
     else
         echo "Update release candidate version"
-        VNUM5=$((VNUM5+1))
+        VNUM5=$((VNUM5++))
         NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VCHAR.$VNUM5"
     fi
 elif [ "$MAJORRC" ]; then
     if [ "$VNUM2" == '0' ] && [ "$VNUM3" == '0' ] && [ "$VNUM4" == 'rc' ]; then
         echo "Going to RC as currently already a major version"
-        VNUM5=$((VNUM5+1))
+        VNUM5=$((VNUM5++))
         NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
     else
         echo "Update major and set release candidate"
-        VNUM1=$((VNUM1+1))
+        VNUM1=$((VNUM1++))
         VNUM2=0
         VNUM3=0
         VNUM4='rc'
