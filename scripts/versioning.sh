@@ -7,9 +7,9 @@ OLDVERSION=$VERSION
 #get number parts and increase last one by 1
 VNUM1=$(echo "$VERSION" | cut -d"." -f1)
 VNUM2=$(echo "$VERSION" | cut -d"." -f2)
-VNUM3=$(echo "$VERSION" | cut -d"." -f3)
-VNUM4=$(echo "$VERSION" | cut -c 8-9)
-VNUM5=$(echo "$VERSION" | cut -c 11)
+VNUM3=$(echo "$VERSION" | sed -e 's/.\(.*\)-/\1/' -f3)
+VNUM4=$(echo "$VERSION" | sed -e 's/-\(.*\)./\1/' -f4)
+VNUM5=$(echo "$VERSION" | cut -d"." -f5)
 VNUM1=`echo $VNUM1 | sed 's/v//'`
 
 # Check for #major or #minor in commit message and increment the relevant version number
