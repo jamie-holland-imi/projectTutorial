@@ -26,9 +26,11 @@ jobs:
          chmod +x ./scripts/versioning.sh
          ./scripts/versioning.sh
       shell: bash
-    - run: |
+    - name: test
+      run: |
         ls
         pwd
         echo "**********"
-        cd ..
-        ls pwd
+        cd..
+        ls
+        pwd
