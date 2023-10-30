@@ -1,4 +1,4 @@
-S# Include the series-specific makefile
+# Include the series-specific makefile
 MAPPED_DEVICE = STM32G071xx
 DEV_DRIVER = STM32G0xx
 BOARD = STM32G071RBTX
