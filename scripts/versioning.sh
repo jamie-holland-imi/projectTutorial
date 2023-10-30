@@ -4,7 +4,6 @@
 VERSION=`git describe --abbrev=0 --tags`
 echo "The previous tag is $VERSION"
 BRANCH=`git branch --show-current`
-echo "The current branch is $BRANCH"
 
 #get number parts of the current tag
 VNUM1=$(echo "$VERSION" | cut -d"." -f1)
@@ -120,7 +119,8 @@ if [ "$NEW_TAG" == "nochange" ]; then
     CURRENTTAG=`git describe --abbrev=0 --tags`
     echo "tag will remain as $CURRENTTAG"
 elif [ "$NEW_TAG" == "invalidbranch" ]; then
-    echo "Invalid branch to do a release from you must be on the main"
+    echo "The current branch is $BRANCH"
+    echo "To do a release from you must be on the main branch not the $BRANCH branch"
 elif [ -z "$NEEDS_TAG" ]; then
     echo "Updating $VERSION to $NEW_TAG"
     git tag $NEW_TAG
