@@ -3,6 +3,7 @@
 #get highest tag number
 VERSION=`git describe --abbrev=0 --tags`
 BRANCH=`git branch --show-current`
+COMMIT=`git log --format=%B -n 1 HEAD`
 
 #get number parts of the current tag
 VNUM1=$(echo "$VERSION" | cut -d"." -f1)
@@ -13,15 +14,15 @@ VNUM5=$(echo "$VERSION" | cut -d"." -f4)
 VNUM1=`echo $VNUM1 | sed 's/V//'`
 
 # Check for #major or #minor in commit message and increment the relevant version number
-CLEAN=`git log --format=%B -n 1 HEAD | grep '(CLEAN)'`
-MAJOR=`git log --format=%B -n 1 HEAD | grep '(MAJOR)'`
-MINOR=`git log --format=%B -n 1 HEAD | grep '(MINOR)'`
-PATCH=`git log --format=%B -n 1 HEAD | grep '(PATCH)'`
-ALPHA=`git log --format=%B -n 1 HEAD | grep '(ALPHA)'`
-BETA=`git log --format=%B -n 1 HEAD | grep '(BETA)'`
-PHASE=`git log --format=%B -n 1 HEAD | grep '(PHASE)'`
-RC=`git log --format=%B -n 1 HEAD | grep '(RC)'`
-MAJORRC=`git log --format=%B -n 1 HEAD | grep '(MAJORRC)'`
+CLEAN=`$COMMIT | grep '(CLEAN)'`
+MAJOR=`$COMMIT | grep '(MAJOR)'`
+MINOR=`$COMMIT | grep '(MINOR)'`
+PATCH=`$COMMIT | grep '(PATCH)'`
+ALPHA=`$COMMIT | grep '(ALPHA)'`
+BETA=`$COMMIT | grep '(BETA)'`
+PHASE=`$COMMIT | grep '(PHASE)'`
+RC=`$COMMIT | grep '(RC)'`
+MAJORRC=`$COMMIT | grep '(MAJORRC)'`
 
 if [ "$CLEAN" ]; then
     if [ "$BRANCH" == "main" ]; then
