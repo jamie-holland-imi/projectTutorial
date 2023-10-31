@@ -14,15 +14,15 @@ VNUM5=$(echo "$VERSION" | cut -d"." -f4)
 VNUM1=`echo $VNUM1 | sed 's/V//'`
 
 # Check for #major or #minor in commit message and increment the relevant version number
-CLEAN=`$COMMIT | grep '(CLEAN)'`
-MAJOR=`$COMMIT | grep '(MAJOR)'`
-MINOR=`$COMMIT | grep '(MINOR)'`
-PATCH=`$COMMIT | grep '(PATCH)'`
-ALPHA=`$COMMIT | grep '(ALPHA)'`
-BETA=`$COMMIT | grep '(BETA)'`
-PHASE=`$COMMIT | grep '(PHASE)'`
-RC=`$COMMIT | grep '(RC)'`
-MAJORRC=`$COMMIT | grep '(MAJORRC)'`
+CLEAN=("$COMMIT" | grep '(CLEAN)')
+MAJOR=("$COMMIT" | grep '(MAJOR)')
+MINOR=("$COMMIT" | grep '(MINOR)')
+PATCH=("$COMMIT" | grep '(PATCH)')
+ALPHA=("$COMMIT" | grep '(ALPHA)')
+BETA=("$COMMIT" | grep '(BETA)')
+PHASE=("$COMMIT" | grep '(PHASE)')
+RC=($COMMIT | grep '(RC)')
+MAJORRC=($COMMIT | grep '(MAJORRC)')
 
 if [ "$CLEAN" ]; then
     if [ "$BRANCH" == "main" ]; then
