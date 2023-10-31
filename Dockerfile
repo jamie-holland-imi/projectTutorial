@@ -25,5 +25,4 @@ ENV PATH="/arm-none-eabi/bin:${PATH}"
 # Check if toolchain has been installed correctly
 # RUN arm-none-eabi-gcc --version
 
-# Add all files in the repository
 WORKDIR /home/dev
