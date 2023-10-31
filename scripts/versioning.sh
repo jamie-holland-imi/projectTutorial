@@ -111,9 +111,11 @@ fi
 #get current hash and see if it already has a tag
 GIT_COMMIT=`git rev-parse HEAD`
 NEEDS_TAG=`git describe --contains $GIT_COMMIT 2>/dev/null`
+
 echo "$GIT_COMMIT"
 echo "###########"
 echo "$NEEDS_TAG"
+
 echo "##############################################################"
 if [ "$NEW_TAG" == "nochange" ]; then
     echo "No instruction detected the branch will remain as $VERSION"
