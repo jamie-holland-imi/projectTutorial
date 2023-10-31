@@ -111,13 +111,15 @@ fi
 #get current hash and see if it already has a tag
 GIT_COMMIT=`git rev-parse HEAD`
 NEEDS_TAG=`git describe --contains $GIT_COMMIT 2>/dev/null`
-
+echo "$GIT_COMMIT"
+echo "###########"
+echo "$NEEDS_TAG"
 echo "##############################################################"
 if [ "$NEW_TAG" == "nochange" ]; then
     echo "No instruction detected the branch will remain as $VERSION"
 elif [ "$NEW_TAG" == "invalidbranch" ]; then
     echo "The current branch is $BRANCH"
-    echo "To do a release from you must be on the main branch not the $BRANCH branch"
+    echo "To set either a release or rc you must be on the main branch not the $BRANCH branch"
 elif [ -z "$NEEDS_TAG" ]; then
     echo "Updating from the tag $VERSION to $NEW_TAG"
     git tag $NEW_TAG
