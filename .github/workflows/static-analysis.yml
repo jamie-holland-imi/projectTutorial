@@ -1,6 +1,9 @@
 name: "Static Analysis"
 
 on:
+  push:
+    branches:
+      - 'test'
   workflow_dispatch:
       
 env:
@@ -75,3 +78,12 @@ jobs:
           path: |
             ./cppcheck_report_${{ env.GIT_TAG }}.txt
             ./cpplint_report_${{ env.GIT_TAG }}.txt
+
+      - name: Install and Run CMock
+        run: |
+          apt-get install rubygems -y
+          git clone --recursive https://github.com/throwtheswitch/cmock.git
+          cd cmock
+          bundle install # Ensures you have all RubyGems needed
+          cd test
+          rake
