@@ -84,6 +84,5 @@ jobs:
           apt-get install rubygems -y
           git clone --recursive https://github.com/throwtheswitch/cmock.git
           cd cmock
-          bundle install # Ensures you have all RubyGems needed
           cd test
           rake
