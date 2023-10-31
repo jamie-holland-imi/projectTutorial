@@ -13,23 +13,24 @@ VNUM5=$(echo "$VERSION" | cut -d"." -f4)
 VNUM1=`echo $VNUM1 | sed 's/V//'`
 
 # Check for #major or #minor in commit message and increment the relevant version number
-RELEASE=`git log --format=%B -n 1 HEAD | grep '(RELEASE)'`
+CLEAN=`git log --format=%B -n 1 HEAD | grep '(CLEAN)'`
 MAJOR=`git log --format=%B -n 1 HEAD | grep '(MAJOR)'`
 MINOR=`git log --format=%B -n 1 HEAD | grep '(MINOR)'`
 PATCH=`git log --format=%B -n 1 HEAD | grep '(PATCH)'`
 ALPHA=`git log --format=%B -n 1 HEAD | grep '(ALPHA)'`
 BETA=`git log --format=%B -n 1 HEAD | grep '(BETA)'`
+PHASE=`git log --format=%B -n 1 HEAD | grep '(PHASE)'`
 RC=`git log --format=%B -n 1 HEAD | grep '(RC)'`
 MAJORRC=`git log --format=%B -n 1 HEAD | grep '(MAJORRC)'`
 
-if [ "$RELEASE" ]; then
+if [ "$CLEAN" ]; then
     if [ "$BRANCH" == "main" ]; then
-        echo "Create a release tag removing the alpha, beta or rc labels"
-        VNUM4=''
+        echo "Create a clean release tag removing additional labels"
+        VNUM4=""
         VNUM5=0
         NEW_TAG="V$VNUM1.$VNUM2.$VNUM3"
     else
-        echo "Must be on the main branch to create a release tag"
+        echo "Must be on the main branch to create a clean release tag"
         NEW_TAG="invalidbranch"
     fi
 elif [ "$MAJOR" ]; then
@@ -71,6 +72,15 @@ elif [ "$BETA" ]; then
         VNUM4='beta'
         VNUM5=1
         NEW_TAG="V$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
+    fi
+elif [ "$PHASE" ]; then
+    if [ -z "$VNUM4" ]; then
+        echo "Update phase version"
+        VNUM5=$((VNUM5+1))
+        NEW_TAG="V$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
+    else
+        echo "Not currently in a phase no change to be done"
+        NEW_TAG="nochange"
     fi
 elif [ "$RC" ]; then
     if [ "$BRANCH" == "main" ]; then
