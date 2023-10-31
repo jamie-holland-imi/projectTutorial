@@ -1,7 +1,8 @@
 #!/bin/bash
 
 #get highest tag number
-VERSION=`git describe --tags `git rev-list --tags --max-count=1``
+REVLIST=`git rev-list --tags --max-count=1`
+VERSION=`git describe --tags $REVLIST`
 BRANCH=`git branch --show-current`
 
 #get number parts of the current tag
