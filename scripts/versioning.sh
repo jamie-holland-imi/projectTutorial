@@ -38,19 +38,31 @@ elif [ "$MAJOR" ]; then
     VNUM1=$((VNUM1+1))
     VNUM2=0
     VNUM3=0
-    VNUM5=1
-    NEW_TAG="V$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
+    if [ -z "$VNUM4" ]; then
+        NEW_TAG="V$VNUM1.$VNUM2.$VNUM3"
+    else
+        VNUM5=1
+        NEW_TAG="V$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
+    fi
 elif [ "$MINOR" ]; then
     echo "Update minor version"
     VNUM2=$((VNUM2+1))
     VNUM3=0
-    VNUM5=1
-    NEW_TAG="V$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
+    if [ -z "$VNUM4" ]; then
+        NEW_TAG="V$VNUM1.$VNUM2.$VNUM3"
+    else
+        VNUM5=1
+        NEW_TAG="V$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
+    fi
 elif [ "$PATCH" ]; then
     echo "Update patch version"
     VNUM3=$((VNUM3+1))
-    VNUM5=1
-    NEW_TAG="V$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
+    if [ -z "$VNUM4" ]; then
+        NEW_TAG="V$VNUM1.$VNUM2.$VNUM3"
+    else
+        VNUM5=1
+        NEW_TAG="V$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
+    fi
 elif [ "$ALPHA" ]; then
     if [ "$VNUM4" == 'alpha' ]; then
         echo "Update alpha version"
@@ -112,7 +124,7 @@ elif [ "$MAJORRC" ]; then
         NEW_TAG="invalidbranch"
     fi
 elif [ -z "$VERSION" ]; then
-    echo "No tag exists setting the first tag to V0.0.0"
+    echo "No tag exists setting the first tag to V0.0.0-alpha.1"
     NEW_TAG="V0.0.0-alpha.1"
 else
     NEW_TAG="nochange"
