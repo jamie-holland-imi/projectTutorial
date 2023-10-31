@@ -75,12 +75,12 @@ elif [ "$BETA" ]; then
     fi
 elif [ "$PHASE" ]; then
     if [ -z "$VNUM4" ]; then
-        echo "Update phase version"
-        VNUM5=$((VNUM5+1))
-        NEW_TAG="V$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
-    else
         echo "Not currently in a phase no change to be done"
         NEW_TAG="nochange"
+    else
+        echo "Update phase $VNUM4 version"
+        VNUM5=$((VNUM5+1))
+        NEW_TAG="V$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
     fi
 elif [ "$RC" ]; then
     if [ "$BRANCH" == "main" ]; then
