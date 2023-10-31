@@ -1,15 +1,22 @@
-name: CI CD Workflow
+name: CI Github Actions Workflow
 
 on:
   push:
+    paths:
+      - '.github/workflows/ci-workflow.yml'
     branches:
       - 'main'
+      - 'dev'
+      - 'release/*'
   pull_request:
     branches:
       - 'main'
+      - 'dev'
+      - 'release/*'
   workflow_dispatch:
   
-# The IMAGE_TAG sets the docker image name, it must be lowercase the ,, convert to lowercase
+# Define the image tag
+# The IMAGE_TAG must be lowercase the ,, converts chars to lowercase
 env:
   REGISTRY: ghcr.io
   REPO_NAME: ${{ github.event.repository.name }}
@@ -17,7 +24,7 @@ env:
   ORG_NAME: ${{ github.repository_owner }}
   VERSION: "latest"
   IMAGE_TAG: ${REGISTRY,,}"/"${ORG_NAME,,}"/"${REPO_NAME,,}":"${VERSION,,}
-
+  
 jobs:
   variable_substitution:
     runs-on: ubuntu-22.04
@@ -32,26 +39,30 @@ jobs:
     runs-on: ubuntu-22.04
     permissions:
       packages: write
+      contents: read
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Login to GitHub Container Registry
-      uses: docker/login-action@v2.2.0
+      uses: docker/login-action@v3.0.0
       with:
         registry: ${{env.REGISTRY}}
         username: ${ORG_NAME,,}
         password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Check if image exists
+      id: imageExists
+      run: docker pull ${{needs.variable_substitution.outputs.image}}
+      continue-on-error : true
     - name: If Docker image doesnt exist build it
-      run: |
-        if ( docker pull ${{needs.variable_substitution.outputs.image}} ) >/dev/null 2>&1; then
-          echo "The image " ${{needs.variable_substitution.outputs.image}} " already exists"
-        else
-          docker build . --file Dockerfile --tag ${{needs.variable_substitution.outputs.image}}
-          docker run ${{needs.variable_substitution.outputs.image}}
-          docker push ${{needs.variable_substitution.outputs.image}}
-          echo "The image " ${{needs.variable_substitution.outputs.image}} " has been created"
-        fi
-      
+      if: steps.imageExists.outcome == 'failure'
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        push: true
+        tags: ${{needs.variable_substitution.outputs.image}}
+        secrets: |
+            GIT_AUTH_TOKEN=${{ secrets.GITHUB_TOKEN }}
+
   compile:
     needs: [variable_substitution, build]
     runs-on: ubuntu-22.04
@@ -62,15 +73,24 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     permissions:
       packages: write
+      contents: read
     steps:
     - name: Checkout the repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: set up env var
+      run: |
+        git config --global --add safe.directory '*'
+        echo "GIT_TAG=$(git describe --tags)" >> $GITHUB_ENV
+      shell: bash
     - name: Run the Makefile and Build the Project
-      run: make
+      run: |
+        make VERSION=${{ env.GIT_TAG }}
     - name: Create Artifacts
       uses: actions/upload-artifact@v3.1.2
       with:
-        name: build_files
+        name: build_files_${{ env.GIT_TAG }}
         path: |
           ./*.elf
           ./*.hex
