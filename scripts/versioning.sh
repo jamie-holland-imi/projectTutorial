@@ -14,15 +14,24 @@ VNUM5=$(echo "$VERSION" | cut -d"." -f4)
 VNUM1=`echo $VNUM1 | sed 's/V//'`
 
 # Check for #major or #minor in commit message and increment the relevant version number
-CLEAN=`git log --format=%B -n 1 HEAD | grep '(CLEAN)'`
 MAJOR=`git log --format=%B -n 1 HEAD | grep '(MAJOR)'`
 MINOR=`git log --format=%B -n 1 HEAD | grep '(MINOR)'`
 PATCH=`git log --format=%B -n 1 HEAD | grep '(PATCH)'`
+CLEAN=`git log --format=%B -n 1 HEAD | grep '(CLEAN)'`
 ALPHA=`git log --format=%B -n 1 HEAD | grep '(ALPHA)'`
 BETA=`git log --format=%B -n 1 HEAD | grep '(BETA)'`
 PHASE=`git log --format=%B -n 1 HEAD | grep '(PHASE)'`
 RC=`git log --format=%B -n 1 HEAD | grep '(RC)'`
-MAJORRC=`git log --format=%B -n 1 HEAD | grep '(MAJORRC)'`
+
+if [ -z "$VERSION" ]; then
+    echo "No tag exists setting the first tag to V0.0.0-alpha.1"
+    VNUM1=0
+    VNUM2=0
+    VNUM3=0
+    VNUM4='alpha'
+    VNUM5=1
+    NEW_TAG="V$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
+fi
 
 if [ "$MAJOR" ]; then
     echo "Update major version"
@@ -60,7 +69,6 @@ if [ "$CLEAN" ]; then
     if [ "$BRANCH" == "main" ]; then
         echo "Create a clean release tag removing additional labels"
         VNUM4=""
-        VNUM5=0
         NEW_TAG="V$VNUM1.$VNUM2.$VNUM3"
     else
         echo "Must be on the main branch to create a clean release tag"
@@ -112,27 +120,9 @@ elif [ "$RC" ]; then
         echo "Must be on the main branch to create a RC tag"
         NEW_TAG="invalidbranch"
     fi
-elif [ "$MAJORRC" ]; then
-    if [ "$BRANCH" == "main" ]; then
-        echo "Update major and set release candidate"
-        VNUM1=$((VNUM1+1))
-        VNUM2=0
-        VNUM3=0
-        VNUM4='rc'
-        VNUM5=1
-        NEW_TAG="V$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
-    else
-        echo "Must be on the main branch to create a rc tag"
-        NEW_TAG="invalidbranch"
-    fi
-elif [ -z "$VNUM4" ]; then
-        NEW_TAG="V$VNUM1.$VNUM2.$VNUM3"
-elif [ "$VNUM5" == "0" ];then
+elif [ "$VNUM5" == "0" ]; then
     VNUM5=1
     NEW_TAG="V$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
-elif [ -z "$VERSION" ]; then
-    echo "No tag exists setting the first tag to V0.0.0-alpha.1"
-    NEW_TAG="V0.0.0-alpha.1"
 fi
 
 #get current hash and see if it already has a tag
