@@ -8,14 +8,12 @@ RUN apt-get update && \
          apt-get install -y \
              build-essential \
              python3 \
+             python3-pip \           
              git \
              make \
              cmake \
              wget \
-             python3-pip \
-             ninja-build \
              curl
-# COPY . /home/dev
 
 # Download,unpack,install the ARM Toolchain             
 RUN wget -O arm-none-eabi.tar.xz "https://developer.arm.com/-/media/Files/downloads/gnu/12.3.rel1/binrel/arm-gnu-toolchain-12.3.rel1-x86_64-arm-none-eabi.tar.xz" --no-check-certificate && \
@@ -31,7 +29,10 @@ RUN git clone --depth 1 https://github.com/danmar/cppcheck.git && \
           rm -fr cppcheck
 
 # Install Cpplint
-# RUN cppcheck -y
+RUN apt-get install -y --no-install-recommends \
+         tzdata \
+         ninja-build
+#cppcheck -y
 RUN pip3 install cpplint -y
 
 WORKDIR /home/dev
