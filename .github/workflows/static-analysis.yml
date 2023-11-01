@@ -47,11 +47,11 @@ jobs:
         shell: bash
       - name: Run CppCheck
         run: |
-          cppcheck --enable=all --output-file=cppcheck_report_${{ env.GIT_TAG }}.txt --addon=../tests/misra.json --suppressions-list=../tests/suppressions.txt --file-list=../tests/check_list.txt
+          cppcheck --enable=all --output-file=cppcheck_report_${{ env.GIT_TAG }}.txt --addon=./tests/misra.json --suppressions-list=./tests/suppressions.txt --file-list=./tests/check_list.txt
       - name: Install and Run CppLint
-        run: |
-          cpplint --extensions=c --recursive --file-list=../tests/check_list.txt >> cpplint_report_${{ env.GIT_TAG }}.txt 2>&1
         continue-on-error: true
+        run: |
+          cpplint --extensions=c --recursive --file-list=./tests/check_list.txt >> cpplint_report_${{ env.GIT_TAG }}.txt 2>&1
       - name: Create Artifact
         uses: actions/upload-artifact@v3
         with:
