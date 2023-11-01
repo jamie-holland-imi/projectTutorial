@@ -42,20 +42,18 @@ jobs:
           git config --global --add safe.directory '*'
           echo "GIT_TAG=$(git describe --tags)" >> $GITHUB_ENV
         shell: bash
-      - name: Install CppCheck
-        run: |
-          apt-get install -y ninja-build
-
-          CMAKE_VERSION=3.23.2 && \
-          wget https://github.com/Kitware/CMake/releases/download/v$CMAKE_VERSION/cmake-$CMAKE_VERSION-Linux-x86_64.sh && \
-          chmod a+x cmake-$CMAKE_VERSION-Linux-x86_64.sh && \
-          ./cmake-$CMAKE_VERSION-Linux-x86_64.sh --skip-license --prefix=/usr/local && \
-          rm cmake-$CMAKE_VERSION-Linux-x86_64.sh
-
-          git clone --depth 1 https://github.com/danmar/cppcheck.git && \
-          cmake -S cppcheck -B cppcheck/build -G Ninja -DCMAKE_BUILD_TYPE=Release && \
-          cmake --build cppcheck/build --target install && \
-          rm -fr cppcheck
+#      - name: Install CppCheck
+#        run: |
+#          CMAKE_VERSION=3.23.2 && \
+#          wget https://github.com/Kitware/CMake/releases/download/v$CMAKE_VERSION/cmake-$CMAKE_VERSION-Linux-x86_64.sh && \
+#          chmod a+x cmake-$CMAKE_VERSION-Linux-x86_64.sh && \
+#          ./cmake-$CMAKE_VERSION-Linux-x86_64.sh --skip-license --prefix=/usr/local && \
+#          rm cmake-$CMAKE_VERSION-Linux-x86_64.sh
+#
+#          git clone --depth 1 https://github.com/danmar/cppcheck.git && \
+#          cmake -S cppcheck -B cppcheck/build -G Ninja -DCMAKE_BUILD_TYPE=Release && \
+#          cmake --build cppcheck/build --target install && \
+#          rm -fr cppcheck
 
       - name: Run CppCheck
         run: |
@@ -63,9 +61,6 @@ jobs:
 
       - name: Install and Run CppLint
         run: |
-          python3 --version
-          apt-get install python3-pip -y
-          pip3 install cpplint
           cpplint --extensions=c --recursive ./Core/Src/main.c >> cpplint_report_${{ env.GIT_TAG }}.txt 2>&1
         continue-on-error: true
         
