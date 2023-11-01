@@ -31,10 +31,8 @@ if [ -z "$VERSION" ]; then
     VNUM4='alpha'
     VNUM5=1
     NEW_TAG="V$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
-fi
-
 # need to check if tag that its dropped down to already exists
-if [ "$VNUM4" == 'rc' ] && [ "$BRANCH" != "main" ]; then
+elif [ "$VNUM4" == 'rc' ] && [ "$BRANCH" != "main" ]; then
     VNUM3=$((VNUM3+1))
     VNUM4='beta'
     VNUM5=1
