@@ -18,9 +18,9 @@ MAJOR=`git log --format=%B -n 1 HEAD | grep '(MAJOR)'`
 MINOR=`git log --format=%B -n 1 HEAD | grep '(MINOR)'`
 PATCH=`git log --format=%B -n 1 HEAD | grep '(PATCH)'`
 CLEAN=`git log --format=%B -n 1 HEAD | grep '(CLEAN)'`
+PHASE=`git log --format=%B -n 1 HEAD | grep '(PHASE)'`
 ALPHA=`git log --format=%B -n 1 HEAD | grep '(ALPHA)'`
 BETA=`git log --format=%B -n 1 HEAD | grep '(BETA)'`
-PHASE=`git log --format=%B -n 1 HEAD | grep '(PHASE)'`
 RC=`git log --format=%B -n 1 HEAD | grep '(RC)'`
 
 if [ -z "$VERSION" ]; then
@@ -29,6 +29,14 @@ if [ -z "$VERSION" ]; then
     VNUM2=0
     VNUM3=0
     VNUM4='alpha'
+    VNUM5=1
+    NEW_TAG="V$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
+fi
+
+# need to check if tag that its dropped down to already exists
+if [ "$VNUM4" == 'rc' ] && [ "$BRANCH" != "main" ]; then
+    VNUM3=$((VNUM3+1))
+    VNUM4='beta'
     VNUM5=1
     NEW_TAG="V$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
 fi
