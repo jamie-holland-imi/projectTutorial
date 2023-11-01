@@ -1,8 +1,3 @@
-# List of files or checks to ignore
+# List of warnings to ignore
 missingIncludeSystem
 unusedFunction
-*:*/Drivers/*
-*:*/Core/Inc/*
-*:*/Core/Startup/*
-*:*/Core/Inc/*sys*.*
-*:*/Core/Inc/*stm*.*
