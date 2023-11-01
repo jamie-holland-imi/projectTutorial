@@ -1,7 +1,8 @@
+# List of files or checks to ignore
 missingIncludeSystem
 unusedFunction
--I *:*/Drivers/*
--I *:*/Core/Inc/*
--I *:*/Core/Startup/*
+*:*/Drivers/*
+*:*/Core/Inc/*
+*:*/Core/Startup/*
 *:*/Core/Inc/*sys*.*
 *:*/Core/Inc/*stm*.*
