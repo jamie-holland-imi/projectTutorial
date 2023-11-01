@@ -11,8 +11,7 @@ RUN apt-get update && \
              wget \
              python3 \
              curl
-             
-# Add all files in the repository
+ 
 # COPY . /home/dev
 
 # Download,unpack,install the ARM Toolchain             
