@@ -21,8 +21,8 @@ RUN wget -O arm-none-eabi.tar.xz "https://developer.arm.com/-/media/Files/downlo
 ENV PATH="/arm-none-eabi/bin:${PATH}"
 
 # Install Cpplint
-RUN apt-get install -y -8 \
-         python3-pip
+RUN apt-get install -y --no-check-certificate \
+         python3-pip \
          ninja-build
 #cppcheck -y
 # Download and install cppcheck
