@@ -135,7 +135,7 @@ GIT_COMMIT=`git rev-parse HEAD`
 NEEDS_TAG=`git describe --contains $GIT_COMMIT 2>/dev/null`
 
 echo "################################################################"
-if [ -z "$NEW_TAG"]; then
+if [ -z "$NEW_TAG" ]; then
     echo "No instruction detected the branch will remain as $VERSION"
 elif [ "$NEW_TAG" == "invalidbranch" ]; then
     echo "The current branch is $BRANCH"
