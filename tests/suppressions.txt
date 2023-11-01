@@ -1,7 +1,7 @@
 missingIncludeSystem
 unusedFunction
-*:*/Drivers/**
-*:*/Core/Inc/**
-*:*/Core/Startup/**
+-I *:*/Drivers/*
+-I *:*/Core/Inc/*
+-I *:*/Core/Startup/*
 *:*/Core/Inc/*sys*.*
 *:*/Core/Inc/*stm*.*
