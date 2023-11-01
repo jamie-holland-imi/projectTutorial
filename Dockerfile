@@ -1,14 +1,12 @@
 # Specify Opperating System and its version
 FROM ubuntu:20.04
-ENV TZ="Europe/London"
 
 # Download Linux support tools
 RUN apt-get update && \
          apt-get clean && \ 
          apt-get install -y \
              build-essential \
-             python3 \
-             python3-pip \           
+             python3 \         
              git \
              make \
              cmake \
@@ -22,6 +20,17 @@ RUN wget -O arm-none-eabi.tar.xz "https://developer.arm.com/-/media/Files/downlo
          rm arm-none-eabi.tar.xz
 ENV PATH="/arm-none-eabi/bin:${PATH}"
 
-
+# Install Cpplint
+RUN apt-get install -y -8 \
+         python3-pip
+         ninja-build
+#cppcheck -y
+# Download and install cppcheck
+RUN git clone --depth 1 https://github.com/danmar/cppcheck.git && \
+          cmake -S cppcheck -B cppcheck/build -G Ninja -DCMAKE_BUILD_TYPE=Release && \
+          cmake --build cppcheck/build --target install && \
+          rm -fr cppcheck
+          
+RUN pip3 install cpplint -y
 
 WORKDIR /home/dev
