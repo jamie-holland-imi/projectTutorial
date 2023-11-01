@@ -135,7 +135,7 @@ fi
 GIT_COMMIT=`git rev-parse HEAD`
 NEEDS_TAG=`git describe --contains $GIT_COMMIT 2>/dev/null`
 
-echo "##############################################################"
+echo "################################################################"
 if [ "$NEW_TAG" == "nochange" ]; then
     echo "No instruction detected the branch will remain as $VERSION"
 elif [ "$NEW_TAG" == "invalidbranch" ]; then
@@ -148,4 +148,4 @@ elif [ -z "$NEEDS_TAG" ]; then
 else
     echo "The tag $NEW_TAG already exists the latest tag will remain as $VERSION"
 fi
-echo "##############################################################"
+echo "################################################################"
