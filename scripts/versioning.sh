@@ -128,7 +128,9 @@ elif [ "$MAJORRC" ]; then
 elif [ -z "$VERSION" ]; then
     echo "No tag exists setting the first tag to V0.0.0-alpha.1"
     NEW_TAG="V0.0.0-alpha.1"
-elif [ [ "$MAJOR" ] || [ "$MINOR" ] || [ "$PATCH" ] ];then
+fi
+
+if [ "$VNUM5" == "0" ]];then
     VNUM5=1
 fi
 
