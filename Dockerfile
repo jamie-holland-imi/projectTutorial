@@ -20,8 +20,10 @@ RUN wget -O arm-none-eabi.tar.xz "https://developer.arm.com/-/media/Files/downlo
 ENV PATH="/arm-none-eabi/bin:${PATH}"
 
 # Install Cppcheck
-RUN apt-get install -y ninja-build
-
+RUN apt-get install -y \
+         ninja-build \
+         python3-pip
+         
 RUN CMAKE_VERSION=3.27.7 && \
          wget https://github.com/Kitware/CMake/releases/download/v$CMAKE_VERSION/cmake-$CMAKE_VERSION-Linux-x86_64.sh && \
          chmod a+x cmake-$CMAKE_VERSION-Linux-x86_64.sh && \
@@ -33,7 +35,6 @@ RUN git clone --depth 1 https://github.com/danmar/cppcheck.git && \
           cmake --build cppcheck/build --target install && \
           rm -fr cppcheck
 
-RUN apt-get install python3-pip -y
 RUN pip3 install cpplint
 
 WORKDIR /home/dev
