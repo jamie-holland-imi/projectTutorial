@@ -130,7 +130,7 @@ elif [ -z "$VERSION" ]; then
     NEW_TAG="V0.0.0-alpha.1"
 fi
 
-if [ "$VNUM5" == "0" ]];then
+if [ "$VNUM5" == "0" ];then
     VNUM5=1
 fi
 
