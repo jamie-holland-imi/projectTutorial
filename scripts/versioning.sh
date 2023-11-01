@@ -125,13 +125,14 @@ elif [ "$MAJORRC" ]; then
         echo "Must be on the main branch to create a rc tag"
         NEW_TAG="invalidbranch"
     fi
+elif [ -z "$VNUM4" ]; then
+        NEW_TAG="V$VNUM1.$VNUM2.$VNUM3"
+elif [ "$VNUM5" == "0" ];then
+    VNUM5=1
+    NEW_TAG="V$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
 elif [ -z "$VERSION" ]; then
     echo "No tag exists setting the first tag to V0.0.0-alpha.1"
     NEW_TAG="V0.0.0-alpha.1"
-fi
-
-if [ "$VNUM5" == "0" ];then
-    VNUM5=1
 fi
 
 #get current hash and see if it already has a tag
