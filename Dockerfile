@@ -20,17 +20,4 @@ RUN wget -O arm-none-eabi.tar.xz "https://developer.arm.com/-/media/Files/downlo
          rm arm-none-eabi.tar.xz
 ENV PATH="/arm-none-eabi/bin:${PATH}"
 
-# Install Cpplint
-RUN apt-get install -y --no-check-certificate \
-         python3-pip \
-         ninja-build
-#cppcheck -y
-# Download and install cppcheck
-RUN git clone --depth 1 https://github.com/danmar/cppcheck.git && \
-          cmake -S cppcheck -B cppcheck/build -G Ninja -DCMAKE_BUILD_TYPE=Release && \
-          cmake --build cppcheck/build --target install && \
-          rm -fr cppcheck
-          
-RUN pip3 install cpplint -y
-
 WORKDIR /home/dev
