@@ -47,7 +47,7 @@ jobs:
         shell: bash
       - name: Run CppCheck
         run: |
-          cppcheck --enable=all --output-file=cppcheck_report_${{ env.GIT_TAG }}.txt --addon="misra.json" --suppressions-list="suppressions.txt" .
+          cppcheck --enable=all --output-file=cppcheck_report_${{ env.GIT_TAG }}.txt --suppressions-list="suppressions.txt" --addon="misra.json" .
       - name: Run CppLint
         continue-on-error: true
         run: |
