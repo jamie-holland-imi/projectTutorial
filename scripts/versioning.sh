@@ -32,7 +32,7 @@ if [ "$MAJOR" ]; then
     if [ -z "$VNUM4" ]; then
         NEW_TAG="V$VNUM1.$VNUM2.$VNUM3"
     else
-        VNUM5=1
+        VNUM5=0
         NEW_TAG="V$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
     fi
 elif [ "$MINOR" ]; then
@@ -42,7 +42,7 @@ elif [ "$MINOR" ]; then
     if [ -z "$VNUM4" ]; then
         NEW_TAG="V$VNUM1.$VNUM2.$VNUM3"
     else
-        VNUM5=1
+        VNUM5=0
         NEW_TAG="V$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
     fi
 elif [ "$PATCH" ]; then
@@ -51,7 +51,7 @@ elif [ "$PATCH" ]; then
     if [ -z "$VNUM4" ]; then
         NEW_TAG="V$VNUM1.$VNUM2.$VNUM3"
     else
-        VNUM5=1
+        VNUM5=0
         NEW_TAG="V$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
     fi
 fi
@@ -128,6 +128,8 @@ elif [ "$MAJORRC" ]; then
 elif [ -z "$VERSION" ]; then
     echo "No tag exists setting the first tag to V0.0.0-alpha.1"
     NEW_TAG="V0.0.0-alpha.1"
+elif [ [ "$MAJOR" ] || [ "$MINOR" ] || [ "$PATCH" ] ];then
+    VNUM5=1
 fi
 
 #get current hash and see if it already has a tag
