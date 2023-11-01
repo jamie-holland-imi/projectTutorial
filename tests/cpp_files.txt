@@ -1,1 +1,3 @@
-*:*Core/Src/main.c
+*:*/Core/Src/main.c
+*:*main.c
+./Core/Src/main.c
