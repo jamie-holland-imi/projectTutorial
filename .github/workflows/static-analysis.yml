@@ -51,7 +51,7 @@ jobs:
       - name: Run CppLint
         continue-on-error: true
         run: |
-          cpplint --extensions=c --recursive "./tests/cpp_files.txt" >> cpplint_report_${{ env.GIT_TAG }}.txt 2>&1
+          cpplint --extensions=c --recursive="./tests/cpp_files.txt" >> cpplint_report_${{ env.GIT_TAG }}.txt 2>&1
       - name: Create Artifact
         uses: actions/upload-artifact@v3
         with:
