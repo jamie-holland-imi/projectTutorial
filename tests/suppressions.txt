@@ -1,0 +1,3 @@
+# List of warnings to ignore
+missingIncludeSystem
+unusedFunction
