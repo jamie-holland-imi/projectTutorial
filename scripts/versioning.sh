@@ -18,6 +18,7 @@ MAJOR=`git log --format=%B -n 1 HEAD | grep '(MAJOR)'`
 MINOR=`git log --format=%B -n 1 HEAD | grep '(MINOR)'`
 PATCH=`git log --format=%B -n 1 HEAD | grep '(PATCH)'`
 CLEAN=`git log --format=%B -n 1 HEAD | grep '(CLEAN)'`
+# Phase increments the alpha,beta or rc number by 1 (rc1 -> rc2)
 PHASE=`git log --format=%B -n 1 HEAD | grep '(PHASE)'`
 ALPHA=`git log --format=%B -n 1 HEAD | grep '(ALPHA)'`
 BETA=`git log --format=%B -n 1 HEAD | grep '(BETA)'`
@@ -31,11 +32,10 @@ if [ -z "$VERSION" ]; then
     VNUM4='alpha'
     VNUM5=1
     NEW_TAG="V$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
-# need to check if tag that its dropped down to already exists
-elif [ "$VNUM4" == 'rc' ] && [ "$BRANCH" != "main" ]; then
-    VNUM3=$((VNUM3+1))
+# check if the branch is not main then tag must drop down to beta
+elif ([ "$VNUM4" == 'rc' ] && [ "$BRANCH" != "main" ]); then
     VNUM4='beta'
-    VNUM5=1
+    VNUM5=0
     NEW_TAG="V$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
 fi
 
@@ -74,7 +74,6 @@ fi
 if [ "$CLEAN" ]; then
     if [ "$BRANCH" == "main" ]; then
         echo "Create a clean release tag removing additional labels"
-        VNUM4=""
         NEW_TAG="V$VNUM1.$VNUM2.$VNUM3"
     else
         echo "Must be on the main branch to create a clean release tag"
