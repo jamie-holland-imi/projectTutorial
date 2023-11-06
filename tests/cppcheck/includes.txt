@@ -1,4 +1,4 @@
-./Core/Inc/main.h
+'./Core/Inc/main.h'
 ./Core/Inc/
 ./Core/Src/
 ./Core/Startup/
