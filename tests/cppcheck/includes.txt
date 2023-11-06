@@ -1,0 +1,4 @@
+./Core/Inc/
+./Core/Src/
+./Core/Startup/
+./Drivers/
