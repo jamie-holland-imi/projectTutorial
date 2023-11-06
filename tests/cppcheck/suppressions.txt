@@ -1,4 +1,4 @@
 # List of warnings to ignore
-missingIncludeSystem;
-unusedFunction;
-missingInclude;
+missingIncludeSystem
+unusedFunction
+missingInclude
