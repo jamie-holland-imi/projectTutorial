@@ -39,14 +39,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-        shell: bash
-      - name: Install
-        run: |
-          apt-get install -y ninja-build
-          apt-get install python3-pip -y
-          pip3 install cpplint
-          
+          fetch-depth: 0          
       - name: Install and Run CMock
         run: |
           apt-get install rubygems -y
