@@ -6,8 +6,3 @@ unusedFunction
 missingInclude
 # To suppress any unmatched suppression in a file
 unmatchedSuppression
-
-*:*/Core/Inc/*
-*:*/Core/Src/*
-*:*/Core/Startup/*
-*:*/Drivers/*
