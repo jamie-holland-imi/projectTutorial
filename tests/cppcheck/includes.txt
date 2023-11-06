@@ -1,5 +1,4 @@
-./Core/Inc/
-./Core/Src/
-./Core/Startup/
-./Drivers/CMSIS/
-./Drivers/
+./Core/Inc/*
+./Core/Src/*
+./Core/Startup/*
+./Drivers/*
