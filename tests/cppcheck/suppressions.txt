@@ -1,4 +1,5 @@
 # List of warnings to ignore
 missingIncludeSystem
-unusedFunction
 missingInclude
+unusedFunction
+unmatchedSuppression
