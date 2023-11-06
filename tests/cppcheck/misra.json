@@ -1,4 +1,4 @@
 {
    "script": "misra.py",
-   "args": [ "--rule-texts=./misra_2012_text.txt" ]
+   "args": [ "--rule-texts=./tests/cppcheck/misra_2012_text.txt" ]
 }
