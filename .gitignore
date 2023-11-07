@@ -45,6 +45,7 @@
 
 # STM32CubeIDE
 .settings/*
+*.launch
 docs/build/*
 **/Build/
 **/build/
@@ -52,7 +53,6 @@ docs/build/*
 **/debug/
 **/Release/
 **/release
-*.launch
 
 # Linter
 **/Lint/
