@@ -6,12 +6,11 @@ VERSION=`git describe --tags $REVLIST`
 BRANCH=`git branch --show-current`
 
 #get number parts of the current tag
-VNUM1=$(echo "$VERSION" | cut -d"." -f1)
+VNUM1=$(echo "$VERSION" | cut -d"." -f1 | sed 's/v//')
 VNUM2=$(echo "$VERSION" | cut -d"." -f2)
 VNUM3=$(echo "$VERSION" | cut -d"." -f3 | grep -Eo '[0-9]+')
 VNUM4=$(echo "$VERSION" | cut -d"." -f3 | grep -Eo '[[:alpha:]]+')
 VNUM5=$(echo "$VERSION" | cut -d"." -f4)
-VNUM1=`echo $VNUM1 | sed 's/v//'`
 
 # Check for #major or #minor in commit message and increment the relevant version number
 MAJOR=`git log --format=%B -n 1 HEAD | grep '(MAJOR)'`
