@@ -36,7 +36,6 @@ elif ([ "$VNUM4" == 'rc' ] && [ "$BRANCH" != "main" ]); then
     VNUM4='beta'
     VNUM5=1
     NEW_TAG="v$VNUM1.$VNUM2.$VNUM3-$VNUM4.$VNUM5"
-    VALID=false
 fi
 
 if [ "$MAJOR" ]; then
